@@ -13,6 +13,7 @@ cGameobject::cGameobject()
 	m_nSizeW = 0;
 	m_nSizeH = 0;
 	m_isActive = true;
+	m_pImage = NULL;
 }
 
 

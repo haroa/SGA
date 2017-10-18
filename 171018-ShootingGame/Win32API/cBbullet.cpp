@@ -6,7 +6,7 @@
 
 cBbullet::cBbullet()
 {
-
+	m_pImage = NULL;
 }
 
 
@@ -19,8 +19,8 @@ void cBbullet::Setup()
 {
 	m_fPosX = m_pcBoss->GetPosX();
 	m_fPosY = m_pcBoss->GetPosY();
-	m_nSizeW = 10;
-	m_nSizeH = 10;
+	m_nSizeW = 32;
+	m_nSizeH = 32;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	m_fSpeed = 5.0f;
 	m_fradius = 5;
@@ -30,6 +30,7 @@ void cBbullet::Setup()
 	m_fSpeedX = -cosf(m_fangle / 180 * PI) * m_fSpeed;
 	m_fSpeedY = -sinf(m_fangle / 180 * PI) * m_fSpeed;
 	m_isActive = true;
+	m_pImage = g_pImageManager->FindImage("Bullet1");
 }
 
 void cBbullet::Update()
@@ -41,7 +42,11 @@ void cBbullet::Render()
 {
 	if (m_isActive)
 	{
-		Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+		if (m_pImage != NULL)
+		{
+			Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+			m_pImage->Render(g_hDC,m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+		}
 	}
 	else
 	{

@@ -4,7 +4,7 @@
 
 cPlayer::cPlayer()
 {
-
+	m_pImage = NULL;
 }
 
 
@@ -20,6 +20,7 @@ void cPlayer::Setup()
 	m_nSizeW = 57;
 	m_nSizeH = 67;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	m_pImage = g_pImageManager->FindImage("Player");
 	
 	//===============================================================
 	//히트판정렉트
@@ -31,9 +32,12 @@ void cPlayer::Setup()
 
 void cPlayer::Update()
 {
+	m_pImage->SetFrameY(0);
+
 	if (g_pKeyManager->isStayKeyDown(VK_LEFT) && (int)(m_fPosX - (m_nSizeW / 2)) >= 0)
 	{
 		m_fPosX -= 5;
+		m_pImage->SetFrameY(2);
 	}
 	if (g_pKeyManager->isStayKeyDown(VK_UP) && (int)(m_fPosY - (m_nSizeH / 2)) >= 0)
 	{
@@ -42,6 +46,7 @@ void cPlayer::Update()
 	if (g_pKeyManager->isStayKeyDown(VK_RIGHT) && (int)(m_fPosX + (m_nSizeW / 2)) <= WINSIZEX)
 	{
 		m_fPosX += 5;
+		m_pImage->SetFrameY(1);
 	}
 	if (g_pKeyManager->isStayKeyDown(VK_DOWN) && (int)(m_fPosY + (m_nSizeH / 2)) <= WINSIZEY)
 	{
@@ -53,6 +58,10 @@ void cPlayer::Update()
 
 void cPlayer::Render()
 {
-	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
-	Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
+	if (m_pImage != NULL)
+	{
+		Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+		Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
+		m_pImage->FrameRender(g_hDC, m_fPosX, m_fPosY, m_pImage->GetFrameX(), m_pImage->GetFrameY());
+	}
 }

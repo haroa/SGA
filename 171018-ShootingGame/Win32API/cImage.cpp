@@ -354,8 +354,8 @@ void cImage::FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY)
 		// GdiTransparentBlt : 비트맵을 불러올때 특정색상을 제외하고 복사를 하는 함수
 		GdiTransparentBlt(
 			hdc,					// 복사 할 장소의 DC
-			destX,					// 복사 될 좌표 시작 지점 X
-			destY,					// 복사 될 좌표 시작 지점 Y
+			destX - m_pImageInfo->nFrameWidth / 2,						// 복사 될 좌표 시작 지점 X
+			destY - m_pImageInfo->nFrameHeight / 2,					// 복사 될 좌표 시작 지점 Y
 			m_pImageInfo->nFrameWidth,	// 복사 될 이미지의 가로 크기
 			m_pImageInfo->nFrameHeight, // 복사 될 이미지의 세로 크기
 			m_pImageInfo->hMemDC,	// 복사 할 대상 DC

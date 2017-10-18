@@ -6,6 +6,11 @@
 cMainGame::cMainGame()
 {
 	m_nBossShotDelay = 5;
+
+	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Player", "images/Player.bmp", 55, 207, 1, 3, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
