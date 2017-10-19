@@ -10,7 +10,7 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Player", "images/Player.bmp", 55, 207, 1, 3, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Player", "images/Player.bmp", 64,191, 1, 3, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -219,5 +219,23 @@ void cMainGame::BossBulletAllErase()
 		{
 			iter++;
 		}
+	}
+}
+
+void cMainGame::PlayerMakeBullet()
+{
+	cPbullet PlayerBullet;
+	PlayerBullet.SetPlayer(&m_cPlayer);
+
+	PlayerBullet.Setup();
+
+	m_veccpBullet.push_back(PlayerBullet);
+}
+
+void cMainGame::PlayerMoveBullet()
+{
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end(); ++iter)
+	{
+		iter->SetPosY(iter->GetPosY() + iter->GetSpeedY());
 	}
 }

@@ -3,6 +3,7 @@
 #include "cPlayer.h"
 #include "cBoss.h"
 #include "cBbullet.h"
+#include "cPbullet.h"
 
 
 enum E_GAME
@@ -17,6 +18,7 @@ private:
 	cPlayer						m_cPlayer;
 	cBoss						m_cBoss;
 	vector<cBbullet>			m_veccbBullet;
+	vector<cPbullet>			m_veccpBullet;
 
 	int							m_nBossShotDelay;
 
@@ -41,4 +43,6 @@ public:
 	void HitBossBulletPlayer();
 	void GameOverRender();
 	void BossBulletAllErase();
+	void PlayerMakeBullet();
+	void PlayerMoveBullet();
 };

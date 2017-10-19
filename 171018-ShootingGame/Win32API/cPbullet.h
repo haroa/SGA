@@ -1,9 +1,17 @@
 #pragma once
 #include "cGameobject.h"
 
+class cPlayer;
+
 class cPbullet:public cGameobject
 {
+	cPlayer*		m_pcPlayer;
+
+
 public:
+
+	void SetPlayer(cPlayer* Player) { m_pcPlayer = Player; }
+
 	cPbullet();
 	~cPbullet();
 	
