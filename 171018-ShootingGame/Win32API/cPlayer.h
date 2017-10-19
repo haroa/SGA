@@ -11,6 +11,7 @@ private:
 public:
 
 	RECT GetHitPoint() { return m_rtHitPoint; }
+	
 
 	cPlayer();
 	~cPlayer();

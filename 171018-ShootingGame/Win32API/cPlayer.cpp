@@ -28,6 +28,7 @@ void cPlayer::Setup()
 	m_nHitSizeW = 5;
 	m_rtHitPoint = RectMakeCenter(m_fPosX, m_fPosY, m_nHitSizeH, m_nHitSizeW);
 	//================================================================
+	
 }
 
 void cPlayer::Update()

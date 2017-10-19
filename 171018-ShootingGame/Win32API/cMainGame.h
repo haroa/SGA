@@ -26,6 +26,8 @@ private:
 
 	int							m_nBossShotDelay;
 	int							m_nPlayerShotDelay;
+	float						m_fNowBossHp;
+	float						m_fSaveBossHp;
 
 public:
 	cMainGame();
@@ -55,4 +57,5 @@ public:
 	void PlayerBulletActiveFalse();
 	void PlayerBulletErase();
 	void HitPlayerBulletBoss();
+	void HitPlayerBulletTurret();
 };

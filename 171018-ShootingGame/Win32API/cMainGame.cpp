@@ -52,7 +52,9 @@ void cMainGame::Update()
 		PlayerMoveBullet();
 		PlayerBulletActiveFalse();
 		PlayerBulletErase();
-		m_cProgressBar.Update();
+		m_cBoss.Update();
+		HitPlayerBulletBoss();
+		HitPlayerBulletTurret();
 		break;
 	case GAME_PLAYING:
 		break;
@@ -98,11 +100,6 @@ void cMainGame::Reset()
 {
 	m_cPlayer.Setup();
 	m_cBoss.Setup();
-
-	m_cTurret.SetBoss(&m_cBoss);
-
-	m_cTurret.Setup();
-	m_cProgressBar.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -154,12 +151,21 @@ void cMainGame::AllRender()
 	{
 		iter->Render();
 	}
-	char str[128];
+	char str[300];
 	sprintf_s(str, "보스총알 갯수 : %d    플레총알 갯수 : %d",m_veccbBullet.size(),m_veccpBullet.size());
 	TextOut(g_hDC, 10, 10, str, strlen(str));
 
-	m_cTurret.Render();
-	m_cProgressBar.Render();
+	sprintf_s(str, "왼쪽1 체력 : %f    왼쪽2 체력 : %f", m_cTurret.GetHpLeft1(), m_cTurret.GetHpLeft2());
+	TextOut(g_hDC, 10, 30, str, strlen(str));
+
+	sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cTurret.GetHpRight1(), m_cTurret.GetHpRight2());
+	TextOut(g_hDC, 10, 50, str, strlen(str));
+
+	sprintf_s(str, "머리 체력 : %f", m_cBoss.GetHitPointHp());
+	TextOut(g_hDC, 10, 70, str, strlen(str));
+
+	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_fNowBossHp, m_fSaveBossHp);
+	TextOut(g_hDC, 10, 70, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -304,6 +310,49 @@ void cMainGame::PlayerBulletErase()
 
 void cMainGame::HitPlayerBulletBoss()
 {
-	//for (auto iter = m_veccpBullet.begin(); t)
-	//RECT HITBOSSFACE;
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end();)
+	{
+		RECT HITBOSSFACE;
+		if (IntersectRect(&HITBOSSFACE, &iter->GetBody(),&m_cBoss.GetHitPoint()))
+		{
+			m_cBoss.SetHitPointHp(m_cBoss.GetHitPointHp() - iter->GetBulletDmg());
+			iter = m_veccpBullet.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+void cMainGame::HitPlayerBulletTurret()
+{
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end();)
+	{
+		RECT HITTURRET;
+		if (IntersectRect(&HITTURRET, &m_cTurret.GetBodyLeft1(), &iter->GetBody()))
+		{
+			m_cTurret.SetHpLeft1(m_cTurret.GetHpLeft1() - iter->GetBulletDmg());
+			iter = m_veccpBullet.erase(iter);
+		}
+		else if (IntersectRect(&HITTURRET, &m_cTurret.GetBodyLeft2(), &iter->GetBody()))
+		{
+			m_cTurret.SetHpLeft2(m_cTurret.GetHpLeft2() - iter->GetBulletDmg());
+			iter = m_veccpBullet.erase(iter);
+		}
+		else if (IntersectRect(&HITTURRET, &m_cTurret.GetBodyRight1(), &iter->GetBody()))
+		{
+			m_cTurret.SetHpRight1(m_cTurret.GetHpRight1() - iter->GetBulletDmg());
+			iter = m_veccpBullet.erase(iter);
+		}
+		else if (IntersectRect(&HITTURRET, &m_cTurret.GetBodyRight2(), &iter->GetBody()))
+		{
+			m_cTurret.SetHpRight2(m_cTurret.GetHpRight2() - iter->GetBulletDmg());
+			iter = m_veccpBullet.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
 }

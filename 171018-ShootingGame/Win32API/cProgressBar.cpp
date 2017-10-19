@@ -17,8 +17,8 @@ cProgressBar::~cProgressBar()
 void cProgressBar::Setup()
 {
 	m_fPosX = WINSIZEX * 0.5f;
-	m_fPosY = WINSIZEY * 0.5f;
-	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 1000, 30);
+	m_fPosY = 20.0f;
+	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 500, 30);
 	m_pFrameBar = g_pImageManager->FindImage("Gaugebg");
 	m_pHpBar = g_pImageManager->FindImage("Gaugebar");
 	m_nDelay = 5;
