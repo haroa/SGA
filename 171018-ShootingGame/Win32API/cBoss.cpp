@@ -22,6 +22,10 @@ void cBoss::Setup()
 	m_nSizeH = 356;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	
+	//=================================================================
+	m_fHitPointX = m_fPosX;
+	m_fHitPointY = m_fPosY;
+	m_rtHitPoint = RectMakeCenter(m_fHitPointX, m_fHitPointY, 60,60);
 }
 
 void cBoss::Update()
@@ -39,4 +43,5 @@ void cBoss::Render()
 	{
 		m_pImage->Render(g_hDC, m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	}
+	Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
 }

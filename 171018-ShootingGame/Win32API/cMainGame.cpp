@@ -13,6 +13,8 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Player", "images/Player.bmp", 64,191, 1, 3, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("PlayerBullet", "images/Bullet3.bmp", 15, 31, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Gaugebg", "images/Gaugebg.bmp", 480, 50, 1, 2, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Gaugebar", "images/Gaugebar.bmp", 456, 112, 1, 8, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -50,6 +52,7 @@ void cMainGame::Update()
 		PlayerMoveBullet();
 		PlayerBulletActiveFalse();
 		PlayerBulletErase();
+		m_cProgressBar.Update();
 		break;
 	case GAME_PLAYING:
 		break;
@@ -297,4 +300,10 @@ void cMainGame::PlayerBulletErase()
 			iter++;
 		}
 	}
+}
+
+void cMainGame::HitPlayerBulletBoss()
+{
+	for (auto iter = m_veccpBullet.begin(); t)
+	RECT HITBOSSFACE;
 }

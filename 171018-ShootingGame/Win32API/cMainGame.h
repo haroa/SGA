@@ -54,4 +54,5 @@ public:
 	void PlayerShotBullet();
 	void PlayerBulletActiveFalse();
 	void PlayerBulletErase();
+	void HitPlayerBulletBoss();
 };
