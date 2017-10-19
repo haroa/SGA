@@ -99,6 +99,7 @@ void cMainGame::Reset()
 	m_cTurret.SetBoss(&m_cBoss);
 
 	m_cTurret.Setup();
+	m_cProgressBar.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -155,6 +156,7 @@ void cMainGame::AllRender()
 	TextOut(g_hDC, 10, 10, str, strlen(str));
 
 	m_cTurret.Render();
+	m_cProgressBar.Render();
 }
 
 void cMainGame::ShotBossBullet()

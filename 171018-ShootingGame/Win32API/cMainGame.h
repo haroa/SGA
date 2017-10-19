@@ -5,6 +5,7 @@
 #include "cBbullet.h"
 #include "cPbullet.h"
 #include "cTurret.h"
+#include "cProgressBar.h"
 
 
 enum E_GAME
@@ -19,6 +20,7 @@ private:
 	cPlayer						m_cPlayer;
 	cBoss						m_cBoss;
 	cTurret						m_cTurret;
+	cProgressBar				m_cProgressBar;
 	vector<cBbullet>			m_veccbBullet;
 	vector<cPbullet>			m_veccpBullet;
 
