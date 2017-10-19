@@ -101,7 +101,8 @@ public:
 	void FrameRender(HDC hdc, int destX, int destY);
 	void FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY);
 	void FrameRender(HDC hdc, int destX, int destY,
-		int sourX, int sourY, int maxX, int maxY, int delay);
+					int sourX, int sourY, int maxX, int maxY, int delay);
+	void FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY, int FrameX);
 
 	//==================================================================
 	//		## inline ## (인라인 함수들 - 겟터, 셋터)

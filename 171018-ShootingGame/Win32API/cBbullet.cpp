@@ -36,6 +36,11 @@ void cBbullet::Setup()
 void cBbullet::Update()
 {
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+
+	if (m_pcBoss->GetNowBossHp() <= 0.0f)
+	{
+		m_isActive = false;
+	}
 }
 
 void cBbullet::Render()

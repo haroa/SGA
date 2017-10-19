@@ -35,6 +35,7 @@ void cMainGame::Update()
 	case GAME_READY:
 		Reset();
 		SystemEnter();
+		m_cBoss.Update();
 		break;
 	case GAME_COUNT:
 		PlayerController();
@@ -90,10 +91,7 @@ void cMainGame::Render()
 	default:
 		break;
 	}
-
-
-	//	TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));
-	
+	//	TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));	
 }
 
 void cMainGame::Reset()

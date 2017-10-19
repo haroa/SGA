@@ -380,6 +380,39 @@ void cImage::FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY)
 	}
 }
 
+void cImage::FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY,int FrameWidth)
+{
+	if (m_isTrans)	// 배경색을 없앨 경우
+	{
+		// GdiTransparentBlt : 비트맵을 불러올때 특정색상을 제외하고 복사를 하는 함수
+		GdiTransparentBlt(
+			hdc,					// 복사 할 장소의 DC
+			destX - m_pImageInfo->nFrameWidth / 2,						// 복사 될 좌표 시작 지점 X
+			destY - m_pImageInfo->nFrameHeight / 2,					// 복사 될 좌표 시작 지점 Y
+			FrameWidth,	// 복사 될 이미지의 가로 크기
+			m_pImageInfo->nFrameHeight, // 복사 될 이미지의 세로 크기
+			m_pImageInfo->hMemDC,	// 복사 할 대상 DC
+			sourX * m_pImageInfo->nFrameWidth, // 현재 프레임의 시작지점 X
+			sourY * m_pImageInfo->nFrameHeight,// 현재 프레임의 시작지점 Y
+			FrameWidth,	// 복사 영역 가로 크기
+			m_pImageInfo->nFrameHeight,	// 복사 영역 세로 크기
+			m_transColor			// 복사 할 때 제외 할 색상(투명처리)
+			);
+	}
+	else // 원본 이미지 그대로 출력
+	{
+		// BitBlt : DC간의 영역끼리 서로 고속복사를 해주는 함수
+		// 메모리DC에 그려진것을 화면DC로 고속복사를 한다
+		BitBlt(hdc, destX, destY,
+			m_pImageInfo->nFrameWidth,
+			m_pImageInfo->nFrameHeight,
+			m_pImageInfo->hMemDC,
+			sourX * m_pImageInfo->nFrameWidth,
+			sourY * m_pImageInfo->nFrameHeight,
+			SRCCOPY);
+	}
+}
+
 // 애니메이션 구간 및 딜레이 설정 프레임 렌더
 void cImage::FrameRender(HDC hdc, int destX, int destY,
 	int sourX, int sourY, int maxX, int maxY, int delay)

@@ -3,30 +3,46 @@
 class cTurret
 {
 private:
+#pragma region Member
 	float m_BossPosX;
 	float m_BossPosY;
 	int m_BossWidth;
 	int m_BossHeight;
+#pragma endregion
 
+
+#pragma region Left1
 	RECT m_rtLeft1;
 	float m_fPosXLeft1;
 	float m_fPosYLeft1;
 	float m_fHpLeft1;
-	
+#pragma endregion
+
+#pragma region Left2
 	RECT m_rtLeft2;
 	float m_fPosXLeft2;
 	float m_fPosYLeft2;
 	float m_fHpLeft2;
-	
+#pragma endregion
+
+#pragma region Right1
 	RECT m_rtRight1;
 	float m_fPosXRight1;
 	float m_fPosYRight1;
 	float m_fHpRight1;
-	
+#pragma endregion
+
+#pragma region Right2
 	RECT m_rtRight2;
 	float m_fPosXRight2;
 	float m_fPosYRight2;
 	float m_fHpRight2;
+#pragma endregion
+
+
+
+	
+	
 public:
 #pragma region Get
 	RECT GetBodyLeft1() { return m_rtLeft1; }
