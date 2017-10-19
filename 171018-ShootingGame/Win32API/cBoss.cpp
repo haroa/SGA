@@ -31,6 +31,8 @@ void cBoss::Setup()
 	m_cProgressBar.Setup();
 	m_cTurret.SetBossPosX(m_fPosX);
 	m_cTurret.SetBossPosY(m_fPosY);
+	m_cTurret.SetBossWidth(m_nSizeW);
+	m_cTurret.SetBossHeight(m_nSizeH);
 	m_cTurret.Setup();
 }
 

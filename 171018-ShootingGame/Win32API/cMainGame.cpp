@@ -155,17 +155,17 @@ void cMainGame::AllRender()
 	sprintf_s(str, "보스총알 갯수 : %d    플레총알 갯수 : %d",m_veccbBullet.size(),m_veccpBullet.size());
 	TextOut(g_hDC, 10, 10, str, strlen(str));
 
-	sprintf_s(str, "왼쪽1 체력 : %f    왼쪽2 체력 : %f", m_cTurret.GetHpLeft1(), m_cTurret.GetHpLeft2());
-	TextOut(g_hDC, 10, 30, str, strlen(str));
-
-	sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cTurret.GetHpRight1(), m_cTurret.GetHpRight2());
-	TextOut(g_hDC, 10, 50, str, strlen(str));
-
+	//sprintf_s(str, "왼쪽1 체력 : %f    왼쪽2 체력 : %f", m_cTurret.GetHpLeft1(), m_cTurret.GetHpLeft2());
+	//TextOut(g_hDC, 10, 30, str, strlen(str));
+	//
+	//sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cTurret.GetHpRight1(), m_cTurret.GetHpRight2());
+	//TextOut(g_hDC, 10, 50, str, strlen(str));
+	//
 	sprintf_s(str, "머리 체력 : %f", m_cBoss.GetHitPointHp());
 	TextOut(g_hDC, 10, 70, str, strlen(str));
-
-	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_fNowBossHp, m_fSaveBossHp);
-	TextOut(g_hDC, 10, 70, str, strlen(str));
+	//
+	//sprintf_s(str, "전체 체력 : %f   비율 : %f",m_fNowBossHp, m_fSaveBossHp);
+	//TextOut(g_hDC, 10, 70, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -353,6 +353,6 @@ void cMainGame::HitPlayerBulletTurret()
 		else
 		{
 			iter++;
-		}
+		}		
 	}
 }

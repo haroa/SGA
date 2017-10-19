@@ -5,6 +5,8 @@ class cTurret
 private:
 	float m_BossPosX;
 	float m_BossPosY;
+	int m_BossWidth;
+	int m_BossHeight;
 
 	RECT m_rtLeft1;
 	float m_fPosXLeft1;
@@ -51,6 +53,8 @@ public:
 #pragma region Set
 	void SetBossPosX(float PosX) { m_BossPosX = PosX; }
 	void SetBossPosY(float PosY) { m_BossPosY = PosY; }
+	void SetBossWidth(int Width) { m_BossWidth = Width; }
+	void SetBossHeight(int Height) { m_BossHeight = Height; }
 
 
 	void SetBodyLeft1(RECT Left1) { m_rtLeft1 = Left1; }
