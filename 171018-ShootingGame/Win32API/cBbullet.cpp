@@ -40,11 +40,14 @@ void cBbullet::Update()
 
 void cBbullet::Render()
 {
+#ifdef _DEBUG		
+	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+#endif // _DEBUG
+
 	if (m_isActive)
 	{
 		if (m_pImage != NULL)
 		{
-			Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
 			m_pImage->Render(g_hDC,m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 		}
 	}

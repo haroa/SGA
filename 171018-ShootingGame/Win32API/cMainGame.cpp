@@ -5,12 +5,14 @@
 
 cMainGame::cMainGame()
 {
-	m_nBossShotDelay = 5;
+	m_nBossShotDelay = 8;
+	m_nPlayerShotDelay = 5;
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Player", "images/Player.bmp", 64,191, 1, 3, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("PlayerBullet", "images/Bullet3.bmp", 15, 31, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -36,7 +38,7 @@ void cMainGame::Update()
 		PlayerController();
 		if (m_nBossShotDelay < 0)
 		{
-			m_nBossShotDelay = 5;
+			m_nBossShotDelay = 8;
 			ShotBossBullet();
 		}
 		m_nBossShotDelay--;
@@ -46,6 +48,8 @@ void cMainGame::Update()
 		HitBossBulletPlayer();
 		PlayerShotBullet();
 		PlayerMoveBullet();
+		PlayerBulletActiveFalse();
+		PlayerBulletErase();
 		break;
 	case GAME_PLAYING:
 		break;
@@ -232,6 +236,7 @@ void cMainGame::PlayerMakeBullet()
 {
 	cPbullet PlayerBullet;
 
+	PlayerBullet.SetPlayer(&m_cPlayer);
 	PlayerBullet.Setup();
 
 	m_veccpBullet.push_back(PlayerBullet);
@@ -250,6 +255,38 @@ void cMainGame::PlayerShotBullet()
 {
 	if (g_pKeyManager->isStayKeyDown(VK_SPACE))
 	{
-		PlayerMakeBullet();
+		m_nPlayerShotDelay--;
+		if (m_nPlayerShotDelay < 0)
+		{
+			m_nPlayerShotDelay = 5;
+			PlayerMakeBullet();
+
+		}
+	}
+}
+
+void cMainGame::PlayerBulletActiveFalse()
+{
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end(); iter++)
+	{
+		if (iter->GetPosX() < 0 || iter->GetPosX() > WINSIZEX || iter->GetPosY() < 0 || iter->GetPosY() > WINSIZEY)
+		{
+			iter->SetIsActive(false);
+		}
+	}
+}
+
+void cMainGame::PlayerBulletErase()
+{
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end();)
+	{
+		if (!iter->GetIsActive())
+		{
+			iter = m_veccpBullet.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
 	}
 }

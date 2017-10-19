@@ -21,6 +21,7 @@ private:
 	vector<cPbullet>			m_veccpBullet;
 
 	int							m_nBossShotDelay;
+	int							m_nPlayerShotDelay;
 
 public:
 	cMainGame();
@@ -46,4 +47,6 @@ public:
 	void PlayerMakeBullet();
 	void PlayerMoveBullet();
 	void PlayerShotBullet();
+	void PlayerBulletActiveFalse();
+	void PlayerBulletErase();
 };
