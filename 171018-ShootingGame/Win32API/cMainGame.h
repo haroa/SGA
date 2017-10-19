@@ -4,6 +4,7 @@
 #include "cBoss.h"
 #include "cBbullet.h"
 #include "cPbullet.h"
+#include "cTurret.h"
 
 
 enum E_GAME
@@ -17,6 +18,7 @@ private:
 	E_GAME						m_GameState;
 	cPlayer						m_cPlayer;
 	cBoss						m_cBoss;
+	cTurret						m_cTurret;
 	vector<cBbullet>			m_veccbBullet;
 	vector<cPbullet>			m_veccpBullet;
 
@@ -30,6 +32,7 @@ public:
 	void Setup();
 	virtual void Update() override;
 	virtual void Render() override;
+
 
 	void Reset();
 	void GameStartRender();

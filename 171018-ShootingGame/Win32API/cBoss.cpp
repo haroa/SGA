@@ -21,6 +21,7 @@ void cBoss::Setup()
 	m_nSizeW = 464;
 	m_nSizeH = 356;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	
 }
 
 void cBoss::Update()

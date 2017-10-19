@@ -5,7 +5,7 @@
 
 cMainGame::cMainGame()
 {
-	m_nBossShotDelay = 8;
+	m_nBossShotDelay = 10;
 	m_nPlayerShotDelay = 5;
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
@@ -38,7 +38,7 @@ void cMainGame::Update()
 		PlayerController();
 		if (m_nBossShotDelay < 0)
 		{
-			m_nBossShotDelay = 8;
+			m_nBossShotDelay = 10;
 			ShotBossBullet();
 		}
 		m_nBossShotDelay--;
@@ -69,7 +69,7 @@ void cMainGame::Render()
 	PatBlt(g_hDC, 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	switch (m_GameState)
 	{
-	case GAME_READY:
+	case GAME_READY:	
 		AllRender();
 		break;
 	case GAME_COUNT:
@@ -95,6 +95,10 @@ void cMainGame::Reset()
 {
 	m_cPlayer.Setup();
 	m_cBoss.Setup();
+
+	m_cTurret.SetBoss(&m_cBoss);
+
+	m_cTurret.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -149,6 +153,8 @@ void cMainGame::AllRender()
 	char str[128];
 	sprintf_s(str, "º¸½ºÃÑ¾Ë °¹¼ö : %d    ÇÃ·¹ÃÑ¾Ë °¹¼ö : %d",m_veccbBullet.size(),m_veccpBullet.size());
 	TextOut(g_hDC, 10, 10, str, strlen(str));
+
+	m_cTurret.Render();
 }
 
 void cMainGame::ShotBossBullet()
