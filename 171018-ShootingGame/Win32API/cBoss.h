@@ -19,6 +19,8 @@ public:
 	float GetHitPointHp() { return m_fHitPointHp; }
 	float GetAllBossHp() { return m_fAllBossHp; }
 
+	cTurret GetTurret() { return m_cTurret; }
+
 
 	void SetHitPointHp(float Hp) { m_fHitPointHp = Hp; }
 
