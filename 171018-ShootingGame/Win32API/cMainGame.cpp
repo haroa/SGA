@@ -304,6 +304,6 @@ void cMainGame::PlayerBulletErase()
 
 void cMainGame::HitPlayerBulletBoss()
 {
-	for (auto iter = m_veccpBullet.begin(); t)
-	RECT HITBOSSFACE;
+	//for (auto iter = m_veccpBullet.begin(); t)
+	//RECT HITBOSSFACE;
 }
