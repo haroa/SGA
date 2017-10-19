@@ -16,10 +16,10 @@ cPbullet::~cPbullet()
 
 void cPbullet::Setup()
 {
-	m_fPosX = ((m_pcPlayer->GetBody().right - m_pcPlayer->GetBody().left) / 2) - m_pcPlayer->GetPosX();
-	m_fPosY = ((m_pcPlayer->GetBody().bottom - m_pcPlayer->GetBody().top) / 2) - m_pcPlayer->GetPosY();
-	m_nSizeW = 20;
-	m_nSizeH = 20;
+	m_fPosX = m_pcPlayer->GetPosX();
+	m_fPosY = m_pcPlayer->GetPosY();
+	m_nSizeW = 10;
+	m_nSizeH = 10;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	m_fSpeedY = 5.0f;
 }
@@ -31,5 +31,5 @@ void cPbullet::Update()
 
 void cPbullet::Render()
 {
-	Rectangle(g_hDC, m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
 }

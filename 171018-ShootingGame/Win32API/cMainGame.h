@@ -45,4 +45,5 @@ public:
 	void BossBulletAllErase();
 	void PlayerMakeBullet();
 	void PlayerMoveBullet();
+	void PlayerShotBullet();
 };

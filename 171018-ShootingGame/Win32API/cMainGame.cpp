@@ -44,6 +44,8 @@ void cMainGame::Update()
 		BossBulletActiveFalse();
 		BossBulletErase();
 		HitBossBulletPlayer();
+		PlayerShotBullet();
+		PlayerMoveBullet();
 		break;
 	case GAME_PLAYING:
 		break;
@@ -136,8 +138,12 @@ void cMainGame::AllRender()
 	{
 		iter->Render();
 	}
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end(); ++iter)
+	{
+		iter->Render();
+	}
 	char str[128];
-	sprintf_s(str, "ÃÑ¾Ë °¹¼ö : %d",m_veccbBullet.size());
+	sprintf_s(str, "º¸½ºÃÑ¾Ë °¹¼ö : %d    ÇÃ·¹ÃÑ¾Ë °¹¼ö : %d",m_veccbBullet.size(),m_veccpBullet.size());
 	TextOut(g_hDC, 10, 10, str, strlen(str));
 }
 
@@ -195,7 +201,7 @@ void cMainGame::HitBossBulletPlayer()
 		RECT rt;
 		if (IntersectRect(&rt, &m_cPlayer.GetHitPoint(), &iter->GetBody()))
 		{
-			m_GameState = GAME_OVER;
+			//m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -225,7 +231,6 @@ void cMainGame::BossBulletAllErase()
 void cMainGame::PlayerMakeBullet()
 {
 	cPbullet PlayerBullet;
-	PlayerBullet.SetPlayer(&m_cPlayer);
 
 	PlayerBullet.Setup();
 
@@ -236,7 +241,15 @@ void cMainGame::PlayerMoveBullet()
 {
 	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end(); ++iter)
 	{
-		iter->SetPosY(iter->GetPosY() + iter->GetSpeedY());
+		iter->SetPosY(iter->GetPosY() - iter->GetSpeedY());
 		iter->Update();
+	}
+}
+
+void cMainGame::PlayerShotBullet()
+{
+	if (g_pKeyManager->isStayKeyDown(VK_SPACE))
+	{
+		PlayerMakeBullet();
 	}
 }
