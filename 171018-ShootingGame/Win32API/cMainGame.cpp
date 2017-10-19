@@ -237,5 +237,6 @@ void cMainGame::PlayerMoveBullet()
 	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end(); ++iter)
 	{
 		iter->SetPosY(iter->GetPosY() + iter->GetSpeedY());
+		iter->Update();
 	}
 }
