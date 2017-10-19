@@ -38,6 +38,8 @@ void cMainGame::Update()
 		m_cBoss.Update();
 		break;
 	case GAME_COUNT:
+		break;
+	case GAME_PLAYING:
 		PlayerController();
 		if (m_nBossShotDelay < 0)
 		{
@@ -56,8 +58,6 @@ void cMainGame::Update()
 		m_cBoss.Update();
 		HitPlayerBulletBoss();
 		HitPlayerBulletTurret();
-		break;
-	case GAME_PLAYING:
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -79,9 +79,9 @@ void cMainGame::Render()
 		AllRender();
 		break;
 	case GAME_COUNT:
-		AllRender();
 		break;
 	case GAME_PLAYING:
+		AllRender();
 		break;
 	case GAME_OVER:
 		GameOverRender();
@@ -112,7 +112,7 @@ void cMainGame::SystemEnter()
 		switch (m_GameState)
 		{
 		case GAME_READY:
-			m_GameState = GAME_COUNT;
+			m_GameState = GAME_PLAYING;
 			break;
 		case GAME_COUNT:
 			break;
