@@ -29,6 +29,8 @@ void cBoss::Setup()
 	m_fHitPointHp = 500.0f;
 	m_fAllBossHp = 2500.0f;
 	m_fNowBossHp = 0.0f;
+	m_cProgressBar.SetBossMaxHp(m_fAllBossHp);
+	m_cProgressBar.SetBossNowHp(m_fNowBossHp);
 	m_cProgressBar.Setup();
 	m_cTurret.SetBossPosX(m_fPosX);
 	m_cTurret.SetBossPosY(m_fPosY);
@@ -58,6 +60,5 @@ void cBoss::Render()
 	}
 	Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
 	m_cProgressBar.Render();
-	
 	m_cTurret.Render();
 }

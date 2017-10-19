@@ -48,7 +48,7 @@ void cProgressBar::Render()
 		
 		//m_fNowBossHp / m_fAllBossHp * m_cProgressBar.GetHpBar()->GetWidth();
 		//m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() * m_pHpBar->GetFrameWidth()
-		m_pHpBar->FrameRender(g_hDC, m_fPosX, m_fPosY, m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() * m_pHpBar->GetFrameWidth(), m_pHpBar->GetFrameY());
+		m_pHpBar->FrameRender(g_hDC, m_fPosX, m_fPosY, ((m_fBossNowHp / m_fBossMaxHp ) * m_pHpBar->GetFrameWidth()), m_pHpBar->GetFrameY());
 
 
 		m_pFrameBar->SetFrameY(0);

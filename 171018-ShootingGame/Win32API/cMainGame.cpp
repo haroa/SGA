@@ -164,7 +164,7 @@ void cMainGame::AllRender()
 	sprintf_s(str, "머리 체력 : %f", m_cBoss.GetHitPointHp());
 	TextOut(g_hDC, 10, 70, str, strlen(str));
 	
-	sprintf_s(str, "전체 체력 : %f",m_cBoss.GetNowBossHp());
+	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
 	TextOut(g_hDC, 10, 90, str, strlen(str));
 }
 
