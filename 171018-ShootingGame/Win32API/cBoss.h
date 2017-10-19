@@ -13,13 +13,15 @@ private:
 	cProgressBar	m_cProgressBar;
 	cTurret			m_cTurret;
 	float m_fAllBossHp;
+	float m_fNowBossHp;
 public:
 
 	RECT GetHitPoint() { return m_rtHitPoint; }
 	float GetHitPointHp() { return m_fHitPointHp; }
 	float GetAllBossHp() { return m_fAllBossHp; }
+	float GetNowBossHp() { return m_fNowBossHp; }
 
-	cTurret GetTurret() { return m_cTurret; }
+	cTurret* GetTurret() { return &m_cTurret; }
 
 
 	void SetHitPointHp(float Hp) { m_fHitPointHp = Hp; }
