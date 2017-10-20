@@ -41,6 +41,10 @@ void cBbullet::Update()
 	{
 		m_isActive = false;
 	}
+	if (m_pcBoss->GetHitPointHp() <= 0.0f)
+	{
+		m_isActive = false;
+	}
 }
 
 void cBbullet::Render()

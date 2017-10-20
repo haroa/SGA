@@ -151,6 +151,10 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cSingletonBase.h" />
+    <ClInclude Include="cTbulletLeft1.h" />
+    <ClInclude Include="cTbulletLeft2.h" />
+    <ClInclude Include="cTbulletRight1.h" />
+    <ClInclude Include="cTbulletRight2.h" />
     <ClInclude Include="cTimerManager.h" />
     <ClInclude Include="cTurret.h" />
     <ClInclude Include="MacroUtility.h" />
@@ -172,6 +176,10 @@
     <ClCompile Include="cPbullet.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cProgressBar.cpp" />
+    <ClCompile Include="cTbulletLeft1.cpp" />
+    <ClCompile Include="cTbulletLeft2.cpp" />
+    <ClCompile Include="cTbulletRight1.cpp" />
+    <ClCompile Include="cTbulletRight2.cpp" />
     <ClCompile Include="cTimerManager.cpp" />
     <ClCompile Include="cTurret.cpp" />
     <ClCompile Include="stdafx.cpp">

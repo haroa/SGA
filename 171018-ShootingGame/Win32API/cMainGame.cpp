@@ -55,6 +55,14 @@ void cMainGame::Update()
 			m_nBossShotDelay = 20;
 			ShotBossBullet();
 		}
+		g_pTimerManager->AddSimpleTimer("Left1");
+		if (g_pTimerManager->TickSimpleTimer("Left1") > 4)
+		{
+			g_pTimerManager->ResetSimpleTimer("Left1");
+			TurretLeft1MakeBullet();
+			TurretRight2MakeBullet();
+			TurretLeft2MakeBullet();
+		}
 		m_nBossShotDelay--;
 		BossBulletMove();
 		BossBulletActiveFalse();
@@ -68,6 +76,11 @@ void cMainGame::Update()
 		HitPlayerBulletBoss();
 		HitPlayerBulletTurret();
 		GameClear();
+		TurretLeft1MoveBullet();
+		TurretRight2MoveBullet();
+		TurretLeft2MoveBullet();
+		TurretLeft1ActiveFlase();
+		TurretLeft1Erase();
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -89,11 +102,17 @@ void cMainGame::Render()
 	{
 	case GAME_READY:	
 		AllRender();
+		TurretLeft1Render();
+		TurretRight2Render();
+		TurretLeft2Render();
 		break;
 	case GAME_COUNT:
 		break;
 	case GAME_PLAYING:
 		AllRender();
+		TurretLeft1Render();
+		TurretRight2Render();
+		TurretLeft2Render();
 		break;
 	case GAME_OVER:
 		GameOverRender();
@@ -182,6 +201,11 @@ void cMainGame::AllRender()
 	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
 	TextOut(g_hDC, 10, 90, str, strlen(str));
 
+	sprintf_s(str, "왼쪽1 총알 : %d   왼쪽2 총알 : %d",m_veccTbulletLeft1.size(), m_veccTbulletLeft2.size());
+	TextOut(g_hDC, 10, 110, str, strlen(str));
+
+	sprintf_s(str, "오른쪽1 총알 : %d   오른쪽2 총알 : %d", m_veccTbulletRight1.size(), m_veccTbulletRight2.size());
+	TextOut(g_hDC, 10, 130, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -406,3 +430,181 @@ void cMainGame::GameClearRender()
 	sprintf_s(str, "게임 클리어!", "게임 클리어!");
 	TextOut(g_hDC, WINSIZEX / 2, WINSIZEY / 2, str, strlen(str));
 }
+
+
+//아직미완============================================================================
+void cMainGame::TurretLeft1MakeBullet()
+{
+	//cBbullet BossBullet;
+	//BossBullet.SetPlayer(&m_cPlayer);
+	//BossBullet.SetBoss(&m_cBoss);
+	//
+	//BossBullet.Setup();
+	//float m_fangle = GetAngle(m_cPlayer.GetPosX(), m_cPlayer.GetPosY(), BossBullet.GetPosX(), BossBullet.GetPosY());
+	//float m_fSpeedX = -cosf(m_fangle / 180 * PI) * 5.0f;
+	//float m_fSpeedY = -sinf(m_fangle / 180 * PI) * 5.0f;
+	//
+	//BossBullet.SetSpeedX(m_fSpeedX);
+	//BossBullet.SetSpeedY(m_fSpeedY);
+	//m_veccbBullet.push_back(BossBullet);
+	cTbulletLeft1 Left1;
+	Left1.SetPosX(m_cBoss.GetTurret()->GetPosXLeft1());
+	Left1.SetPosY(m_cBoss.GetTurret()->GetPosYLeft1());
+
+	Left1.Setup();
+	m_veccTbulletLeft1.push_back(Left1);
+
+	Left1.SetDestX(Left1.GetDestX() + 200);
+
+
+	m_veccTbulletLeft1.push_back(Left1);
+
+	Left1.SetDestX(Left1.GetDestX() + 200);
+
+	m_veccTbulletLeft1.push_back(Left1);
+}
+
+void cMainGame::TurretLeft1MoveBullet()
+{
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end(); iter++)
+	{
+		float X = iter->GetPosX();
+		float Y = iter->GetPosY();
+		iter->Update();
+		LinearInterpolation(X, Y, iter->GetStartX(), iter->GetStartY(), iter->GetDestX(), iter->GetDestY(), iter->GetT());
+
+		iter->SetPosX(X);
+		iter->SetPosY(Y);
+		iter->SetT(iter->GetT() + 0.01);
+	}
+}
+
+void cMainGame::TurretLeft1Render()
+{
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end(); iter++)
+	{
+		iter->Render();
+	}
+
+}
+
+void cMainGame::TurretLeft1ActiveFlase()
+{
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end(); iter++)
+	{
+		if (iter->GetPosX() < 0 || iter->GetPosX() > WINSIZEX || iter->GetPosY() < 0 || iter->GetPosY() > WINSIZEY)
+		{
+			iter->SetIsActive(false);
+		}
+	}
+}
+
+void cMainGame::TurretLeft1Erase()
+{
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end();)
+	{
+		if (!iter->GetIsActive())
+		{
+			iter = m_veccTbulletLeft1.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+//====================================================================================
+
+//왼쪽2===============================================================================
+void cMainGame::TurretLeft2MakeBullet()
+{
+	cTbulletLeft2 Left2;
+
+	Left2.SetPosX(m_cBoss.GetTurret()->GetPosXLeft2());
+	Left2.SetPosY(m_cBoss.GetTurret()->GetPosYLeft2());
+
+	Left2.Setup();
+
+	m_veccTbulletLeft2.push_back(Left2);
+}
+
+void cMainGame::TurretLeft2MoveBullet()
+{
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end(); iter++)
+	{
+		float X = iter->GetPosX();
+		float Y = iter->GetPosY();
+		iter->Update();
+		BezierInterpolation(X, Y, iter->GetStartX(), iter->GetStartY(), iter->GetViaX(), iter->GetViaY(), iter->GetDestX(), iter->GetDestY(), iter->GetT());
+
+		iter->SetPosX(X);
+		iter->SetPosY(Y);
+		iter->SetT(iter->GetT() + 0.01);
+	}
+}
+
+void cMainGame::TurretLeft2ActiveFlase()
+{
+
+}
+
+void cMainGame::TurretLeft2Erase()
+{
+
+}
+
+void cMainGame::TurretLeft2Render()
+{
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end(); iter++)
+	{
+		iter->Render();
+	}
+}
+//=====================================================================================
+
+//오른쪽2===============================================================================
+
+void cMainGame::TurretRight2MakeBullet()
+{
+	cTbulletRight2 Right2;
+
+	Right2.SetPosX(m_cBoss.GetTurret()->GetPosXRight2());
+	Right2.SetPosY(m_cBoss.GetTurret()->GetPosYRight2());
+	Right2.SetDestX(Right2.GetPosX());
+	Right2.Setup();
+
+	m_veccTbulletRight2.push_back(Right2);
+}
+
+void cMainGame::TurretRight2MoveBullet()
+{
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end(); iter++)
+	{
+		//sinf(iter->GetT());
+		iter->SetT(iter->GetT() + 0.1f);
+
+		iter->SetPosX(iter->GetDestX() + sinf(iter->GetT()) * 250);
+		iter->SetPosY(iter->GetPosY() + 5.0f);
+
+		iter->Update();
+	}
+}
+
+void cMainGame::TurretRight2ActiveFlase()
+{
+
+}
+
+void cMainGame::TurretRight2Erase()
+{
+
+}
+
+void cMainGame::TurretRight2Render()
+{
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end(); iter++)
+	{
+		iter->Render();
+	}
+}
+//====================================================================================

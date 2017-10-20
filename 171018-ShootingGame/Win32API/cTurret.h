@@ -9,6 +9,7 @@ private:
 	float m_BossPosY;
 	int m_BossWidth;
 	int m_BossHeight;
+	float m_BossRate;
 #pragma endregion
 
 
@@ -80,7 +81,7 @@ public:
 	void SetBossPosY(float PosY) { m_BossPosY = PosY; }
 	void SetBossWidth(int Width) { m_BossWidth = Width; }
 	void SetBossHeight(int Height) { m_BossHeight = Height; }
-
+	void SetBossRate(float Rate) { m_BossRate = Rate; }
 
 	void SetBodyLeft1(RECT Left1) { m_rtLeft1 = Left1; }
 	void SetPosXLeft1(float Left1) { m_fPosXLeft1 = Left1; }

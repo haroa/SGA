@@ -7,6 +7,10 @@
 #include "cTurret.h"
 #include "cProgressBar.h"
 #include "cMap.h"
+#include "cTbulletLeft1.h"
+#include "cTbulletLeft2.h"
+#include "cTbulletRight1.h"
+#include "cTbulletRight2.h"
 
 
 enum E_GAME
@@ -23,6 +27,10 @@ private:
 	cTurret						m_cTurret;
 	cProgressBar				m_cProgressBar;
 	cMap						m_cMap;
+	vector<cTbulletLeft1>				m_veccTbulletLeft1;
+	vector<cTbulletLeft2>				m_veccTbulletLeft2;
+	vector<cTbulletRight1>				m_veccTbulletRight1;
+	vector<cTbulletRight2>				m_veccTbulletRight2;
 	vector<cBbullet>			m_veccbBullet;
 	vector<cPbullet>			m_veccpBullet;
 
@@ -62,4 +70,23 @@ public:
 	void HitPlayerBulletTurret();
 	void GameClear();
 	void GameClearRender();
+	void TurretLeft1MakeBullet();
+	void TurretLeft1MoveBullet();
+	void TurretLeft1Render();
+	void TurretLeft1ActiveFlase();
+	void TurretLeft1Erase();
+	void TurretLeft2MakeBullet();
+	void TurretLeft2MoveBullet();
+	void TurretLeft2ActiveFlase();
+	void TurretLeft2Erase();
+	void TurretLeft2Render();
+	//void TurretRight1MakeBullet();
+	//void TurretRight1MoveBullet();
+	//void TurretRight1ActiveFlase();
+	//void TurretRight1Erase();
+	void TurretRight2MakeBullet();
+	void TurretRight2MoveBullet();
+	void TurretRight2ActiveFlase();
+	void TurretRight2Erase();
+	void TurretRight2Render();
 };

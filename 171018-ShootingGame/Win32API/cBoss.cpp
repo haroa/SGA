@@ -36,6 +36,7 @@ void cBoss::Setup()
 	m_cTurret.SetBossPosY(m_fPosY);
 	m_cTurret.SetBossWidth(m_nSizeW);
 	m_cTurret.SetBossHeight(m_nSizeH);
+	m_cTurret.SetBossRate(m_fRate);
 	m_cTurret.Setup();
 	m_pHitPoint = g_pImageManager->FindImage("Boom5");
 	m_pBossBoom = g_pImageManager->FindImage("BossBoom");
@@ -75,8 +76,6 @@ void cBoss::Update()
 			m_pBossBoom->SetFrameY(0);
 		}
 	}
-
-	//if(m_fRate == )
 
 	m_cTurret.Update();
 }

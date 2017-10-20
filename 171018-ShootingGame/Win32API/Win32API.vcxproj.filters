@@ -96,6 +96,18 @@
     <ClInclude Include="cTimerManager.h">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClInclude>
+    <ClInclude Include="cTbulletLeft1.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="cTbulletLeft2.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="cTbulletRight1.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="cTbulletRight2.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +157,18 @@
     </ClCompile>
     <ClCompile Include="cTimerManager.cpp">
       <Filter>GameFramework2D\2. 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="cTbulletLeft1.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cTbulletRight2.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cTbulletRight1.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cTbulletLeft2.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
