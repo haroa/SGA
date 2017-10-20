@@ -146,6 +146,7 @@
     <ClInclude Include="cImageManager.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMap.h" />
     <ClInclude Include="cPbullet.h" />
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cProgressBar.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="cImageManager.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMap.cpp" />
     <ClCompile Include="cPbullet.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cProgressBar.cpp" />

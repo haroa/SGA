@@ -1,4 +1,5 @@
 #pragma once
+#include "cImage.h"
 
 class cTurret
 {
@@ -12,31 +13,39 @@ private:
 
 
 #pragma region Left1
+	cImage* m_pLeft1;
 	RECT m_rtLeft1;
 	float m_fPosXLeft1;
 	float m_fPosYLeft1;
 	float m_fHpLeft1;
+	float m_fDealyLeft1;
 #pragma endregion
 
 #pragma region Left2
+	cImage* m_pLeft2;
 	RECT m_rtLeft2;
 	float m_fPosXLeft2;
 	float m_fPosYLeft2;
 	float m_fHpLeft2;
+	float m_fDealyLeft2;
 #pragma endregion
 
 #pragma region Right1
+	cImage* m_pRight1;
 	RECT m_rtRight1;
 	float m_fPosXRight1;
 	float m_fPosYRight1;
 	float m_fHpRight1;
+	float m_fDealyRight1;
 #pragma endregion
 
 #pragma region Right2
+	cImage* m_pRight2;
 	RECT m_rtRight2;
 	float m_fPosXRight2;
 	float m_fPosYRight2;
 	float m_fHpRight2;
+	float m_fDealyRight2;
 #pragma endregion
 
 

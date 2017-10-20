@@ -35,6 +35,8 @@ void cBoss::Setup()
 	m_cTurret.SetBossWidth(m_nSizeW);
 	m_cTurret.SetBossHeight(m_nSizeH);
 	m_cTurret.Setup();
+	m_pHitPoint = g_pImageManager->FindImage("Boom5");
+	m_fHitPointDelay = 5.0f;
 }
 
 void cBoss::Update()
@@ -45,7 +47,17 @@ void cBoss::Update()
 
 	if (m_fHitPointHp <= 0.0f)
 	{
+		m_fHitPointDelay--;
 		m_rtHitPoint = RectMakeCenter(0, 0, 0, 0);
+		if (m_fHitPointDelay < 0)
+		{
+			m_fHitPointDelay = 5.0f;
+			m_pHitPoint->SetFrameY(m_pHitPoint->GetFrameY() + 1);
+		}
+		if (m_pHitPoint->GetFrameY() > 7)
+		{
+			m_pHitPoint->SetFrameY(0);
+		}
 	}
 	m_cTurret.Update();
 }
@@ -53,15 +65,22 @@ void cBoss::Update()
 void cBoss::Render()
 {
 #ifdef _DEBUG
-	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+	//Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
 #endif // _DEBUG
 
 	if (m_pImage != NULL)
 	{
 		m_pImage->Render(g_hDC, m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	}
+	if (m_pHitPoint != NULL)
+	{
+		if (m_fHitPointHp <= 0.0f)
+		{
+			m_pHitPoint->FrameRender(g_hDC, m_fHitPointX, m_fHitPointY, m_pHitPoint->GetFrameX(), m_pHitPoint->GetFrameY());
+		}
+	}
 #ifdef _DEBUG
-	Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
+	//Rectangle(g_hDC, m_rtHitPoint.left, m_rtHitPoint.top, m_rtHitPoint.right, m_rtHitPoint.bottom);
 #endif // _DEBUG
 	m_cProgressBar.Render();
 	m_cTurret.Render();

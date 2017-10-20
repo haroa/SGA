@@ -40,7 +40,11 @@ void cProgressBar::Update()
 
 void cProgressBar::Render()
 {
+#ifdef _DEBUG
 	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+
+#endif // _DEBUG
+
 	if(m_pFrameBar != NULL)
 	{ 
 		m_pFrameBar->SetFrameY(1);

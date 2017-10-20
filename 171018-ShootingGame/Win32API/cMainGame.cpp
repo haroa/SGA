@@ -15,6 +15,12 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("PlayerBullet", "images/Bullet3.bmp", 15, 31, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Gaugebg", "images/Gaugebg.bmp", 480, 50, 1, 2, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Gaugebar", "images/Gaugebar.bmp", 456, 112, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("BackGround", "images/Background.bmp",700,10000, 1, 10, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom", "images/Boom.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom2", "images/Boom2.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom3", "images/Boom3.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom4", "images/Boom4.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom5", "images/Boom5.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -36,10 +42,12 @@ void cMainGame::Update()
 		Reset();
 		SystemEnter();
 		m_cBoss.Update();
+		m_cMap.Update();
 		break;
 	case GAME_COUNT:
 		break;
 	case GAME_PLAYING:
+		m_cMap.Update();
 		PlayerController();
 		if (m_nBossShotDelay < 0)
 		{
@@ -98,6 +106,8 @@ void cMainGame::Reset()
 {
 	m_cPlayer.Setup();
 	m_cBoss.Setup();
+
+	m_cMap.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -139,6 +149,7 @@ void cMainGame::RepeatGame()
 
 void cMainGame::AllRender()
 {
+	m_cMap.Render();
 	m_cBoss.Render();
 	m_cPlayer.Render();
 	for (auto iter = m_veccbBullet.begin(); iter != m_veccbBullet.end(); ++iter)
@@ -164,6 +175,7 @@ void cMainGame::AllRender()
 	
 	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
 	TextOut(g_hDC, 10, 90, str, strlen(str));
+
 }
 
 void cMainGame::ShotBossBullet()

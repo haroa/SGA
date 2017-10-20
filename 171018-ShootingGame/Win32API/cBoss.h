@@ -14,6 +14,8 @@ private:
 	cTurret			m_cTurret;
 	float m_fAllBossHp;
 	float m_fNowBossHp;
+	cImage* m_pHitPoint;
+	float m_fHitPointDelay;
 public:
 
 	RECT GetHitPoint() { return m_rtHitPoint; }
