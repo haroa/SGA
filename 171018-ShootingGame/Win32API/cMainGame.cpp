@@ -22,6 +22,10 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Boom4", "images/Boom4.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Boom5", "images/Boom5.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("BossBoom", "images/BossBoom.bmp", 442, 6750, 1, 15, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Left1", "images/turretleft1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Left2", "images/turretleft2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Right1", "images/turretright1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Right2", "images/turretright2.bmp", 32, 32, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -87,6 +91,8 @@ void cMainGame::Update()
 		TurretLeft2Erase();
 		TurretRight2ActiveFlase();
 		TurretRight2Erase();
+		TurretRight1ActiveFlase();
+		TurretRight1Erase();
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -631,11 +637,27 @@ void cMainGame::TurretRight1MoveBullet()
 }
 void cMainGame::TurretRight1ActiveFlase()
 {
-
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
+	{
+		if (iter->GetPosX() < 0 || iter->GetPosX() > WINSIZEX || iter->GetPosY() < 0 || iter->GetPosY() > WINSIZEY)
+		{
+			iter->SetIsActive(false);
+		}
+	}
 }
 void cMainGame::TurretRight1Erase()
 {
-
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end();)
+	{
+		if (!iter->GetIsActive())
+		{
+			iter = m_veccTbulletRight1.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
 }
 
 void cMainGame::TurretRight1Render()

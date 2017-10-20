@@ -23,6 +23,7 @@ void cTbulletRight1::Setup()
 	m_DestX = m_fPosX;
 	m_DestY = WINSIZEY;
 	m_ft = 0.0f;
+	m_pImage = g_pImageManager->FindImage("Right1");
 }
 
 void cTbulletRight1::Update()
@@ -34,7 +35,15 @@ void cTbulletRight1::Render()
 {
 	if (m_isActive)
 	{
+#ifdef _DEBUG
+
 		Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+#endif // _DEBUG
+
+		if (m_pImage != NULL)
+		{
+			m_pImage->Render(g_hDC, m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+		}
 	}
 	else
 	{
