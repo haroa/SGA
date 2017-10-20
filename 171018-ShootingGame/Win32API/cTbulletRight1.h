@@ -1,17 +1,26 @@
 #pragma once
 #include "cGameobject.h"
 
-class cTurret;
+
 
 class cTbulletRight1:public cGameobject
 {
 private:
-	cTurret* m_pcTurret;
-
+	float m_StartX;
+	float m_StartY;
+	float m_DestX;
+	float m_DestY;
+	float m_ft;
 
 public:
-
-	void SetBoss(cTurret* Turret) { m_pcTurret = Turret; }
+	float GetStartX() { return m_StartX; }
+	float GetStartY() { return m_StartY; }
+	float GetDestX() { return m_DestX; }
+	float GetDestY() { return m_DestY; }
+	float GetT() { return m_ft; }
+	void SetT(float t) { m_ft = t; }
+	void SetDestX(float DestX) { m_DestX = DestX; }
+	void SetDestY(float DestY) { m_DestY = DestY; }
 
 	cTbulletRight1();
 	~cTbulletRight1();

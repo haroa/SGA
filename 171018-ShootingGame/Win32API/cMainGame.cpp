@@ -62,6 +62,7 @@ void cMainGame::Update()
 			TurretLeft1MakeBullet();
 			TurretRight2MakeBullet();
 			TurretLeft2MakeBullet();
+			TurretRight1MakeBullet();
 		}
 		m_nBossShotDelay--;
 		BossBulletMove();
@@ -79,8 +80,13 @@ void cMainGame::Update()
 		TurretLeft1MoveBullet();
 		TurretRight2MoveBullet();
 		TurretLeft2MoveBullet();
+		TurretRight1MoveBullet();
 		TurretLeft1ActiveFlase();
 		TurretLeft1Erase();
+		TurretLeft2ActiveFlase();
+		TurretLeft2Erase();
+		TurretRight2ActiveFlase();
+		TurretRight2Erase();
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -105,6 +111,7 @@ void cMainGame::Render()
 		TurretLeft1Render();
 		TurretRight2Render();
 		TurretLeft2Render();
+		TurretRight1Render();
 		break;
 	case GAME_COUNT:
 		break;
@@ -113,6 +120,7 @@ void cMainGame::Render()
 		TurretLeft1Render();
 		TurretRight2Render();
 		TurretLeft2Render();
+		TurretRight1Render();
 		break;
 	case GAME_OVER:
 		GameOverRender();
@@ -432,7 +440,7 @@ void cMainGame::GameClearRender()
 }
 
 
-//아직미완============================================================================
+//왼쪽1============================================================================
 void cMainGame::TurretLeft1MakeBullet()
 {
 	//cBbullet BossBullet;
@@ -460,6 +468,14 @@ void cMainGame::TurretLeft1MakeBullet()
 	m_veccTbulletLeft1.push_back(Left1);
 
 	Left1.SetDestX(Left1.GetDestX() + 200);
+
+	m_veccTbulletLeft1.push_back(Left1);
+
+	Left1.SetDestX(Left1.GetDestX() -600);
+
+	m_veccTbulletLeft1.push_back(Left1);
+
+	Left1.SetDestX(Left1.GetDestX() - 200);
 
 	m_veccTbulletLeft1.push_back(Left1);
 }
@@ -545,12 +561,28 @@ void cMainGame::TurretLeft2MoveBullet()
 
 void cMainGame::TurretLeft2ActiveFlase()
 {
-
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end(); iter++)
+	{
+		if (iter->GetPosX() < 0 || iter->GetPosX() > WINSIZEX || iter->GetPosY() < 0 || iter->GetPosY() > WINSIZEY)
+		{
+			iter->SetIsActive(false);
+		}
+	}
 }
 
 void cMainGame::TurretLeft2Erase()
 {
-
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end();)
+	{
+		if (!iter->GetIsActive())
+		{
+			iter = m_veccTbulletLeft2.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
 }
 
 void cMainGame::TurretLeft2Render()
@@ -561,6 +593,58 @@ void cMainGame::TurretLeft2Render()
 	}
 }
 //=====================================================================================
+void cMainGame::TurretRight1MakeBullet()
+{
+	cTbulletRight1 Right1;
+
+	Right1.SetPosX(m_cBoss.GetTurret()->GetPosXRight1());
+	Right1.SetPosY(m_cBoss.GetTurret()->GetPosYRight1());
+
+	Right1.Setup();
+	m_veccTbulletRight1.push_back(Right1);
+
+	Right1.SetDestX(Right1.GetDestX() + 200);
+	m_veccTbulletRight1.push_back(Right1);
+
+	Right1.SetDestX(Right1.GetDestX() + 200);
+	m_veccTbulletRight1.push_back(Right1);
+
+	Right1.SetDestX(Right1.GetDestX() - 600);
+	m_veccTbulletRight1.push_back(Right1);
+
+	Right1.SetDestX(Right1.GetDestX() - 200);
+	m_veccTbulletRight1.push_back(Right1);
+}
+void cMainGame::TurretRight1MoveBullet()
+{
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
+	{
+		float X = iter->GetPosX();
+		float Y = iter->GetPosY();
+		iter->Update();
+		LinearInterpolation(X, Y, iter->GetStartX(), iter->GetStartY(), iter->GetDestX(), iter->GetDestY(), iter->GetT());
+
+		iter->SetPosX(X);
+		iter->SetPosY(Y);
+		iter->SetT(iter->GetT() + 0.01);
+	}
+}
+void cMainGame::TurretRight1ActiveFlase()
+{
+
+}
+void cMainGame::TurretRight1Erase()
+{
+
+}
+
+void cMainGame::TurretRight1Render()
+{
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
+	{
+		iter->Render();
+	}
+}
 
 //오른쪽2===============================================================================
 
@@ -592,12 +676,28 @@ void cMainGame::TurretRight2MoveBullet()
 
 void cMainGame::TurretRight2ActiveFlase()
 {
-
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end(); iter++)
+	{
+		if (iter->GetPosX() < 0 || iter->GetPosX() > WINSIZEX || iter->GetPosY() < 0 || iter->GetPosY() > WINSIZEY)
+		{
+			iter->SetIsActive(false);
+		}
+	}
 }
 
 void cMainGame::TurretRight2Erase()
 {
-
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end();)
+	{
+		if (!iter->GetIsActive())
+		{
+			iter = m_veccTbulletRight2.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
 }
 
 void cMainGame::TurretRight2Render()

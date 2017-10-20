@@ -80,10 +80,11 @@ public:
 	void TurretLeft2ActiveFlase();
 	void TurretLeft2Erase();
 	void TurretLeft2Render();
-	//void TurretRight1MakeBullet();
-	//void TurretRight1MoveBullet();
-	//void TurretRight1ActiveFlase();
-	//void TurretRight1Erase();
+	void TurretRight1MakeBullet();
+	void TurretRight1MoveBullet();
+	void TurretRight1ActiveFlase();
+	void TurretRight1Erase();
+	void TurretRight1Render();
 	void TurretRight2MakeBullet();
 	void TurretRight2MoveBullet();
 	void TurretRight2ActiveFlase();
