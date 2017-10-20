@@ -151,6 +151,7 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cSingletonBase.h" />
+    <ClInclude Include="cTimerManager.h" />
     <ClInclude Include="cTurret.h" />
     <ClInclude Include="MacroUtility.h" />
     <ClInclude Include="Resource.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="cPbullet.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cProgressBar.cpp" />
+    <ClCompile Include="cTimerManager.cpp" />
     <ClCompile Include="cTurret.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

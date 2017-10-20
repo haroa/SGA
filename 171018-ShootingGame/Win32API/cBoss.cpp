@@ -5,6 +5,7 @@
 cBoss::cBoss()
 {
 	m_pImage = NULL;
+	m_pBossBoom = NULL;
 }
 
 
@@ -28,6 +29,7 @@ void cBoss::Setup()
 	m_fHitPointHp = 500.0f;
 	m_fAllBossHp = 2500.0f;
 	m_fNowBossHp = 0.0f;
+	m_fRate = m_fNowBossHp / m_fAllBossHp;
 	m_cProgressBar.SetBossMaxHp(m_fAllBossHp);
 	m_cProgressBar.Setup();
 	m_cTurret.SetBossPosX(m_fPosX);
@@ -36,7 +38,10 @@ void cBoss::Setup()
 	m_cTurret.SetBossHeight(m_nSizeH);
 	m_cTurret.Setup();
 	m_pHitPoint = g_pImageManager->FindImage("Boom5");
-	m_fHitPointDelay = 5.0f;
+	m_pBossBoom = g_pImageManager->FindImage("BossBoom");
+	g_pTimerManager->AddSimpleTimer("BossHeadBoom");
+	g_pTimerManager->AddSimpleTimer("BossBoom");
+	m_GameOverStack = 0;
 }
 
 void cBoss::Update()
@@ -44,14 +49,12 @@ void cBoss::Update()
 	m_cProgressBar.Update();	
 	m_fNowBossHp = m_fHitPointHp + m_cTurret.GetHpLeft1() + m_cTurret.GetHpLeft2() + m_cTurret.GetHpRight1() + m_cTurret.GetHpRight2();
 	m_cProgressBar.SetBossNowHp(m_fNowBossHp);
-
 	if (m_fHitPointHp <= 0.0f)
 	{
-		m_fHitPointDelay--;
 		m_rtHitPoint = RectMakeCenter(0, 0, 0, 0);
-		if (m_fHitPointDelay < 0)
+		if (g_pTimerManager->TickSimpleTimer("BossHeadBoom") > 5)
 		{
-			m_fHitPointDelay = 5.0f;
+			g_pTimerManager->ResetSimpleTimer("BossHeadBoom");
 			m_pHitPoint->SetFrameY(m_pHitPoint->GetFrameY() + 1);
 		}
 		if (m_pHitPoint->GetFrameY() > 7)
@@ -59,6 +62,22 @@ void cBoss::Update()
 			m_pHitPoint->SetFrameY(0);
 		}
 	}
+	if (m_fNowBossHp <= 0.0f)
+	{
+		if (g_pTimerManager->TickSimpleTimer("BossBoom") > 5)
+		{
+			g_pTimerManager->ResetSimpleTimer("BossBoom");
+			m_pBossBoom->SetFrameY(m_pBossBoom->GetFrameY() + 1);
+		}
+		if (m_pBossBoom->GetFrameY() > 14)
+		{
+			m_GameOverStack++;
+			m_pBossBoom->SetFrameY(0);
+		}
+	}
+
+	//if(m_fRate == )
+
 	m_cTurret.Update();
 }
 
@@ -77,6 +96,13 @@ void cBoss::Render()
 		if (m_fHitPointHp <= 0.0f)
 		{
 			m_pHitPoint->FrameRender(g_hDC, m_fHitPointX, m_fHitPointY, m_pHitPoint->GetFrameX(), m_pHitPoint->GetFrameY());
+		}
+	}
+	if (m_pBossBoom != NULL)
+	{
+		if (m_fNowBossHp <= 0.0f)
+		{
+			m_pBossBoom->FrameRender(g_hDC, m_fPosX, m_fPosY, m_pBossBoom->GetFrameX(), m_pBossBoom->GetFrameY());
 		}
 	}
 #ifdef _DEBUG

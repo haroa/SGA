@@ -49,6 +49,7 @@ using namespace std;
 //==================================================================
 #include "cKeyManager.h"
 #include "cImageManager.h"
+#include "cTimerManager.h"
 
 //==================================================================
 //		## 전역변수 ##

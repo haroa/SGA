@@ -15,13 +15,16 @@ private:
 	float m_fAllBossHp;
 	float m_fNowBossHp;
 	cImage* m_pHitPoint;
-	float m_fHitPointDelay;
+	cImage* m_pBossBoom;
+	int		m_GameOverStack;
+	float	m_fRate;
 public:
 
 	RECT GetHitPoint() { return m_rtHitPoint; }
 	float GetHitPointHp() { return m_fHitPointHp; }
 	float GetAllBossHp() { return m_fAllBossHp; }
 	float GetNowBossHp() { return m_fNowBossHp; }
+	int GetGameOverStack() { return m_GameOverStack; }
 
 	cTurret* GetTurret() { return &m_cTurret; }
 

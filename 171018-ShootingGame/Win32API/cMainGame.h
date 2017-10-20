@@ -60,4 +60,6 @@ public:
 	void PlayerBulletErase();
 	void HitPlayerBulletBoss();
 	void HitPlayerBulletTurret();
+	void GameClear();
+	void GameClearRender();
 };

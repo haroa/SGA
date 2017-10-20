@@ -25,7 +25,7 @@ void cPbullet::Setup()
 	m_isActive = true;
 	m_pImage = g_pImageManager->FindImage("PlayerBullet");
 #ifdef _DEBUG
-	m_fBulletDmg = 50.0f;
+	m_fBulletDmg = 100.0f;
 #else
 	m_fBulletDmg = 0.5f;
 #endif // _DEBUG

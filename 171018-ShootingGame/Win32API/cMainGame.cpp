@@ -5,7 +5,7 @@
 
 cMainGame::cMainGame()
 {
-	m_nBossShotDelay = 10;
+	m_nBossShotDelay = 20;
 	m_nPlayerShotDelay = 5;
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
@@ -21,11 +21,12 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Boom3", "images/Boom3.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Boom4", "images/Boom4.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Boom5", "images/Boom5.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("BossBoom", "images/BossBoom.bmp", 442, 6750, 1, 15, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
 {
-	
+	g_pTimerManager->DeleteTimerAll();
 }
 
 void cMainGame::Setup()
@@ -51,7 +52,7 @@ void cMainGame::Update()
 		PlayerController();
 		if (m_nBossShotDelay < 0)
 		{
-			m_nBossShotDelay = 10;
+			m_nBossShotDelay = 20;
 			ShotBossBullet();
 		}
 		m_nBossShotDelay--;
@@ -66,12 +67,15 @@ void cMainGame::Update()
 		m_cBoss.Update();
 		HitPlayerBulletBoss();
 		HitPlayerBulletTurret();
+		GameClear();
 		break;
 	case GAME_OVER:
 		SystemEnter();
 		BossBulletAllErase();
 		break;
 	case GAME_CLEAR:
+		SystemEnter();
+		BossBulletAllErase();
 		break;
 	}
 
@@ -95,6 +99,7 @@ void cMainGame::Render()
 		GameOverRender();
 		break;
 	case GAME_CLEAR:
+		GameClearRender();
 		break;
 	default:
 		break;
@@ -132,6 +137,7 @@ void cMainGame::SystemEnter()
 			m_GameState = GAME_READY;
 			break;
 		case GAME_CLEAR:
+			m_GameState = GAME_READY;
 			break;
 		}
 	}
@@ -170,7 +176,7 @@ void cMainGame::AllRender()
 	sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cBoss.GetTurret()->GetHpRight1(), m_cBoss.GetTurret()->GetHpRight2());
 	TextOut(g_hDC, 10, 50, str, strlen(str));
 	
-	sprintf_s(str, "머리 체력 : %f", m_cBoss.GetHitPointHp());
+	sprintf_s(str, "머리 체력 : %f    게임오버스택 : %d", m_cBoss.GetHitPointHp(),m_cBoss.GetGameOverStack());
 	TextOut(g_hDC, 10, 70, str, strlen(str));
 	
 	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
@@ -185,8 +191,23 @@ void cMainGame::ShotBossBullet()
 	BossBullet.SetBoss(&m_cBoss);
 
 	BossBullet.Setup();
+	float m_fangle = GetAngle(m_cPlayer.GetPosX(), m_cPlayer.GetPosY(), BossBullet.GetPosX(), BossBullet.GetPosY());
+	float m_fSpeedX = -cosf(m_fangle / 180 * PI) * 5.0f;
+	float m_fSpeedY = -sinf(m_fangle / 180 * PI) * 5.0f;
 
+	BossBullet.SetSpeedX(m_fSpeedX);
+	BossBullet.SetSpeedY(m_fSpeedY);
 	m_veccbBullet.push_back(BossBullet);
+
+	//float m_dangle = m_fangle + 10.0f;
+	//m_fSpeedX = -cosf(m_dangle / 180 * PI) * 5.0f;
+	//m_fSpeedY = -sinf(m_dangle / 180 * PI) * 5.0f;
+	//
+	//BossBullet.SetSpeedX(m_fSpeedX);
+	//BossBullet.SetSpeedY(m_fSpeedY);
+	//m_veccbBullet.push_back(BossBullet);
+
+
 }
 
 void cMainGame::BossBulletMove()
@@ -369,4 +390,19 @@ void cMainGame::HitPlayerBulletTurret()
 			iter++;
 		}		
 	}
+}
+
+void cMainGame::GameClear()
+{
+	if (m_cBoss.GetGameOverStack() > 5)
+	{
+		m_GameState = GAME_CLEAR;
+	}
+}
+
+void cMainGame::GameClearRender()
+{
+	char str[128];
+	sprintf_s(str, "게임 클리어!", "게임 클리어!");
+	TextOut(g_hDC, WINSIZEX / 2, WINSIZEY / 2, str, strlen(str));
 }

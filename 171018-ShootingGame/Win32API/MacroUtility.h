@@ -113,3 +113,46 @@ inline float GetAngle(float x1, float y1, float x2, float y2)
 
 	return fAngle;
 }
+
+// 선형 보간
+inline void LinearInterpolation(OUT float& x, OUT float& y,
+	IN float fromX, IN float fromY, IN float toX, IN float toY, IN float t)
+{
+	x = fromX * (1.0f - t) + toX * t;
+	y = fromY * (1.0f - t) + toY * t;
+}
+
+// 베지어 곡선
+inline void BezierInterpolation(OUT float& x, OUT float& y,
+	IN float fromX, IN float fromY, IN float viaX, IN float viaY, IN float toX, IN float toY, IN float t)
+{
+	float x1, y1, x2, y2;
+
+	//x1 = fromX * (1.0f - t) + viaX * t;
+	//y1 = fromY * (1.0f - t) + viaY * t;
+	LinearInterpolation(x1, y1, fromX, fromY, viaX, viaY, t);
+
+	//x2 = viaX * (1.0f - t) + toX * t;
+	//y2 = viaY * (1.0f - t) + toY * t;
+	LinearInterpolation(x2, y2, viaX, viaY, toX, toY, t);
+
+	//x = x1 * (1.0f - t) + x2 * t;
+	//y = y1 * (1.0f - t) + y2 * t;
+	LinearInterpolation(x, y, x1, y1, x2, y2, t);
+}
+
+// 베지어 곡선
+inline void BezierInterpolation2(OUT float& x, OUT float& y,
+	IN float fromX, IN float fromY, IN float viaX, IN float viaY, IN float toX, IN float toY, IN float t)
+{
+	float x1, y1, x2, y2, x3, y3;
+
+	float viaX2 = viaX;
+	float viaY2 = fromY + fromY - viaY;
+
+	LinearInterpolation(x1, y1, fromX, fromY, viaX, viaY, t);
+	LinearInterpolation(x2, y2, viaX, viaY, viaX2, viaY2, t);
+	LinearInterpolation(x3, y3, viaX2, viaY2, toX, toY, t);
+
+	BezierInterpolation(x, y, x1, y1, x2, y2, x3, y3, t);
+}
