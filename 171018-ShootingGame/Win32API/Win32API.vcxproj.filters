@@ -108,6 +108,12 @@
     <ClInclude Include="cTbulletRight2.h">
       <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClInclude>
+    <ClInclude Include="cStart.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayerBomb.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -168,6 +174,12 @@
       <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClCompile>
     <ClCompile Include="cTbulletLeft2.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cStart.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlayerBomb.cpp">
       <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClCompile>
   </ItemGroup>

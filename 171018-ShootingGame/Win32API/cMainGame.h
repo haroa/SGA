@@ -11,6 +11,7 @@
 #include "cTbulletLeft2.h"
 #include "cTbulletRight1.h"
 #include "cTbulletRight2.h"
+#include "cStart.h"
 
 
 enum E_GAME
@@ -27,6 +28,7 @@ private:
 	cTurret						m_cTurret;
 	cProgressBar				m_cProgressBar;
 	cMap						m_cMap;
+	cStart						m_cStart;
 	vector<cTbulletLeft1>				m_veccTbulletLeft1;
 	vector<cTbulletLeft2>				m_veccTbulletLeft2;
 	vector<cTbulletRight1>				m_veccTbulletRight1;
@@ -91,4 +93,9 @@ public:
 	void TurretRight2ActiveFlase();
 	void TurretRight2Erase();
 	void TurretRight2Render();
+	void PlayerMakeBomb();
+	void PlayerMoveBomb();
+	void PlayerBombActiveFalse();
+	void PlayerBombErase();
+	void PlayerBombRender();
 };

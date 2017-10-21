@@ -149,8 +149,10 @@
     <ClInclude Include="cMap.h" />
     <ClInclude Include="cPbullet.h" />
     <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cPlayerBomb.h" />
     <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cSingletonBase.h" />
+    <ClInclude Include="cStart.h" />
     <ClInclude Include="cTbulletLeft1.h" />
     <ClInclude Include="cTbulletLeft2.h" />
     <ClInclude Include="cTbulletRight1.h" />
@@ -175,7 +177,9 @@
     <ClCompile Include="cMap.cpp" />
     <ClCompile Include="cPbullet.cpp" />
     <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cPlayerBomb.cpp" />
     <ClCompile Include="cProgressBar.cpp" />
+    <ClCompile Include="cStart.cpp" />
     <ClCompile Include="cTbulletLeft1.cpp" />
     <ClCompile Include="cTbulletLeft2.cpp" />
     <ClCompile Include="cTbulletRight1.cpp" />

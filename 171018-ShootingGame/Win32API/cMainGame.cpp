@@ -27,6 +27,7 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Left2", "images/turretleft2.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Right1", "images/turretright1.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Right2", "images/turretright2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Start", "images/Start.bmp", 700, 1000, true, RGB(255, 0, 255));
 }
 
 cMainGame::~cMainGame()
@@ -143,7 +144,7 @@ void cMainGame::Render()
 	switch (m_GameState)
 	{
 	case GAME_READY:	
-
+		m_cStart.Render();
 		break;
 	case GAME_COUNT:
 		break;
@@ -170,7 +171,7 @@ void cMainGame::Reset()
 {
 	m_cPlayer.Setup();
 	m_cBoss.Setup();
-
+	m_cStart.Setup();
 	m_cMap.Setup();
 }
 
@@ -470,6 +471,7 @@ void cMainGame::GameClearRender()
 	sprintf_s(str, "게임 클리어!", "게임 클리어!");
 	TextOut(g_hDC, WINSIZEX / 2, WINSIZEY / 2, str, strlen(str));
 }
+
 
 
 //왼쪽1============================================================================
@@ -777,4 +779,30 @@ void cMainGame::TurretRight2Render()
 	}
 }
 
+
+
 //====================================================================================
+void cMainGame::PlayerMakeBomb()
+{
+
+}
+
+void cMainGame::PlayerMoveBomb()
+{
+
+}
+
+void cMainGame::PlayerBombActiveFalse()
+{
+
+}
+
+void cMainGame::PlayerBombErase()
+{
+
+}
+
+void cMainGame::PlayerBombRender()
+{
+
+}

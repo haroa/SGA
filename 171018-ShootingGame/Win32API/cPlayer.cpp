@@ -35,24 +35,44 @@ void cPlayer::Update()
 {
 	m_pImage->SetFrameY(0);
 
+
 	if (g_pKeyManager->isStayKeyDown('A') && (int)(m_fPosX - (m_nSizeW / 2)) >= 0)
 	{
 		m_fPosX -= 5;
 		m_pImage->SetFrameY(2);
+		if (g_pKeyManager->isStayKeyDown(VK_RSHIFT))
+		{
+			m_fPosX += 2;
+			m_pImage->SetFrameY(2);
+		}
 	}
 	else if (g_pKeyManager->isStayKeyDown('D') && (int)(m_fPosX + (m_nSizeW / 2)) <= WINSIZEX)
 	{
 		m_fPosX += 5;
 		m_pImage->SetFrameY(1);
+		if (g_pKeyManager->isStayKeyDown(VK_RSHIFT))
+		{
+			m_fPosX -= 2;
+			m_pImage->SetFrameY(1);
+		}
 	}
 	if (g_pKeyManager->isStayKeyDown('W') && (int)(m_fPosY - (m_nSizeH / 2)) >= 0)
 	{
 		m_fPosY -= 5;
+		if (g_pKeyManager->isStayKeyDown(VK_RSHIFT))
+		{
+			m_fPosY += 2;
+		}
 	}
 	else if (g_pKeyManager->isStayKeyDown('S') && (int)(m_fPosY + (m_nSizeH / 2)) <= WINSIZEY)
 	{
 		m_fPosY += 5;
+		if (g_pKeyManager->isStayKeyDown(VK_RSHIFT))
+		{
+			m_fPosY -= 2;
+		}
 	}
+
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	m_rtHitPoint = RectMakeCenter(m_fPosX, m_fPosY, m_nHitSizeH, m_nHitSizeW);
 }
