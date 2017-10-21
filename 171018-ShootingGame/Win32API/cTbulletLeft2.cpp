@@ -17,7 +17,7 @@ void cTbulletLeft2::Setup()
 {
 	m_fStartX = m_fPosX;
 	m_fStartY = m_fPosY;
-	m_fViaX = WINSIZEX * 0.5f;
+	m_fViaX = 50.0f;
 	m_fViaY = WINSIZEY * 0.5f;
 	m_fDestX = m_fPosX;
 	m_fDestY = WINSIZEY;
@@ -25,11 +25,15 @@ void cTbulletLeft2::Setup()
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 32, 32);
 	m_isActive = true;
 	m_pImage = g_pImageManager->FindImage("Left2");
+
 }
 
 void cTbulletLeft2::Update()
 {
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 32, 32);
+
+
+
 }
 
 void cTbulletLeft2::Render()

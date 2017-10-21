@@ -29,6 +29,8 @@ void cTbulletRight1::Setup()
 void cTbulletRight1::Update()
 {
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+
+
 }
 
 void cTbulletRight1::Render()

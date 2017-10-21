@@ -1,5 +1,8 @@
 #pragma once
 #include "cGameobject.h"
+
+
+
 class cTbulletLeft1:public cGameobject
 {
 private:
@@ -19,6 +22,7 @@ public:
 	void SetT(float t) { m_ft = t; }
 	void SetDestX(float DestX) { m_DestX = DestX; }
 	void SetDestY(float DestY) { m_DestY = DestY; }
+
 
 	cTbulletLeft1();
 	~cTbulletLeft1();

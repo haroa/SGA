@@ -7,6 +7,7 @@ cMainGame::cMainGame()
 {
 	m_nBossShotDelay = 20;
 	m_nPlayerShotDelay = 5;
+	m_fBossRate = m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp();
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
@@ -59,14 +60,43 @@ void cMainGame::Update()
 			m_nBossShotDelay = 20;
 			ShotBossBullet();
 		}
-		g_pTimerManager->AddSimpleTimer("Left1");
-		if (g_pTimerManager->TickSimpleTimer("Left1") > 4)
+		if (m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() < 0.5)
 		{
-			g_pTimerManager->ResetSimpleTimer("Left1");
-			TurretLeft1MakeBullet();
-			TurretRight2MakeBullet();
-			TurretLeft2MakeBullet();
-			TurretRight1MakeBullet();
+			g_pTimerManager->AddSimpleTimer("Left1Hp");
+			if (g_pTimerManager->TickSimpleTimer("Left1Hp") >10)
+			{
+				g_pTimerManager->ResetSimpleTimer("Left1Hp");
+				TurretLeft1MakeBullet();
+			
+			}
+		}
+		if (m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() < 0.8)
+		{
+			g_pTimerManager->AddSimpleTimer("Left2Hp");
+			if (g_pTimerManager->TickSimpleTimer("Left2Hp") >10)
+			{
+				g_pTimerManager->ResetSimpleTimer("Left2Hp");
+				TurretLeft2MakeBullet();
+			}
+		}
+		if (m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() < 0.3)
+		{
+			g_pTimerManager->AddSimpleTimer("Right1Hp");
+			if (g_pTimerManager->TickSimpleTimer("Right1Hp") >10)
+			{
+				g_pTimerManager->ResetSimpleTimer("Right1Hp");
+				TurretRight1MakeBullet();
+			}
+		}
+		if (m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp() < 0.7)
+		{
+			g_pTimerManager->AddSimpleTimer("Right2Hp");
+			if (g_pTimerManager->TickSimpleTimer("Right2Hp") > 10)
+			{
+				g_pTimerManager->ResetSimpleTimer("Right2Hp");
+				TurretRight2MakeBullet();
+			}
+
 		}
 		m_nBossShotDelay--;
 		BossBulletMove();
@@ -113,11 +143,7 @@ void cMainGame::Render()
 	switch (m_GameState)
 	{
 	case GAME_READY:	
-		AllRender();
-		TurretLeft1Render();
-		TurretRight2Render();
-		TurretLeft2Render();
-		TurretRight1Render();
+
 		break;
 	case GAME_COUNT:
 		break;
@@ -518,6 +544,10 @@ void cMainGame::TurretLeft1ActiveFlase()
 		{
 			iter->SetIsActive(false);
 		}
+		if (m_cBoss.GetTurret()->GetHpLeft1() <= 0.0f)
+		{
+			iter->SetIsActive(false);
+		}
 	}
 }
 
@@ -573,6 +603,10 @@ void cMainGame::TurretLeft2ActiveFlase()
 		{
 			iter->SetIsActive(false);
 		}
+		if (m_cBoss.GetTurret()->GetHpLeft2() <= 0.0f)
+		{
+			iter->SetIsActive(false);
+		}
 	}
 }
 
@@ -599,6 +633,7 @@ void cMainGame::TurretLeft2Render()
 	}
 }
 //=====================================================================================
+//오른쪽1==============================================================================
 void cMainGame::TurretRight1MakeBullet()
 {
 	cTbulletRight1 Right1;
@@ -621,6 +656,7 @@ void cMainGame::TurretRight1MakeBullet()
 	Right1.SetDestX(Right1.GetDestX() - 200);
 	m_veccTbulletRight1.push_back(Right1);
 }
+
 void cMainGame::TurretRight1MoveBullet()
 {
 	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
@@ -635,6 +671,7 @@ void cMainGame::TurretRight1MoveBullet()
 		iter->SetT(iter->GetT() + 0.01);
 	}
 }
+
 void cMainGame::TurretRight1ActiveFlase()
 {
 	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
@@ -643,8 +680,13 @@ void cMainGame::TurretRight1ActiveFlase()
 		{
 			iter->SetIsActive(false);
 		}
+		if (m_cBoss.GetTurret()->GetHpRight1() <= 0.0f)
+		{
+			iter->SetIsActive(false);
+		}
 	}
 }
+
 void cMainGame::TurretRight1Erase()
 {
 	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end();)
@@ -667,6 +709,7 @@ void cMainGame::TurretRight1Render()
 		iter->Render();
 	}
 }
+//=====================================================================================
 
 //오른쪽2===============================================================================
 
@@ -704,6 +747,10 @@ void cMainGame::TurretRight2ActiveFlase()
 		{
 			iter->SetIsActive(false);
 		}
+		if (m_cBoss.GetTurret()->GetHpRight2() <= 0.0f)
+		{
+			iter->SetIsActive(false);
+		}
 	}
 }
 
@@ -729,4 +776,5 @@ void cMainGame::TurretRight2Render()
 		iter->Render();
 	}
 }
+
 //====================================================================================

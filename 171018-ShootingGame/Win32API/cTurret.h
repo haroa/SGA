@@ -10,6 +10,7 @@ private:
 	int m_BossWidth;
 	int m_BossHeight;
 	float m_BossRate;
+
 #pragma endregion
 
 
@@ -55,6 +56,8 @@ private:
 	
 public:
 #pragma region Get
+	float GetBossRate() { return m_BossRate; }
+
 	RECT GetBodyLeft1() { return m_rtLeft1; }
 	float GetPosXLeft1() { return m_fPosXLeft1; }
 	float GetPosYLeft1() { return m_fPosYLeft1; }

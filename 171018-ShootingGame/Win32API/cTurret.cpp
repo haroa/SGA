@@ -54,6 +54,7 @@ void cTurret::Setup()
 	g_pTimerManager->AddSimpleTimer("Right2");
 #pragma endregion
 
+
 }
 
 void cTurret::Update()

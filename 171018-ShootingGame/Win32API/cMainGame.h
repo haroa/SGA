@@ -38,6 +38,7 @@ private:
 	int							m_nPlayerShotDelay;
 	float						m_fNowBossHp;
 	float						m_fSaveBossHp;
+	float						m_fBossRate;
 
 public:
 	cMainGame();

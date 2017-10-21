@@ -29,8 +29,8 @@ using namespace std;
 #define WINNAME (LPCWSTR)(TEXT("코딩 지옥에 오신걸 환영 합니다."))
 #define WINSTARTX		0
 #define WINSTARTY		0
-#define WINSIZEX		1600
-#define WINSIZEY		900
+#define WINSIZEX		700
+#define WINSIZEY		1000
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 #define PURE			= 0
 #define PI				3.141592654f

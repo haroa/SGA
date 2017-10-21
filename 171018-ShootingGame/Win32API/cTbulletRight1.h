@@ -12,6 +12,7 @@ private:
 	float m_DestY;
 	float m_ft;
 
+
 public:
 	float GetStartX() { return m_StartX; }
 	float GetStartY() { return m_StartY; }
@@ -21,6 +22,7 @@ public:
 	void SetT(float t) { m_ft = t; }
 	void SetDestX(float DestX) { m_DestX = DestX; }
 	void SetDestY(float DestY) { m_DestY = DestY; }
+
 
 	cTbulletRight1();
 	~cTbulletRight1();

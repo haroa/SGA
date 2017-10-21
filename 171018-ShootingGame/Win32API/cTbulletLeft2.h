@@ -14,6 +14,7 @@ private:
 	float m_fViaY;
 	float m_ft;
 
+
 public:
 	float GetStartX() { return m_fStartX; }
 	float GetStartY() { return m_fStartY; }
@@ -24,6 +25,7 @@ public:
 	float GetT() { return m_ft; }
 
 	void SetT(float T) { m_ft = T; }
+
 
 	cTbulletLeft2();
 	~cTbulletLeft2();

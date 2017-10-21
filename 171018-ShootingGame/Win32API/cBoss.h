@@ -25,6 +25,7 @@ public:
 	float GetAllBossHp() { return m_fAllBossHp; }
 	float GetNowBossHp() { return m_fNowBossHp; }
 	int GetGameOverStack() { return m_GameOverStack; }
+	float GetBossHpRate() { return m_fRate; }
 
 	cTurret* GetTurret() { return &m_cTurret; }
 
