@@ -53,6 +53,8 @@ void cMainGame::Update()
 		SystemEnter();
 		m_cBoss.Update();
 		m_cMap.Update();
+		m_nScore = 0;
+		m_BulletCount = 0;
 		break;
 	case GAME_COUNT:
 		break;
@@ -135,6 +137,10 @@ void cMainGame::Update()
 		}
 		MoveItem();
 		ItemAndPlayerHit();
+		Left1HitPlayer();
+		Left2HitPlayer();
+		Right1HitPlayer();
+		Right2HitPlayer();
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -341,7 +347,7 @@ void cMainGame::HitBossBulletPlayer()
 		RECT rt;
 		if (IntersectRect(&rt, &m_cPlayer.GetHitPoint(), &iter->GetBody()))
 		{
-			//m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -360,6 +366,72 @@ void cMainGame::BossBulletAllErase()
 		if (iter->GetIsActive())
 		{
 			iter = m_veccbBullet.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccTbulletLeft1.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccTbulletLeft2.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccTbulletRight1.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccTbulletRight2.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccpBullet.begin(); iter != m_veccpBullet.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccpBullet.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end();)
+	{
+		if (iter->GetIsActive())
+		{
+			iter = m_veccItem.erase(iter);
 		}
 		else
 		{
@@ -908,4 +980,52 @@ void cMainGame::ItemAndPlayerHit()
 void cMainGame::ScoreRender()
 {
 	m_cSpritesObject->GetSpritesImg()->SpritesRender(g_hDC, m_cSpritesObject->GetPos(), m_cSpritesObject->GetSize(), m_nScore);
+}
+
+void cMainGame::Left1HitPlayer()
+{
+	for (auto iter = m_veccTbulletLeft1.begin(); iter != m_veccTbulletLeft1.end(); iter++)
+	{
+		RECT rt2;
+		if (IntersectRect(&rt2, &iter->GetBody(), &m_cPlayer.GetBody()))
+		{
+			m_GameState = GAME_OVER;
+		}
+	}
+}
+
+void cMainGame::Left2HitPlayer()
+{
+	for (auto iter = m_veccTbulletLeft2.begin(); iter != m_veccTbulletLeft2.end(); iter++)
+	{
+		RECT rt1;
+		if (IntersectRect(&rt1, &iter->GetBody(), &m_cPlayer.GetBody()))
+		{
+			m_GameState = GAME_OVER;
+		}
+	}
+}
+
+void cMainGame::Right1HitPlayer()
+{
+	for (auto iter = m_veccTbulletRight1.begin(); iter != m_veccTbulletRight1.end(); iter++)
+	{
+		RECT rt3;
+		if (IntersectRect(&rt3, &iter->GetBody(), &m_cPlayer.GetBody()))
+		{
+			m_GameState = GAME_OVER;
+		}
+	}
+}
+
+void cMainGame::Right2HitPlayer()
+{
+	for (auto iter = m_veccTbulletRight2.begin(); iter != m_veccTbulletRight2.end(); iter++)
+	{
+		RECT rt4;
+		if (IntersectRect(&rt4, &iter->GetBody(), &m_cPlayer.GetBody()))
+		{
+			m_GameState = GAME_OVER;
+		}
+	}
 }

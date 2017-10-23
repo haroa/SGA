@@ -110,4 +110,8 @@ public:
 	void RenderItem();
 	void ItemAndPlayerHit();
 	void ScoreRender();
+	void Left1HitPlayer();
+	void Left2HitPlayer();
+	void Right1HitPlayer();
+	void Right2HitPlayer();
 };

@@ -21,6 +21,7 @@ void cItem::Setup()
 	m_nSizeW = 32;
 	m_nSizeH = 32;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	m_isActive = true;
 }
 
 void cItem::Update()
@@ -31,5 +32,12 @@ void cItem::Update()
 
 void cItem::Render()
 {
-	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+	if (m_isActive)
+	{
+		Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+	}
+	else
+	{
+
+	}
 }
