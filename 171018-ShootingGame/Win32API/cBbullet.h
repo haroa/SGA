@@ -20,6 +20,7 @@ public:
 	~cBbullet();
 
 	void SetBoss(cBoss* Boss) { m_pcBoss = Boss; }
+
 	void SetPlayer(cPlayer* Player) { m_pcPlayer = Player; }
 	void SetBossNowHp(float BossNowHp) { m_fBossNowHp = BossNowHp; }
 
