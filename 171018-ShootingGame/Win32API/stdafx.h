@@ -50,6 +50,7 @@ using namespace std;
 #include "cKeyManager.h"
 #include "cImageManager.h"
 #include "cTimerManager.h"
+#include "DataStructure.h"
 
 //==================================================================
 //		## 전역변수 ##

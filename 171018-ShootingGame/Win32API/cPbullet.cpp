@@ -18,6 +18,8 @@ void cPbullet::Setup()
 {
 	m_fPosX = m_pcPlayer->GetPosX();
 	m_fPosY = m_pcPlayer->GetPosY();
+	m_fMoveX = 0.0f;
+	m_fMoveY = 0.0f;
 	m_nSizeW = 15;
 	m_nSizeH = 31;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
@@ -34,6 +36,8 @@ void cPbullet::Setup()
 
 void cPbullet::Update()
 {
+	m_fPosX += m_fMoveX;
+	m_fPosY += m_fMoveY;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
 }
 

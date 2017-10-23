@@ -114,6 +114,24 @@
     <ClInclude Include="cItem.h">
       <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClInclude>
+    <ClInclude Include="cScore.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawHelper.h">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumState.h">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryHelper.h">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageObject.h">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructure.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +199,18 @@
     </ClCompile>
     <ClCompile Include="cItem.cpp">
       <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cScore.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageObject.cpp">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawHelper.cpp">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryHelper.cpp">
+      <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

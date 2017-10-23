@@ -130,7 +130,6 @@ void cMainGame::Update()
 		{
 			g_pTimerManager->ResetSimpleTimer("Item");
 			MakeItem();
-			
 		}
 		MoveItem();
 		ItemAndPlayerHit();
@@ -364,16 +363,35 @@ void cMainGame::PlayerMakeBullet()
 	PlayerBullet.SetPlayer(&m_cPlayer);
 	PlayerBullet.Setup();
 
-	if (m_BulletCount == 0)
+	if (m_BulletCount >= 0)
 	{
 		m_veccpBullet.push_back(PlayerBullet);
 	}
-	if (m_BulletCount == 1)
+	if (m_BulletCount >= 1)
 	{
-		PlayerBullet.Setup();
-		PlayerBullet.SetPosX(PlayerBullet.GetPosX() + 10);
+		PlayerBullet.SetPosX(PlayerBullet.GetPosX() + 15);
 		m_veccpBullet.push_back(PlayerBullet);
 	}
+	if (m_BulletCount >= 2)
+	{
+		PlayerBullet.SetPosX(PlayerBullet.GetPosX() - 30);
+		m_veccpBullet.push_back(PlayerBullet);
+	}
+	if (m_BulletCount >= 3)
+	{
+		PlayerBullet.SetPosX(PlayerBullet.GetPosX() + 30);
+		PlayerBullet.SetMoveX(3.0f);
+		PlayerBullet.SetMoveY(5.0f);
+		m_veccpBullet.push_back(PlayerBullet);
+	}
+	if (m_BulletCount >= 4)
+	{
+		PlayerBullet.SetPosX(PlayerBullet.GetPosX() - 30);
+		PlayerBullet.SetMoveX(-3.0f);
+		PlayerBullet.SetMoveY(5.0f);
+		m_veccpBullet.push_back(PlayerBullet);
+	}
+	
 	
 }
 

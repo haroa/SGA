@@ -151,6 +151,7 @@
     <ClInclude Include="cPbullet.h" />
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cProgressBar.h" />
+    <ClInclude Include="cScore.h" />
     <ClInclude Include="cSingletonBase.h" />
     <ClInclude Include="cStart.h" />
     <ClInclude Include="cTbulletLeft1.h" />
@@ -159,6 +160,11 @@
     <ClInclude Include="cTbulletRight2.h" />
     <ClInclude Include="cTimerManager.h" />
     <ClInclude Include="cTurret.h" />
+    <ClInclude Include="DataStructure.h" />
+    <ClInclude Include="DrawHelper.h" />
+    <ClInclude Include="EnumState.h" />
+    <ClInclude Include="GeometryHelper.h" />
+    <ClInclude Include="ImageObject.h" />
     <ClInclude Include="MacroUtility.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -179,6 +185,7 @@
     <ClCompile Include="cPbullet.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cProgressBar.cpp" />
+    <ClCompile Include="cScore.cpp" />
     <ClCompile Include="cStart.cpp" />
     <ClCompile Include="cTbulletLeft1.cpp" />
     <ClCompile Include="cTbulletLeft2.cpp" />
@@ -186,6 +193,9 @@
     <ClCompile Include="cTbulletRight2.cpp" />
     <ClCompile Include="cTimerManager.cpp" />
     <ClCompile Include="cTurret.cpp" />
+    <ClCompile Include="DrawHelper.cpp" />
+    <ClCompile Include="GeometryHelper.cpp" />
+    <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

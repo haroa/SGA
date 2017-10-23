@@ -7,6 +7,8 @@ class cPbullet:public cGameobject
 {
 	cPlayer*		m_pcPlayer;
 	float			m_fBulletDmg;
+	float			m_fMoveX;
+	float			m_fMoveY;
 
 
 public:
@@ -15,6 +17,8 @@ public:
 
 
 	void SetPlayer(cPlayer* Player) { m_pcPlayer = Player; }
+	void SetMoveX(float MoveX) { m_fMoveX = MoveX; }
+	void SetMoveY(float MoveY) { m_fMoveY = MoveY; }
 
 	cPbullet();
 	~cPbullet();
