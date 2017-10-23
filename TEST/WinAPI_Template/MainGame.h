@@ -8,9 +8,9 @@ class MainGame : public GameNode
 //=======================================================
 //  VARIABLES
 private:
-	LobbyScene*		m_LobbyScene;
-	GameScene*		m_GameScene;
-	E_GAME_STATE	m_Gamestate;
+	LobbyScene*		m_lobbyScene;
+	GameScene*		m_gameScene;
+	E_GAME_STATE	m_gamestate;
 //=======================================================
 //  FUNCTIONS
 private:

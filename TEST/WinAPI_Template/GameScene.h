@@ -5,7 +5,7 @@ class SpritesObject;
 class GameScene : public SceneObject
 {
 private:
-	SpritesObject* m_f;
+	SpritesObject* m_spritestest;
 public:
     GameScene(E_GAME_STATE* State);
     ~GameScene();

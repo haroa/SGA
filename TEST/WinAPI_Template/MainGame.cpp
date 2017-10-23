@@ -22,7 +22,7 @@ void MainGame::Start()
 void MainGame::Update()
 {
     GameNode::Update();
-	switch (m_Gamestate)
+	switch (m_gamestate)
 	{
 	case GAME_READY:	
 		SystemControl();
@@ -41,7 +41,7 @@ void MainGame::Update()
 void MainGame::Render()
 {
     PatBlt(g_hDC, 0, 0, W_WIDTH, W_HEIGHT, BLACKNESS);
-	switch (m_Gamestate)
+	switch (m_gamestate)
 	{
 	case GAME_READY:
 		g_pScnManager->Render("lobby");
@@ -78,11 +78,11 @@ void MainGame::LoadSoundResources()
 
 void MainGame::SetupScene()
 {
-	m_LobbyScene = new LobbyScene(&m_Gamestate);
-	g_pScnManager->AddGameObjToScn("lobby", m_LobbyScene);
+	m_lobbyScene = new LobbyScene(&m_gamestate);
+	g_pScnManager->AddGameObjToScn("lobby", m_lobbyScene);
 
-	m_GameScene = new GameScene(&m_Gamestate);
-	g_pScnManager->AddGameObjToScn("Game", m_GameScene);
+	m_gameScene = new GameScene(&m_Gamestate);
+	g_pScnManager->AddGameObjToScn("Game", m_gameScene);
 }
 
 void MainGame::SystemControl()

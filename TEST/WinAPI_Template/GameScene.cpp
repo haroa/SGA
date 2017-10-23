@@ -25,18 +25,18 @@ void GameScene::Render()
    // sprintf_s(infoMsg, "");
    // TextOut(g_hDC, 0, 30, infoMsg, (int)strlen(infoMsg));
 #endif // _DEBUG
-	m_f->Render();
+	m_spritestest->Render();
 
 }
 
 void GameScene::Setup()
 {
-	m_f = new SpritesObject;
-	m_f->SetBodyImg(g_pImgManager->FindImage("Game"));
-	m_f->SetupForSprites(1, 1);
-	m_f->SetBodyPos({ W_WIDTH * 0.5f,W_HEIGHT * 0.5f });
-	m_f->SetBodySize({ 100,100 });
-	m_f->SetBodyRect(g_pDrawHelper->MakeRect(m_f->GetPos(), m_f->GetSize()));
+	m_spritestest = new SpritesObject;
+	m_spritestest->SetBodyImg(g_pImgManager->FindImage("Game"));
+	m_spritestest->SetupForSprites(1, 1);
+	m_spritestest->SetBodyPos({ W_WIDTH * 0.5f,W_HEIGHT * 0.5f });
+	m_spritestest->SetBodySize({ 100,100 });
+	m_spritestest->SetBodyRect(g_pDrawHelper->MakeRect(m_spritestest->GetPos(), m_spritestest->GetSize()));
 }
 
 void GameScene::LoadImageResources()
