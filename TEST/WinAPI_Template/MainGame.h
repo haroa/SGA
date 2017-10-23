@@ -26,5 +26,6 @@ public:
     void LoadAllResources();
     void LoadImageResources();
     void LoadSoundResources();
+	void SetupScene();
 	void SystemControl();
 };

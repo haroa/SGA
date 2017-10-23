@@ -15,7 +15,7 @@ MainGame::~MainGame()
 void MainGame::Start()
 {
 
-
+	SetupScene();
 
 }
 
@@ -24,14 +24,12 @@ void MainGame::Update()
     GameNode::Update();
 	switch (m_Gamestate)
 	{
-	case GAME_READY:
-		m_LobbyScene = new LobbyScene(NULL);
-		g_pScnManager->AddGameObjToScn("lobby", m_LobbyScene);
+	case GAME_READY:	
 		SystemControl();
 		break;
 	case GAME_PLAYING:
-		m_GameScene = new GameScene(NULL);
-		g_pScnManager->AddGameObjToScn("Game", m_GameScene);
+		
+		
 		break;
 	case GAME_PAUSE:
 		break;
@@ -78,6 +76,15 @@ void MainGame::LoadImageResources()
 
 void MainGame::LoadSoundResources()
 {
+}
+
+void MainGame::SetupScene()
+{
+	m_LobbyScene = new LobbyScene(NULL);
+	g_pScnManager->AddGameObjToScn("lobby", m_LobbyScene);
+
+	m_GameScene = new GameScene(NULL);
+	g_pScnManager->AddGameObjToScn("Game", m_GameScene);
 }
 
 void MainGame::SystemControl()
