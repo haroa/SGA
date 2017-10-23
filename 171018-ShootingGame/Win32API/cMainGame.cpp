@@ -8,6 +8,7 @@ cMainGame::cMainGame()
 	m_nBossShotDelay = 20;
 	m_nPlayerShotDelay = 5;
 	m_BulletCount = 0;
+	m_nScore = 0;
 	m_fBossRate = m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp();
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
@@ -29,6 +30,7 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Right1", "images/turretright1.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Right2", "images/turretright2.bmp", 32, 32, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Start", "images/Start.bmp", 700, 1000, true, RGB(255, 0, 255));
+	g_pImageManager2->AddImage("Score", "images/Score.bmp", 500, 50);
 }
 
 cMainGame::~cMainGame()
@@ -164,12 +166,15 @@ void cMainGame::Render()
 		TurretLeft2Render();
 		TurretRight1Render();
 		RenderItem();
+		ScoreRender();
 		break;
 	case GAME_OVER:
 		GameOverRender();
+		ScoreRender();
 		break;
 	case GAME_CLEAR:
 		GameClearRender();
+		ScoreRender();
 		break;
 	default:
 		break;
@@ -183,6 +188,12 @@ void cMainGame::Reset()
 	m_cBoss.Setup();
 	m_cStart.Setup();
 	m_cMap.Setup();
+	m_cSpritesObject = new SpritesObject;
+	m_cSpritesObject->SetBodyImg(g_pImageManager2->FindImage("Score"));
+	m_cSpritesObject->SetupForSprites(10, 1);
+	m_cSpritesObject->SetBodySize({ 50,50 });
+	m_cSpritesObject->SetBodyPos({ WINSIZEX - 50,100.0f });
+	m_nScore = 0;
 }
 
 void cMainGame::GameStartRender()
@@ -257,8 +268,8 @@ void cMainGame::AllRender()
 	//
 	//sprintf_s(str, "¿À¸¥ÂÊ1 ÃÑ¾Ë : %d   ¿À¸¥ÂÊ2 ÃÑ¾Ë : %d", m_veccTbulletRight1.size(), m_veccTbulletRight2.size());
 	//TextOut(g_hDC, 10, 130, str, strlen(str));
-	sprintf_s(str, "¾ÆÀÌÅÛ¸ÔÀºÈ½¼ö : %d", m_BulletCount);
-	TextOut(g_hDC, 10, 10, str, strlen(str));
+	//sprintf_s(str, "¾ÆÀÌÅÛ¸ÔÀºÈ½¼ö : %d", m_BulletCount);
+	//TextOut(g_hDC, 10, 10, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -451,6 +462,7 @@ void cMainGame::HitPlayerBulletBoss()
 		RECT HITBOSSFACE;
 		if (IntersectRect(&HITBOSSFACE, &iter->GetBody(),&m_cBoss.GetHitPoint()))
 		{
+			m_nScore += 100;
 			m_cBoss.SetHitPointHp(m_cBoss.GetHitPointHp() - iter->GetBulletDmg());
 			iter = m_veccpBullet.erase(iter);
 		}
@@ -469,24 +481,28 @@ void cMainGame::HitPlayerBulletTurret()
 		if (IntersectRect(&HITTURRET, &m_cBoss.GetTurret()->GetBodyLeft1(), &iter->GetBody()))
 		{
 			//m_cTurret.SetHpLeft1(m_cTurret.GetHpLeft1() - iter->GetBulletDmg());
+			m_nScore += 100;
 			m_cBoss.GetTurret()->SetHpLeft1(m_cBoss.GetTurret()->GetHpLeft1() - iter->GetBulletDmg());
 			iter = m_veccpBullet.erase(iter);
 		}
 		else if (IntersectRect(&HITTURRET, &m_cBoss.GetTurret()->GetBodyLeft2(), &iter->GetBody()))
 		{
 			//m_cTurret.SetHpLeft2(m_cTurret.GetHpLeft2() - iter->GetBulletDmg());
+			m_nScore += 100;
 			m_cBoss.GetTurret()->SetHpLeft2(m_cBoss.GetTurret()->GetHpLeft2() - iter->GetBulletDmg());
 			iter = m_veccpBullet.erase(iter);
 		}
 		else if (IntersectRect(&HITTURRET, &m_cBoss.GetTurret()->GetBodyRight1(), &iter->GetBody()))
 		{
 			//m_cTurret.SetHpRight1(m_cTurret.GetHpRight1() - iter->GetBulletDmg());
+			m_nScore += 100;
 			m_cBoss.GetTurret()->SetHpRight1(m_cBoss.GetTurret()->GetHpRight1() - iter->GetBulletDmg());
 			iter = m_veccpBullet.erase(iter);
 		}
 		else if (IntersectRect(&HITTURRET, &m_cBoss.GetTurret()->GetBodyRight2(), &iter->GetBody()))
 		{
 			//m_cTurret.SetHpRight2(m_cTurret.GetHpRight2() - iter->GetBulletDmg());
+			m_nScore += 100;
 			m_cBoss.GetTurret()->SetHpRight2(m_cBoss.GetTurret()->GetHpRight2() - iter->GetBulletDmg());
 			iter = m_veccpBullet.erase(iter);
 		}
@@ -887,4 +903,9 @@ void cMainGame::ItemAndPlayerHit()
 		}
 
 	}
+}
+
+void cMainGame::ScoreRender()
+{
+	m_cSpritesObject->GetSpritesImg()->SpritesRender(g_hDC, m_cSpritesObject->GetPos(), m_cSpritesObject->GetSize(), m_nScore);
 }

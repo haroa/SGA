@@ -1,7 +1,8 @@
 #pragma once
-#include "cGameobject.h"
+#include "SpritesObject.h"
 
-class cScore:public cGameobject
+
+class cScore:public SpritesObject
 {
 public:
 	cScore();

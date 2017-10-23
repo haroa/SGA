@@ -51,6 +51,8 @@ using namespace std;
 #include "cImageManager.h"
 #include "cTimerManager.h"
 #include "DataStructure.h"
+#include "ImageManager.h"
+#include "DrawHelper.h"
 
 //==================================================================
 //		## 전역변수 ##

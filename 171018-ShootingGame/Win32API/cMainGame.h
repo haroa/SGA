@@ -13,6 +13,7 @@
 #include "cTbulletRight2.h"
 #include "cStart.h"
 #include "cItem.h"
+#include "SpritesObject.h"
 
 
 enum E_GAME
@@ -30,6 +31,7 @@ private:
 	cProgressBar				m_cProgressBar;
 	cMap						m_cMap;
 	cStart						m_cStart;
+	SpritesObject*						m_cSpritesObject;
 	vector<cItem>						m_veccItem;
 	vector<cTbulletLeft1>				m_veccTbulletLeft1;
 	vector<cTbulletLeft2>				m_veccTbulletLeft2;
@@ -40,6 +42,7 @@ private:
 
 	int							m_nBossShotDelay;
 	int							m_nPlayerShotDelay;
+	int							m_nScore;
 	float						m_fNowBossHp;
 	float						m_fSaveBossHp;
 	float						m_fBossRate;
@@ -106,4 +109,5 @@ public:
 	void MoveItem();
 	void RenderItem();
 	void ItemAndPlayerHit();
+	void ScoreRender();
 };

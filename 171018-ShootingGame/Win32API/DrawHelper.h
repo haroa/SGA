@@ -2,6 +2,8 @@
 #include "EnumState.h"
 #include "cSingletonBase.h"
 
+#define g_pDrawHelper DrawHelper::GetInstance()
+
 struct tagTextBoxInfo
 {
     bool    IsVisibleBox;

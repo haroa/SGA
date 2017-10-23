@@ -13,8 +13,6 @@ cScore::~cScore()
 
 void cScore::Setup()
 {
-	m_nSizeW = 50;
-	m_nSizeH = 50;
 
 }
 
