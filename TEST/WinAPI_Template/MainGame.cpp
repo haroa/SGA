@@ -27,9 +27,7 @@ void MainGame::Update()
 	case GAME_READY:	
 		SystemControl();
 		break;
-	case GAME_PLAYING:
-		
-		
+	case GAME_PLAYING:	
 		break;
 	case GAME_PAUSE:
 		break;
@@ -80,10 +78,10 @@ void MainGame::LoadSoundResources()
 
 void MainGame::SetupScene()
 {
-	m_LobbyScene = new LobbyScene(NULL);
+	m_LobbyScene = new LobbyScene(&m_Gamestate);
 	g_pScnManager->AddGameObjToScn("lobby", m_LobbyScene);
 
-	m_GameScene = new GameScene(NULL);
+	m_GameScene = new GameScene(&m_Gamestate);
 	g_pScnManager->AddGameObjToScn("Game", m_GameScene);
 }
 
