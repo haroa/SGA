@@ -1,15 +1,12 @@
 #pragma once
 #include "cGameobject.h"
-
-
-class cPlayerBomb:public cGameobject
+class cItem:public cGameobject
 {
 private:
-
-
+	int RandX;
 public:
-	cPlayerBomb();
-	~cPlayerBomb();
+	cItem();
+	~cItem();
 
 	void Setup();
 	void Update();

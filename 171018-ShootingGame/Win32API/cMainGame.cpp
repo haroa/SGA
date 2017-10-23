@@ -124,6 +124,15 @@ void cMainGame::Update()
 		TurretRight2Erase();
 		TurretRight1ActiveFlase();
 		TurretRight1Erase();
+		g_pTimerManager->AddSimpleTimer("Item");
+		if (g_pTimerManager->TickSimpleTimer("Item") > 300)
+		{
+			g_pTimerManager->ResetSimpleTimer("Item");
+			MakeItem();
+			
+		}
+		MoveItem();
+		ItemAndPlayerHit();
 		break;
 	case GAME_OVER:
 		SystemEnter();
@@ -154,6 +163,7 @@ void cMainGame::Render()
 		TurretRight2Render();
 		TurretLeft2Render();
 		TurretRight1Render();
+		RenderItem();
 		break;
 	case GAME_OVER:
 		GameOverRender();
@@ -226,27 +236,27 @@ void cMainGame::AllRender()
 	{
 		iter->Render();
 	}
-	char str[300];
-	sprintf_s(str, "보스총알 갯수 : %d    플레총알 갯수 : %d",m_veccbBullet.size(),m_veccpBullet.size());
-	TextOut(g_hDC, 10, 10, str, strlen(str));
-
-	sprintf_s(str, "왼쪽1 체력 : %f    왼쪽2 체력 : %f", m_cBoss.GetTurret()->GetHpLeft1(), m_cBoss.GetTurret()->GetHpLeft2());
-	TextOut(g_hDC, 10, 30, str, strlen(str));
-	
-	sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cBoss.GetTurret()->GetHpRight1(), m_cBoss.GetTurret()->GetHpRight2());
-	TextOut(g_hDC, 10, 50, str, strlen(str));
-	
-	sprintf_s(str, "머리 체력 : %f    게임오버스택 : %d", m_cBoss.GetHitPointHp(),m_cBoss.GetGameOverStack());
-	TextOut(g_hDC, 10, 70, str, strlen(str));
-	
-	sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
-	TextOut(g_hDC, 10, 90, str, strlen(str));
-
-	sprintf_s(str, "왼쪽1 총알 : %d   왼쪽2 총알 : %d",m_veccTbulletLeft1.size(), m_veccTbulletLeft2.size());
-	TextOut(g_hDC, 10, 110, str, strlen(str));
-
-	sprintf_s(str, "오른쪽1 총알 : %d   오른쪽2 총알 : %d", m_veccTbulletRight1.size(), m_veccTbulletRight2.size());
-	TextOut(g_hDC, 10, 130, str, strlen(str));
+	//char str[300];
+	//sprintf_s(str, "보스총알 갯수 : %d    플레총알 갯수 : %d",m_veccbBullet.size(),m_veccpBullet.size());
+	//TextOut(g_hDC, 10, 10, str, strlen(str));
+	//
+	//sprintf_s(str, "왼쪽1 체력 : %f    왼쪽2 체력 : %f", m_cBoss.GetTurret()->GetHpLeft1(), m_cBoss.GetTurret()->GetHpLeft2());
+	//TextOut(g_hDC, 10, 30, str, strlen(str));
+	//
+	//sprintf_s(str, "오른쪽1 체력 : %f    오른쪽2 체력 : %f", m_cBoss.GetTurret()->GetHpRight1(), m_cBoss.GetTurret()->GetHpRight2());
+	//TextOut(g_hDC, 10, 50, str, strlen(str));
+	//
+	//sprintf_s(str, "머리 체력 : %f    게임오버스택 : %d", m_cBoss.GetHitPointHp(),m_cBoss.GetGameOverStack());
+	//TextOut(g_hDC, 10, 70, str, strlen(str));
+	//
+	//sprintf_s(str, "전체 체력 : %f   비율 : %f",m_cBoss.GetNowBossHp(),m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp());
+	//TextOut(g_hDC, 10, 90, str, strlen(str));
+	//
+	//sprintf_s(str, "왼쪽1 총알 : %d   왼쪽2 총알 : %d",m_veccTbulletLeft1.size(), m_veccTbulletLeft2.size());
+	//TextOut(g_hDC, 10, 110, str, strlen(str));
+	//
+	//sprintf_s(str, "오른쪽1 총알 : %d   오른쪽2 총알 : %d", m_veccTbulletRight1.size(), m_veccTbulletRight2.size());
+	//TextOut(g_hDC, 10, 130, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -497,20 +507,21 @@ void cMainGame::TurretLeft1MakeBullet()
 	m_veccTbulletLeft1.push_back(Left1);
 
 	Left1.SetDestX(Left1.GetDestX() + 200);
-
-
+	
+	
 	m_veccTbulletLeft1.push_back(Left1);
-
+	
 	Left1.SetDestX(Left1.GetDestX() + 200);
-
+	
 	m_veccTbulletLeft1.push_back(Left1);
-
+	
 	Left1.SetDestX(Left1.GetDestX() -600);
-
+	
 	m_veccTbulletLeft1.push_back(Left1);
-
+	
 	Left1.SetDestX(Left1.GetDestX() - 200);
-
+	
+	
 	m_veccTbulletLeft1.push_back(Left1);
 }
 
@@ -635,6 +646,7 @@ void cMainGame::TurretLeft2Render()
 	}
 }
 //=====================================================================================
+
 //오른쪽1==============================================================================
 void cMainGame::TurretRight1MakeBullet()
 {
@@ -779,8 +791,6 @@ void cMainGame::TurretRight2Render()
 	}
 }
 
-
-
 //====================================================================================
 void cMainGame::PlayerMakeBomb()
 {
@@ -805,4 +815,48 @@ void cMainGame::PlayerBombErase()
 void cMainGame::PlayerBombRender()
 {
 
+}
+//===================================================================================
+
+void cMainGame::MakeItem()
+{
+	cItem Item;
+	Item.Setup();
+
+	m_veccItem.push_back(Item);
+}
+
+void cMainGame::MoveItem()
+{
+	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end(); iter++)
+	{
+		iter->Update();
+	}
+}
+void cMainGame::RenderItem()
+{
+	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end(); iter++)
+	{
+		iter->Render();
+	}
+}
+
+void cMainGame::ItemAndPlayerHit()
+{
+	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end();iter++)
+	{
+		RECT HITITEM;
+		if (IntersectRect(&HITITEM, &m_cPlayer.GetBody(), &iter->GetBody()))
+		{
+			cPbullet PlayerBullet2;
+			PlayerBullet2.SetPosX(PlayerBullet2.GetPosX() + 50);
+			
+			m_veccpBullet.push_back(PlayerBullet2);
+			
+			PlayerBullet2.SetPosX(PlayerBullet2.GetPosX() - 100);
+			
+			m_veccpBullet.push_back(PlayerBullet2);
+		}
+
+	}
 }

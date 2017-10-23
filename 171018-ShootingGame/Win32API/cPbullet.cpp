@@ -27,7 +27,7 @@ void cPbullet::Setup()
 #ifdef _DEBUG
 	m_fBulletDmg = 100.0f;
 #else
-	m_fBulletDmg = 0.5f;
+	m_fBulletDmg = 50.0f;
 #endif // _DEBUG
 
 }

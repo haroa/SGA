@@ -12,6 +12,7 @@
 #include "cTbulletRight1.h"
 #include "cTbulletRight2.h"
 #include "cStart.h"
+#include "cItem.h"
 
 
 enum E_GAME
@@ -29,6 +30,7 @@ private:
 	cProgressBar				m_cProgressBar;
 	cMap						m_cMap;
 	cStart						m_cStart;
+	vector<cItem>						m_veccItem;
 	vector<cTbulletLeft1>				m_veccTbulletLeft1;
 	vector<cTbulletLeft2>				m_veccTbulletLeft2;
 	vector<cTbulletRight1>				m_veccTbulletRight1;
@@ -98,4 +100,8 @@ public:
 	void PlayerBombActiveFalse();
 	void PlayerBombErase();
 	void PlayerBombRender();
+	void MakeItem();
+	void MoveItem();
+	void RenderItem();
+	void ItemAndPlayerHit();
 };
