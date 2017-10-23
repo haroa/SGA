@@ -44,6 +44,8 @@ private:
 	float						m_fSaveBossHp;
 	float						m_fBossRate;
 
+	int							m_BulletCount;
+
 public:
 	cMainGame();
 	~cMainGame();

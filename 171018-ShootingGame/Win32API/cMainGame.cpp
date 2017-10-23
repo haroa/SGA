@@ -7,6 +7,7 @@ cMainGame::cMainGame()
 {
 	m_nBossShotDelay = 20;
 	m_nPlayerShotDelay = 5;
+	m_BulletCount = 0;
 	m_fBossRate = m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp();
 
 	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
@@ -236,7 +237,7 @@ void cMainGame::AllRender()
 	{
 		iter->Render();
 	}
-	//char str[300];
+	char str[300];
 	//sprintf_s(str, "º¸½ºÃÑ¾Ë °¹¼ö : %d    ÇÃ·¹ÃÑ¾Ë °¹¼ö : %d",m_veccbBullet.size(),m_veccpBullet.size());
 	//TextOut(g_hDC, 10, 10, str, strlen(str));
 	//
@@ -257,6 +258,8 @@ void cMainGame::AllRender()
 	//
 	//sprintf_s(str, "¿À¸¥ÂÊ1 ÃÑ¾Ë : %d   ¿À¸¥ÂÊ2 ÃÑ¾Ë : %d", m_veccTbulletRight1.size(), m_veccTbulletRight2.size());
 	//TextOut(g_hDC, 10, 130, str, strlen(str));
+	sprintf_s(str, "¾ÆÀÌÅÛ¸ÔÀºÈ½¼ö : %d", m_BulletCount);
+	TextOut(g_hDC, 10, 10, str, strlen(str));
 }
 
 void cMainGame::ShotBossBullet()
@@ -358,11 +361,20 @@ void cMainGame::BossBulletAllErase()
 void cMainGame::PlayerMakeBullet()
 {
 	cPbullet PlayerBullet;
-
 	PlayerBullet.SetPlayer(&m_cPlayer);
 	PlayerBullet.Setup();
 
-	m_veccpBullet.push_back(PlayerBullet);
+	if (m_BulletCount == 0)
+	{
+		m_veccpBullet.push_back(PlayerBullet);
+	}
+	if (m_BulletCount == 1)
+	{
+		PlayerBullet.Setup();
+		PlayerBullet.SetPosX(PlayerBullet.GetPosX() + 10);
+		m_veccpBullet.push_back(PlayerBullet);
+	}
+	
 }
 
 void cMainGame::PlayerMoveBullet()
@@ -843,19 +855,17 @@ void cMainGame::RenderItem()
 
 void cMainGame::ItemAndPlayerHit()
 {
-	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end();iter++)
+	for (auto iter = m_veccItem.begin(); iter != m_veccItem.end();)
 	{
 		RECT HITITEM;
 		if (IntersectRect(&HITITEM, &m_cPlayer.GetBody(), &iter->GetBody()))
 		{
-			cPbullet PlayerBullet2;
-			PlayerBullet2.SetPosX(PlayerBullet2.GetPosX() + 50);
-			
-			m_veccpBullet.push_back(PlayerBullet2);
-			
-			PlayerBullet2.SetPosX(PlayerBullet2.GetPosX() - 100);
-			
-			m_veccpBullet.push_back(PlayerBullet2);
+			m_BulletCount++;
+			iter = m_veccItem.erase(iter);
+		}
+		else
+		{
+			iter++;
 		}
 
 	}
