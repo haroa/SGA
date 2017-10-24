@@ -14,6 +14,7 @@
 #include "cStart.h"
 #include "cItem.h"
 #include "SpritesObject.h"
+#include "Ranking.h"
 
 
 enum E_GAME
@@ -31,7 +32,9 @@ private:
 	cProgressBar				m_cProgressBar;
 	cMap						m_cMap;
 	cStart						m_cStart;
+	Ranking						m_Ranking;
 	SpritesObject*						m_cSpritesObject;
+	SpritesObject*						m_scoreObject;
 	vector<cItem>						m_veccItem;
 	vector<cTbulletLeft1>				m_veccTbulletLeft1;
 	vector<cTbulletLeft2>				m_veccTbulletLeft2;
@@ -39,6 +42,8 @@ private:
 	vector<cTbulletRight2>				m_veccTbulletRight2;
 	vector<cBbullet>			m_veccbBullet;
 	vector<cPbullet>			m_veccpBullet;
+	vector<string>          m_vecLeaderBoard;
+	bool					m_isNewScore;
 
 	int							m_nBossShotDelay;
 	int							m_nPlayerShotDelay;
@@ -114,4 +119,10 @@ public:
 	void Left2HitPlayer();
 	void Right1HitPlayer();
 	void Right2HitPlayer();
+	void Allimage();
+	void LoadLeaderboard();
+	void SaveLeaderboard();
+	void ClearLeaderboard();
+
+	vector<string> SortVector(vector<string> VecData);
 };

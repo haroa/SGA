@@ -5,42 +5,27 @@
 
 cMainGame::cMainGame()
 {
+	Setup();
 	m_nBossShotDelay = 20;
 	m_nPlayerShotDelay = 5;
 	m_BulletCount = 0;
 	m_nScore = 0;
 	m_fBossRate = m_cBoss.GetNowBossHp() / m_cBoss.GetAllBossHp();
-
-	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Player", "images/Player.bmp", 64,191, 1, 3, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("PlayerBullet", "images/Bullet3.bmp", 15, 31, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Gaugebg", "images/Gaugebg.bmp", 480, 50, 1, 2, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Gaugebar", "images/Gaugebar.bmp", 456, 112, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("BackGround", "images/Background.bmp",700,10000, 1, 10, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Boom", "images/Boom.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Boom2", "images/Boom2.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Boom3", "images/Boom3.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Boom4", "images/Boom4.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Boom5", "images/Boom5.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("BossBoom", "images/BossBoom.bmp", 442, 6750, 1, 15, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Left1", "images/turretleft1.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Left2", "images/turretleft2.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Right1", "images/turretright1.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Right2", "images/turretright2.bmp", 32, 32, true, RGB(255, 0, 255));
-	g_pImageManager->AddImage("Start", "images/Start.bmp", 700, 1000, true, RGB(255, 0, 255));
-	g_pImageManager2->AddImage("Score", "images/Score.bmp", 500, 50);
+	Allimage();
+	m_isNewScore = true;
+	
 }
 
 cMainGame::~cMainGame()
 {
 	g_pTimerManager->DeleteTimerAll();
+
+	SaveLeaderboard();
 }
 
 void cMainGame::Setup()
 {
-	
+	LoadLeaderboard();
 }
 
 void cMainGame::Update()
@@ -130,7 +115,7 @@ void cMainGame::Update()
 		TurretRight1ActiveFlase();
 		TurretRight1Erase();
 		g_pTimerManager->AddSimpleTimer("Item");
-		if (g_pTimerManager->TickSimpleTimer("Item") > 300)
+		if (g_pTimerManager->TickSimpleTimer("Item") > 100)
 		{
 			g_pTimerManager->ResetSimpleTimer("Item");
 			MakeItem();
@@ -149,6 +134,7 @@ void cMainGame::Update()
 	case GAME_CLEAR:
 		SystemEnter();
 		BossBulletAllErase();
+		ClearLeaderboard();
 		break;
 	}
 
@@ -179,8 +165,8 @@ void cMainGame::Render()
 		ScoreRender();
 		break;
 	case GAME_CLEAR:
+		m_Ranking.Render();
 		GameClearRender();
-		ScoreRender();
 		break;
 	default:
 		break;
@@ -199,7 +185,13 @@ void cMainGame::Reset()
 	m_cSpritesObject->SetupForSprites(10, 1);
 	m_cSpritesObject->SetBodySize({ 50,50 });
 	m_cSpritesObject->SetBodyPos({ WINSIZEX - 50,100.0f });
+	m_scoreObject = new SpritesObject;
+	m_scoreObject->SetBodyImg(g_pImageManager2->FindImage("Score2"));
+	m_scoreObject->Setup(UnitPos{ WINSIZEX * 0.5f,600.0f }, UnitSize{ WINSIZEX,200 });
+	m_scoreObject->SetBodyRect(g_pDrawHelper->MakeRect(m_scoreObject->GetPos(), m_scoreObject->GetSize()));
+	m_scoreObject->SetupForSprites(10, 1);
 	m_nScore = 0;
+	m_Ranking.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -595,9 +587,22 @@ void cMainGame::GameClear()
 
 void cMainGame::GameClearRender()
 {
-	char str[128];
-	sprintf_s(str, "게임 클리어!", "게임 클리어!");
-	TextOut(g_hDC, WINSIZEX / 2, WINSIZEY / 2, str, strlen(str));
+	if (m_vecLeaderBoard.size() != 0)
+	{
+		int rowCount = 0;
+			for (auto iter = m_vecLeaderBoard.begin(); iter != m_vecLeaderBoard.end(); iter++)
+			{
+				int printNumber = atoi(iter->c_str());
+				m_scoreObject->GetSpritesImg()->SpritesRender(g_hDC
+					, UnitPos{ (WINSIZEX * 0.5f) + 120.0f, (WINSIZEY * 0.5f) + 30.0f + rowCount * 65 }
+					, UnitSize{ 50, 50 }
+				, printNumber);
+				rowCount++;
+			}
+		
+	
+		
+	}
 }
 
 
@@ -967,6 +972,7 @@ void cMainGame::ItemAndPlayerHit()
 		if (IntersectRect(&HITITEM, &m_cPlayer.GetBody(), &iter->GetBody()))
 		{
 			m_BulletCount++;
+			m_nScore += 100;
 			iter = m_veccItem.erase(iter);
 		}
 		else
@@ -1028,4 +1034,90 @@ void cMainGame::Right2HitPlayer()
 		//	m_GameState = GAME_OVER;
 		}
 	}
+}
+
+void cMainGame::Allimage()
+{
+	g_pImageManager->AddImage("Boss", "images/Boss.bmp", 464, 356, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Bullet1", "images/Bullet1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Bullet2", "images/Bullet2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Player", "images/Player.bmp", 64, 191, 1, 3, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("PlayerBullet", "images/Bullet3.bmp", 15, 31, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Gaugebg", "images/Gaugebg.bmp", 480, 50, 1, 2, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Gaugebar", "images/Gaugebar.bmp", 456, 112, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("BackGround", "images/Background.bmp", 700, 10000, 1, 10, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom", "images/Boom.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom2", "images/Boom2.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom3", "images/Boom3.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom4", "images/Boom4.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Boom5", "images/Boom5.bmp", 53, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("BossBoom", "images/BossBoom.bmp", 442, 6750, 1, 15, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Left1", "images/turretleft1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Left2", "images/turretleft2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Right1", "images/turretright1.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Right2", "images/turretright2.bmp", 32, 32, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Start", "images/Start.bmp", 700, 1000, true, RGB(255, 0, 255));
+	g_pImageManager2->AddImage("Score", "images/Score.bmp", 500, 50);
+	g_pImageManager2->AddImage("Score2", "images/Score.bmp", 500, 50);
+	g_pImageManager->AddImage("Ranking", "images/Ranking.bmp", 700, 1000, true, RGB(255, 0, 255));
+}
+
+void cMainGame::LoadLeaderboard()
+{
+	m_vecLeaderBoard = g_pFileDataManager->txtLoad("Score.txt");
+}
+
+void cMainGame::SaveLeaderboard()
+{
+	g_pFileDataManager->txtSave("Score.txt", m_vecLeaderBoard);
+}
+
+void cMainGame::ClearLeaderboard()
+{
+	if (m_isNewScore)
+	{
+		char szTemp[128];
+		m_vecLeaderBoard.push_back(itoa(m_nScore, szTemp, 10));
+		m_vecLeaderBoard = SortVector(m_vecLeaderBoard);
+		m_isNewScore = false;
+	}
+}
+
+vector<string> cMainGame::SortVector(vector<string> VecData)
+{
+	bool isExchange = false;
+
+	for (int i = 0; i < VecData.size(); i++)
+	{
+		for (int j = 1; j < VecData.size(); j++)
+		{
+			if (atoi(VecData[j - 1].c_str()) < atoi(VecData[j].c_str()))
+			{
+				string temp = VecData[j - 1];
+				VecData[j - 1] = VecData[j];
+				VecData[j] = temp;
+
+				isExchange = true;
+			}
+		}
+		if (!isExchange)
+		{
+			break;
+		}
+	}
+	while (true)
+	{
+		if (VecData.size() == 5)
+		{
+			break;
+		}
+		else if (VecData.size() > 5)
+		{
+			VecData.pop_back();
+		}
+
+	}
+
+
+	return VecData;
 }

@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="cBoss.h" />
     <ClInclude Include="cBbullet.h" />
+    <ClInclude Include="cFileDataManager.h" />
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cGameobject.h" />
     <ClInclude Include="cImage.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="MacroUtility.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SpritesObject.h" />
     <ClInclude Include="stdafx.h" />
@@ -177,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="cBoss.cpp" />
     <ClCompile Include="cBbullet.cpp" />
+    <ClCompile Include="cFileDataManager.cpp" />
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cGameobject.cpp" />
     <ClCompile Include="cImage.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="ImageObject.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="SpritesObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

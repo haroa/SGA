@@ -141,6 +141,12 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClInclude>
+    <ClInclude Include="cFileDataManager.h">
+      <Filter>GameFramework2D\2. 매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -229,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
+    </ClCompile>
+    <ClCompile Include="cFileDataManager.cpp">
+      <Filter>GameFramework2D\2. 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

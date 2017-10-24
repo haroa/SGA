@@ -348,7 +348,14 @@ void ImageObject::SpritesRender(HDC hdc, UnitPos RightEndPos, UnitSize EachSize,
 {
 	int tempScore = Number;
 	UnitPos renderPos = RightEndPos;
-
+	//1234
+	//4
+	//123
+	//34
+	//12
+	//234
+	//1
+	//1234
 	while (tempScore != 0)
 	{
 		int printNumber = tempScore % 10;

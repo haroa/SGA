@@ -53,6 +53,7 @@ using namespace std;
 #include "DataStructure.h"
 #include "ImageManager.h"
 #include "DrawHelper.h"
+#include "cFileDataManager.h"
 
 //==================================================================
 //		## 전역변수 ##
