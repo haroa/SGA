@@ -34,6 +34,9 @@
     <Filter Include="GameFramework2D\100-Source">
       <UniqueIdentifier>{29244c4a-56cb-4285-8ecf-433ab4b5b5e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework2D\999-ExtLibs">
+      <UniqueIdentifier>{2b31ca71-e104-49d2-88c0-0f624ee90219}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -126,9 +129,6 @@
     <ClInclude Include="MapObject.h">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ProgressBarObject.h">
-      <Filter>GameFramework2D\000-Objects</Filter>
-    </ClInclude>
     <ClInclude Include="ProjectileObject.h">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClInclude>
@@ -136,6 +136,21 @@
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClInclude>
     <ClInclude Include="SpritesObject.h">
+      <Filter>GameFramework2D\000-Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>GameFramework2D\002-Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationHelper.h">
+      <Filter>GameFramework2D\003-Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDataManager.h">
+      <Filter>GameFramework2D\002-Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>GameFramework2D\999-ExtLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBarObject.h">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -212,9 +227,6 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ProgressBarObject.cpp">
-      <Filter>GameFramework2D\000-Objects</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectileObject.cpp">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClCompile>
@@ -222,6 +234,18 @@
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClCompile>
     <ClCompile Include="SpritesObject.cpp">
+      <Filter>GameFramework2D\000-Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>GameFramework2D\002-Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationHelper.cpp">
+      <Filter>GameFramework2D\003-Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDataManager.cpp">
+      <Filter>GameFramework2D\002-Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBarObject.cpp">
       <Filter>GameFramework2D\000-Objects</Filter>
     </ClCompile>
   </ItemGroup>

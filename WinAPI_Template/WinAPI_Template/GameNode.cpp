@@ -43,18 +43,10 @@ LRESULT GameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_TIMER:
         this->Update();
         break;
-    case WM_KEYDOWN:
-        switch (wParam)
-        {
-        case VK_ESCAPE:
-            PostQuitMessage(0);
-            break;
-        }
-        break;
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         this->Render();
-        this->GetBackbuffer()->Render(hdc);
+        this->GetBackbuffer()->FastRender(hdc);
         EndPaint(hWnd, &ps);
         break;
     case WM_MOUSEMOVE:

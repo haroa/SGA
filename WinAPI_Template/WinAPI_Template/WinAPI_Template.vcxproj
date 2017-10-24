@@ -134,6 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,12 +147,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationHelper.h" />
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="DataStructure.h" />
     <ClInclude Include="DrawHelper.h" />
+    <ClInclude Include="FileDataManager.h" />
     <ClInclude Include="GameoverScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="MapObject.h" />
@@ -173,6 +177,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SingletonBase.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="SpritesObject.h" />
     <ClInclude Include="stdafx.h" />
@@ -181,8 +186,10 @@
     <ClInclude Include="WinAPITemplate.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationHelper.cpp" />
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="DrawHelper.cpp" />
+    <ClCompile Include="FileDataManager.cpp" />
     <ClCompile Include="GameoverScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -204,6 +211,7 @@
     <ClCompile Include="RandomHelper.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="SpritesObject.cpp" />
     <ClCompile Include="stdafx.cpp">

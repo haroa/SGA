@@ -2,6 +2,7 @@
 #include "SingletonBase.h"
 #include "GameObject.h"
 
+#define g_pPhxsHelper PhysicsHelper::GetInstance()
 #define _PERFECTLY_ELASTIC_COLLISION
 
 #ifdef _PERFECTLY_ELASTIC_COLLISION             //  완전탄성충돌
@@ -16,10 +17,6 @@ class PhysicsHelper : public SingletonBase<PhysicsHelper>
 {
 public:
     bool    IsCollision(GameObject* Unit1, GameObject* Unit2);
-
-    template <class T>
-    void BoxCollider(T VecUnit1, vector<T> VecUnit2, int DmgDeal1, int DmgDeal2);
-
-    template <class T>
-    void    BoxCollider(vector<T> VecUnit1, vector<T> VecUnit2, int DmgDeal1, int DmgDeal2);
+    void    BoxCollider(GameObject* Unit1, vector<GameObject>* VecUnit2, int DmgDeal1, int DmgDeal2);
+    void    BoxCollider(vector<GameObject>* VecUnit1, vector<GameObject>* VecUnit2, int DmgDeal1, int DmgDeal2);
 };
