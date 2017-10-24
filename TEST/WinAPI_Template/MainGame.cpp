@@ -40,7 +40,7 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-    PatBlt(g_hDC, 0, 0, W_WIDTH, W_HEIGHT, BLACKNESS);
+    PatBlt(g_hDC, 0, 0, W_WIDTH, W_HEIGHT, WHITENESS);
 	switch (m_gamestate)
 	{
 	case GAME_READY:
@@ -81,7 +81,7 @@ void MainGame::SetupScene()
 	m_lobbyScene = new LobbyScene(&m_gamestate);
 	g_pScnManager->AddGameObjToScn("lobby", m_lobbyScene);
 
-	m_gameScene = new GameScene(&m_Gamestate);
+	m_gameScene = new GameScene(&m_gamestate);
 	g_pScnManager->AddGameObjToScn("Game", m_gameScene);
 }
 
@@ -89,10 +89,10 @@ void MainGame::SystemControl()
 {
 	if (g_pKeyManager->isStayKeyDown(VK_RETURN))
 	{
-		switch (m_Gamestate)
+		switch (m_gamestate)
 		{
 		case GAME_READY:
-			m_Gamestate = GAME_PLAYING;
+			m_gamestate = GAME_PLAYING;
 			break;
 		case GAME_PLAYING:
 			break;
