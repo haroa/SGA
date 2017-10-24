@@ -3,8 +3,7 @@
 
 
 cMainGame::cMainGame()
-	: m_isPlaying(false)
-	, m_fJumpPower(-10.0f)
+	: m_fJumpPower(-10.0f)
 	, m_fCurrGravity(0.0f)
 	, m_isJumppinig(false)
 	, m_fbgPosX(0.0f)
