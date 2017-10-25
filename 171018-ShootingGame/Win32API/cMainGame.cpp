@@ -339,7 +339,7 @@ void cMainGame::HitBossBulletPlayer()
 		RECT rt;
 		if (IntersectRect(&rt, &m_cPlayer.GetHitPoint(), &iter->GetBody()))
 		{
-			//m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -995,7 +995,7 @@ void cMainGame::Left1HitPlayer()
 		RECT rt2;
 		if (IntersectRect(&rt2, &iter->GetBody(), &m_cPlayer.GetBody()))
 		{
-			//m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -1007,7 +1007,7 @@ void cMainGame::Left2HitPlayer()
 		RECT rt1;
 		if (IntersectRect(&rt1, &iter->GetBody(), &m_cPlayer.GetBody()))
 		{
-			//m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -1019,7 +1019,7 @@ void cMainGame::Right1HitPlayer()
 		RECT rt3;
 		if (IntersectRect(&rt3, &iter->GetBody(), &m_cPlayer.GetBody()))
 		{
-		//	m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
@@ -1031,7 +1031,7 @@ void cMainGame::Right2HitPlayer()
 		RECT rt4;
 		if (IntersectRect(&rt4, &iter->GetBody(), &m_cPlayer.GetBody()))
 		{
-		//	m_GameState = GAME_OVER;
+			m_GameState = GAME_OVER;
 		}
 	}
 }
