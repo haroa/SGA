@@ -1,12 +1,18 @@
 #pragma once
 #include "GameNode.h"
-#include "SpritesObject.h"
+
+#pragma region SCENE
+#include "GameScene.h"
+#pragma endregion
 
 class MainGame : public GameNode
 {
 //=======================================================
 //  VARIABLES
 private:
+    E_GAME_STATE    m_gameState;
+    GameScene*      m_scnGame;
+
 //=======================================================
 //  FUNCTIONS
 private:

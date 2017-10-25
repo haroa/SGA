@@ -4,6 +4,7 @@
 //
 
 #pragma once
+#pragma comment(linker,"/entry:wWinMainCRTStartup /subsystem:console")
 
 #include "targetver.h"
 
@@ -61,6 +62,7 @@ using namespace std;
 #include "LogManager.h"
 #include "SceneManager.h"
 #include "TimerManager.h"
+#include "PixelCollision.h"
 
 
 //==================================================================
