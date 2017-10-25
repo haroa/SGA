@@ -3,6 +3,9 @@
 
 class Player:public SpritesObject
 {
+private:
+	GameObject  m_gameObj;
+	int			m_playerState;
 public:
 	Player();
 	~Player();
