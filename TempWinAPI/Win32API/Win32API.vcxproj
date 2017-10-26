@@ -138,13 +138,20 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cFileDataManager.h" />
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cGameobject.h" />
+    <ClInclude Include="cGameScene.h" />
     <ClInclude Include="cImage.h" />
     <ClInclude Include="cImageManager.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMap.h" />
+    <ClInclude Include="cPixelCollision.h" />
+    <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cSingletonBase.h" />
+    <ClInclude Include="cTimerManager.h" />
     <ClInclude Include="MacroUtility.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -152,12 +159,19 @@
     <ClInclude Include="Win32API.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cFileDataManager.cpp" />
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cGameobject.cpp" />
+    <ClCompile Include="cGameScene.cpp" />
     <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cImageManager.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMap.cpp" />
+    <ClCompile Include="cPixelCollision.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cProgressBar.cpp" />
+    <ClCompile Include="cTimerManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

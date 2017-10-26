@@ -21,6 +21,7 @@ protected:
 public:
 	
 #pragma region GET
+	cImage* GetImg() { return m_pImage; }
 	float GetPosX() { return m_fPosX; }
 	float GetPosY() { return m_fPosY; }
 	float GetSpeedX() { return m_fSpeedX; }
@@ -34,6 +35,7 @@ public:
 
 
 #pragma region Set
+	void SetImg(cImage* Image) { m_pImage = Image; }
 	void SetPosX(float X) { m_fPosX = X; }
 	void SetPosY(float Y) { m_fPosY = Y; }
 	void SetSpeedX(float X) { m_fSpeedX = X; }

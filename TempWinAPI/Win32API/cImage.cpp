@@ -58,7 +58,7 @@ void cImage::Setup(int width, int height)
 }
 
 // 이미지 파일 셋업
-void cImage::Setup(const char * fileName, int width, int height, bool isTrans, COLORREF transColor)
+void cImage::Setup(const char* fileName, int width, int height, bool isTrans, COLORREF transColor)
 {
 	// DC 가져오기
 	HDC hdc = GetDC(g_hWnd);
@@ -74,6 +74,8 @@ void cImage::Setup(const char * fileName, int width, int height, bool isTrans, C
 	m_pImageInfo->nHeight = height;
 	m_pImageInfo->nFrameWidth = width;
 	m_pImageInfo->nFrameHeight = height;
+
+	assert(m_pImageInfo->hBit && "이미지 파일을 읽어오지 못 했다.");
 
 	// 파일 이름
 	int len = strlen(fileName);
@@ -107,6 +109,8 @@ void cImage::Setup(const char * fileName, int width, int height, int frameX, int
 	m_pImageInfo->nMaxFrameY = frameY - 1;
 	m_pImageInfo->nFrameWidth = width / frameX;
 	m_pImageInfo->nFrameHeight = height / frameY;
+
+	assert(m_pImageInfo->hBit && "프레임 이미지 파일을 읽어오지 못 했다.");
 
 	// 파일 이름
 	int len = strlen(fileName);
@@ -142,6 +146,8 @@ void cImage::Setup(const char * fileName, int width, int height, int frameX, int
 	m_pImageInfo->nFrameHeight = height / frameY;
 	m_pImageInfo->fPosX = x - width / frameX / 2.0f;
 	m_pImageInfo->fPosY = y - height / frameY / 2.0f;
+
+	assert(m_pImageInfo->hBit && "프레임 이미지 파일을 읽어오지 못 했다.");
 
 	// 파일 이름
 	int len = strlen(fileName);
@@ -244,8 +250,8 @@ void cImage::Render(HDC hdc, int destX, int destY, int sizeX, int sizeY)
 	// GdiTransparentBlt : 비트맵을 불러올때 특정색상을 제외하고 복사를 하는 함수
 	GdiTransparentBlt(
 		hdc,					// 복사 할 장소의 DC
-		destX - m_pImageInfo->nWidth / 2,					// 복사 될 좌표 시작 지점 X
-		destY - m_pImageInfo->nHeight / 2,					// 복사 될 좌표 시작 지점 Y
+		destX,					// 복사 될 좌표 시작 지점 X
+		destY,					// 복사 될 좌표 시작 지점 Y
 		sizeX,					// 복사 될 이미지의 가로 크기
 		sizeY,					// 복사 될 이미지의 세로 크기
 		m_pImageInfo->hMemDC,	// 복사 할 대상 DC
@@ -365,6 +371,39 @@ void cImage::FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY)
 			m_pImageInfo->nFrameHeight,	// 복사 영역 세로 크기
 			m_transColor			// 복사 할 때 제외 할 색상(투명처리)
 		);
+	}
+	else // 원본 이미지 그대로 출력
+	{
+		// BitBlt : DC간의 영역끼리 서로 고속복사를 해주는 함수
+		// 메모리DC에 그려진것을 화면DC로 고속복사를 한다
+		BitBlt(hdc, destX, destY,
+			m_pImageInfo->nFrameWidth,
+			m_pImageInfo->nFrameHeight,
+			m_pImageInfo->hMemDC,
+			sourX * m_pImageInfo->nFrameWidth,
+			sourY * m_pImageInfo->nFrameHeight,
+			SRCCOPY);
+	}
+}
+
+void cImage::FrameRender(HDC hdc, int destX, int destY,int Width, int Height, int sourX, int sourY)
+{
+	if (m_isTrans)	// 배경색을 없앨 경우
+	{
+		// GdiTransparentBlt : 비트맵을 불러올때 특정색상을 제외하고 복사를 하는 함수
+		GdiTransparentBlt(
+			hdc,					// 복사 할 장소의 DC
+			destX,					// 복사 될 좌표 시작 지점 X
+			destY,					// 복사 될 좌표 시작 지점 Y
+			Width,					// 복사 될 이미지의 가로 크기
+			Height,					// 복사 될 이미지의 세로 크기
+			m_pImageInfo->hMemDC,	// 복사 할 대상 DC
+			sourX * m_pImageInfo->nFrameWidth, // 현재 프레임의 시작지점 X
+			sourY * m_pImageInfo->nFrameHeight,// 현재 프레임의 시작지점 Y
+			m_pImageInfo->nFrameWidth,	// 복사 영역 가로 크기
+			m_pImageInfo->nFrameHeight,	// 복사 영역 세로 크기
+			m_transColor			// 복사 할 때 제외 할 색상(투명처리)
+			);
 	}
 	else // 원본 이미지 그대로 출력
 	{

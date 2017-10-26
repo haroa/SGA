@@ -3,8 +3,8 @@
 
 class cGameNode
 {
-private:
-	cImage*		m_backBuffer;
+protected:
+	cImage*		m_pImgBackBuffer;
 
 public:
 	cGameNode();
@@ -14,7 +14,5 @@ public:
 	virtual void Render() PURE;
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
-	cImage*	GetBackBuffer() { return m_backBuffer; }
 };
 

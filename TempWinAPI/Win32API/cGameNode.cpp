@@ -4,8 +4,7 @@
 
 cGameNode::cGameNode()
 {
-	m_backBuffer = new cImage;
-	m_backBuffer->Setup(WINSIZEX, WINSIZEY);
+	m_pImgBackBuffer = g_pImageManager->AddImage("BackBuffer", WINSIZEX, WINSIZEY);
 
 	g_pKeyManager->Setup();
 }
@@ -17,8 +16,6 @@ cGameNode::~cGameNode()
 
 	g_pImageManager->DeleteAll();
 	g_pImageManager->ReleaseInstance();
-
-	delete m_backBuffer;
 }
 
 void cGameNode::Update()
@@ -32,7 +29,7 @@ LRESULT cGameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	g_hDC = this->GetBackBuffer()->GetMemDC();
+	g_hDC = m_pImgBackBuffer->GetMemDC();
 
 	switch (message)
 	{
@@ -55,9 +52,9 @@ LRESULT cGameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		this->Render();
-		this->GetBackBuffer()->Render(hdc);
+		m_pImgBackBuffer->Render(hdc);
 		EndPaint(hWnd, &ps);
-	break;
+		break;
 	case WM_MOUSEMOVE:
 		g_ptMouse.x = LOWORD(lParam);
 		g_ptMouse.y = HIWORD(lParam);

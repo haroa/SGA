@@ -4,6 +4,7 @@
 //
 
 #pragma once
+#pragma comment(linker,"/entry:wWinMainCRTStartup /subsystem:console")
 
 #include "targetver.h"
 
@@ -20,6 +21,8 @@
 #include <time.h>
 #include <string.h>
 #include <map>
+#include <assert.h>
+#include <iostream>
 
 using namespace std;
 
@@ -29,8 +32,8 @@ using namespace std;
 #define WINNAME (LPCWSTR)(TEXT("코딩 지옥에 오신걸 환영 합니다."))
 #define WINSTARTX		0
 #define WINSTARTY		0
-#define WINSIZEX		1024
-#define WINSIZEY		675
+#define WINSIZEX		800
+#define WINSIZEY		600
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 #define PURE			= 0
 #define PI				3.141592654f
@@ -48,7 +51,11 @@ using namespace std;
 //		## 매니져 추가 ##
 //==================================================================
 #include "cKeyManager.h"
+#include "cImage.h"
 #include "cImageManager.h"
+#include "cFileDataManager.h"
+#include "cPixelCollision.h"
+#include "cTimerManager.h"
 
 //==================================================================
 //		## 전역변수 ##

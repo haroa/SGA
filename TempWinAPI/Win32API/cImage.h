@@ -102,6 +102,7 @@ public:
 	void FrameRender(HDC hdc, int destX, int destY, int sourX, int sourY);
 	void FrameRender(HDC hdc, int destX, int destY,
 		int sourX, int sourY, int maxX, int maxY, int delay);
+	void FrameRender(HDC hdc, int destX, int destY, int Width, int Height, int sourX, int sourY);
 
 	//==================================================================
 	//		## inline ## (인라인 함수들 - 겟터, 셋터)
@@ -125,7 +126,7 @@ public:
 	int GetMaxFrameX() { return m_pImageInfo->nMaxFrameX; }
 	int GetMaxFrameY() { return m_pImageInfo->nMaxFrameY; }
 
-	// 프레임 위치 겟터 셋터
+	// 프레임 위치 겟터 셋터 (센터 정보)
 	float GetPosX() { return m_pImageInfo->fPosX; }
 	void SetPosX(float x) { m_pImageInfo->fPosX = x; }
 	float GetPosY() { return m_pImageInfo->fPosY; }

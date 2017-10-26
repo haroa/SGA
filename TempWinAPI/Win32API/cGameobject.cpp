@@ -4,6 +4,7 @@
 
 cGameobject::cGameobject()
 {
+	m_pImage = NULL;
 	m_fPosX = WINSIZEX * 0.5f;
 	m_fPosY = WINSIZEY * 0.5f;
 	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 10, 10);

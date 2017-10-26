@@ -6,6 +6,9 @@ Player::Player()
 {
     Setup();
     m_playerState = 0;
+	m_isJumpping = false;
+	m_fjumppower = 10.0f;
+	m_fGravity = 0.0f
     g_pTimerManager->AddSimpleTimer("player-idle");
     g_pTimerManager->AddSimpleTimer("player-atk");
 }
@@ -31,23 +34,23 @@ void Player::Update()
     }
     case 1:
     {
-        SetFrameY(1);
-        if (g_pTimerManager->TickSimpleTimer("player-atk") > 10)
-        {
-            g_pTimerManager->ResetSimpleTimer("player-atk");
-            NextFrameX();
-            if (GetFrameX() > 1)
-            {
-                SetFrameX(0);
-            }
-        }
-        else
-        {
-            if (GetFrameX() > 1)
-            {
-                SetFrameX(0);
-            }
-        }
+        //SetFrameY(1);
+        //if (g_pTimerManager->TickSimpleTimer("player-atk") > 10)
+        //{
+        //    g_pTimerManager->ResetSimpleTimer("player-atk");
+        //    NextFrameX();
+        //    if (GetFrameX() > 1)
+        //    {
+        //        SetFrameX(0);
+        //    }
+        //}
+        //else
+        //{
+        //    if (GetFrameX() > 1)
+        //    {
+        //        SetFrameX(0);
+        //    }
+        //}
         break;
     }
     default:
@@ -91,21 +94,26 @@ void Player::PlayerController()
     speed.y += 10.0f;
 
     UnitPos probePos = GetPos();
-    probePos.y += GetSize().h * 0.5f;
+    probePos.y += GetSize().h * 0.5f - 20.0f;
 
     while (g_pPixelManager->CheckPixel(g_pImgManager->FindImage("land"), probePos) == false)
     {
         probePos.y -= 1.0f;
     }
     
-    probePos.y -= GetSize().h * 0.5f;
-    SetBodyPos(probePos);
-    SetBodySpeed(speed);
+	probePos.y -= GetSize().h * 0.5f - 20.0f;
+	SetBodyPos(probePos);
+	SetBodySpeed(speed);
+	//==================================================================================
 
     if (g_pKeyManager->isStayKeyDown(VK_SPACE))
     {
-        m_playerState = 1;
+		m_isJumpping = true;
     }
+	if (m_isJumpping)
+	{
+	
+	}
 
     if (g_pKeyManager->isStayKeyDown(VK_RBUTTON))
     {
