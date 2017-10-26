@@ -1,6 +1,7 @@
 #pragma once
 #include "cGameNode.h"
 #include "cGameScene.h"
+#include "cPlayer.h"
 
 
 enum E_GAME
@@ -14,6 +15,9 @@ private:
 	E_GAME				m_GameState;
 
 	cGameScene			m_cGameScene;
+	cPlayer				m_cPlayer;
+
+	cImage*				m_MiniMap;
 
 
 public:
@@ -29,4 +33,6 @@ public:
 	void SystemEnter();
 	void RepeatGame();
 	void AllRender();
+
+	void MiniMapRender();
 };

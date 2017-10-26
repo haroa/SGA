@@ -23,16 +23,13 @@ void cGameScene::Setup()
 	m_cMap.Setup();
 	m_cPlayer.Setup();
 	m_pImage = g_pImageManager->FindImage("Buffer");
-	m_MiniMap = g_pImageManager->FindImage("MiniMap");
+	m_pminiMap = g_pImageManager->FindImage("MiniMap");
 }
 
 void cGameScene::Update()
 {
 	m_cPlayer.Update();
-
-
 	PlayerController();
-
 }
 
 void cGameScene::Render()
@@ -42,11 +39,9 @@ void cGameScene::Render()
 		m_cMap.GetImg()->Render(m_pImage->GetMemDC(), 0, 0, 5500, 600);
 		m_pImage->Render(g_hDC, m_cMap.GetPosX(), m_cMap.GetPosY());
 	}
-	m_cPlayer.Render();
+	MiniMapRender();
 
-	m_cPlayer.MiniRender();
-	m_pImgBackBuffer->Render(m_MiniMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
-	m_MiniMap->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
+	m_cPlayer.Render();
 }
 
 void cGameScene::SetLanding()
@@ -98,8 +93,6 @@ void cGameScene::PlayerController()
 	{
 		//m_cPlayer.SetPosX(m_cPlayer.GetPosX() + 3);
 
-
-
 		float probeX2 = m_cPlayer.GetPosX() + m_cPlayer.GetSizeW();
 		float probeY2 = m_cPlayer.GetPosY() + m_cPlayer.GetsizeH() / 2;
 		if (g_pPixelManager->CheckPixel(m_pImage, probeX2, probeY2))
@@ -149,5 +142,12 @@ void cGameScene::PlayerController()
 				SetLanding();
 		}
 	}
+}
+
+void cGameScene::MiniMapRender()
+{
+	m_cPlayer.MiniRender();
+	m_pImgBackBuffer->Render(m_pminiMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
+	m_cMap.GetImg()->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
 }
 

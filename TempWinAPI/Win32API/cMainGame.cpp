@@ -10,6 +10,7 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Map", "images/background.bmp", 3564, 224);
 	g_pImageManager->AddImage("Player", "images/Player.bmp", 60,100, 3, 5, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Buffer", 5500, 600)->SetTransColor(true, RGB(255, 0, 255));
+	//m_MiniMap = g_pImageManager->AddImage("MiniMap", WINSIZEX / 5, WINSIZEY / 5);
 	g_pImageManager->AddImage("MiniMap", WINSIZEX / 5, WINSIZEY / 5);
 }
 
@@ -56,6 +57,10 @@ void cMainGame::Render()
 		break;
 	case GAME_PLAYING:
 		m_cGameScene.Render();
+	//	MiniMapRender();
+	//	m_cPlayer.MiniRender();
+	//	m_pImgBackBuffer->Render(m_MiniMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
+	//	m_MiniMap->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
 		break;
 	case GAME_OVER:
 		break;
@@ -109,4 +114,11 @@ void cMainGame::RepeatGame()
 void cMainGame::AllRender()
 {
 
+}
+
+void cMainGame::MiniMapRender()
+{
+	m_cPlayer.MiniRender();
+	m_pImgBackBuffer->Render(m_MiniMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
+	m_MiniMap->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
 }

@@ -42,7 +42,7 @@ void cPlayer::MiniRender()
 	HPEN hPen = (HPEN)CreatePen(0, 3, RGB(255, 0, 0));
 	HPEN hSelectPen = (HPEN)SelectObject(g_hDC, hPen);
 
-	EllipseMakeCenter(g_hDC, m_fPosX, m_fPosY, 10, 10);
+	EllipseMakeCenter(g_hDC,m_rtBody.left,m_rtBody.top, 10, 10);
 
 	DeleteObject(hSelectPen);
 	DeleteObject(hPen);

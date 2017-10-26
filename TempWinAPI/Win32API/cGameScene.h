@@ -13,7 +13,7 @@ private:
 
 	cImage*		m_pImage;
 	cImage*		m_pbuffer;
-	cImage*		m_MiniMap;
+	cImage*		m_pminiMap;
 
 	bool		m_isJumpping;
 	float		m_fJumpPower;
@@ -28,5 +28,6 @@ public:
 
 	void SetLanding();
 	void PlayerController();
+	void MiniMapRender();
 };
 
