@@ -8,9 +8,14 @@
 cMainGame::cMainGame()
 {
 	g_pImageManager->AddImage("Map", "images/background.bmp", 3564, 224);
-	g_pImageManager->AddImage("Player", "images/Player.bmp", 60,100, 3, 5, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Player", "images/Player.bmp", 60,120, 3, 6, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Buffer", 5500, 600)->SetTransColor(true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("MiniMap", 550, 60)->SetTransColor(true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Object", "images/Object.bmp", 48, 9, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("Object2", "images/Object.bmp", 48, 9, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("goomba", "images/goomba.bmp", 16,16, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("kupa", "images/kupa.bmp", 128, 32,4,1, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("fire", "images/fire.bmp", 24, 16, true, RGB(255, 0, 255));
 	Reset();
 }
 

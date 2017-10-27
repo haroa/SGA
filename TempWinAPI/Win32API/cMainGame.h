@@ -33,6 +33,4 @@ public:
 	void SystemEnter();
 	void RepeatGame();
 	void AllRender();
-
-	void MiniMapRender();
 };

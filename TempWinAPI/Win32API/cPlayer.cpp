@@ -19,15 +19,15 @@ void cPlayer::Setup()
 	m_pImage = g_pImageManager->FindImage("Player");
 	m_pMap = g_pImageManager->FindImage("Map");
 	m_fPosX = 70.0f;
-	m_fPosY = 0.0f;
-	m_nSizeW = 50.0f;
-	m_nSizeH = 60.0f;
-	m_rtBody = RectMake(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	m_fPosY = 80.0f;
+	m_nSizeW = 30.0f;
+	m_nSizeH = 40.0f;
+	m_rtBody = RectMake(m_fPosX, m_fPosY, m_nSizeW, 50);
 }
 
 void cPlayer::Update()
 {
-	m_rtBody = RectMake(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	m_rtBody = RectMake(m_fPosX, m_fPosY, m_nSizeW, 50);
 }
 
 void cPlayer::Render()

@@ -96,6 +96,9 @@
     <ClInclude Include="cTimerManager.h">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClInclude>
+    <ClInclude Include="cFire.h">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="cTimerManager.cpp">
       <Filter>GameFramework2D\2. 매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="cFire.cpp">
+      <Filter>GameFramework2D\5. 게임 소스</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
