@@ -29,5 +29,6 @@ public:
 	void SetLanding();
 	void PlayerController();
 	void MiniMapRender();
+	void PlayerMiniRender();
 };
 

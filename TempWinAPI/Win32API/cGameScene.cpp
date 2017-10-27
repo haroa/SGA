@@ -150,8 +150,20 @@ void cGameScene::PlayerController()
 
 void cGameScene::MiniMapRender()
 {
-	m_cPlayer.MiniRender();
-	m_pImgBackBuffer->Render(m_pminiMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
-	m_pminiMap->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
+	m_cMap.GetImg()->Render(m_pminiMap->GetMemDC(), 0, 0, 550,60);
+	PlayerMiniRender();
+	m_pminiMap->Render(g_hDC, 0,0,WINSIZEX,WINSIZEY / 5);
+}
+
+void cGameScene::PlayerMiniRender()
+{
+	HPEN hPen = (HPEN)CreatePen(0, 10, RGB(255, 255, 0));
+	HPEN hSelectPen = (HPEN)SelectObject(g_hDC, hPen);
+
+	EllipseMakeCenter(m_pminiMap->GetMemDC(),((m_cPlayer.GetBody().left + (m_cPlayer.GetSizeW() / 2) - m_cMap.GetPosX() ) / 10),((m_cPlayer.GetBody().top + m_cPlayer.GetsizeH() / 2) / 10), 5,5);
+	BoudingLineMake(m_pminiMap->GetMemDC(), ((0 - m_cMap.GetPosX()) / 10), 0 / 10, 60,60);
+
+	DeleteObject(hSelectPen);
+	DeleteObject(hPen);
 }
 

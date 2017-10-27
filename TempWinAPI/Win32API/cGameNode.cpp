@@ -4,7 +4,7 @@
 
 cGameNode::cGameNode()
 {
-	m_pImgBackBuffer = g_pImageManager->AddImage("BackBuffer", WINSIZEX, WINSIZEY);
+	m_pImgBackBuffer = g_pImageManager->AddImage("BackBuffer", 5500, WINSIZEY);
 
 	g_pKeyManager->Setup();
 }

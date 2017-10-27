@@ -4,6 +4,7 @@ class cPlayer:public cGameobject
 {
 private:
 	cImage* m_pBuffer;
+	cImage* m_pMap;
 public:
 	cPlayer();
 	~cPlayer();
@@ -11,7 +12,5 @@ public:
 	void Setup();
 	void Update();
 	void Render();
-
-	void MiniRender();
 };
 
