@@ -2,6 +2,8 @@
 #include "cGameobject.h"
 class cPlayer:public cGameobject
 {
+private:
+	cImage* m_pBuffer;
 public:
 	cPlayer();
 	~cPlayer();

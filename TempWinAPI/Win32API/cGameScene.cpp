@@ -17,7 +17,7 @@ cGameScene::~cGameScene()
 void cGameScene::Setup()
 {
 
-	m_fJumpPower = 13.0f;
+	m_fJumpPower = 16.0f;
 	SetLanding();
 	m_fGravity = 0.0f;
 	m_cMap.Setup();
@@ -34,13 +34,13 @@ void cGameScene::Update()
 
 void cGameScene::Render()
 {
-	if (m_cMap.GetImg() != NULL)
-	{
-		m_cMap.GetImg()->Render(m_pImage->GetMemDC(), 0, 0, 5500, 600);
-		m_pImage->Render(g_hDC, m_cMap.GetPosX(), m_cMap.GetPosY());
-	}
+	//if (m_cMap.GetImg() != NULL)
+	//{
+	//	m_cMap.GetImg()->Render(m_pImage->GetMemDC(), 0,0, 5500, 600);
+	//	m_pImage->Render(g_hDC, m_cMap.GetPosX(), m_cMap.GetPosY());
+	//}
+	m_cMap.Render();
 	MiniMapRender();
-
 	m_cPlayer.Render();
 }
 
@@ -52,8 +52,8 @@ void cGameScene::SetLanding()
 
 void cGameScene::PlayerController()
 {
-	float probeX = m_cPlayer.GetPosX() + m_cPlayer.GetSizeW() - 2.0f;
-	float probeY = m_cPlayer.GetPosY() + m_cPlayer.GetsizeH() - 2.0f;
+	float probeX = m_cPlayer.GetPosX() + m_cPlayer.GetSizeW() / 2;
+	float probeY = m_cPlayer.GetPosY() + m_cPlayer.GetsizeH();
 
 	if (g_pPixelManager->CheckPixel(m_pImage, probeX, probeY))
 		m_cPlayer.SetPosY(m_cPlayer.GetPosY() + 5);
@@ -126,10 +126,14 @@ void cGameScene::PlayerController()
 	if (!m_isJumpping && g_pKeyManager->isOnceKeyDown(VK_SPACE))
 	{
 		m_isJumpping = true;
+		m_cPlayer.GetImg()->SetFrameY(3);
+		m_cPlayer.GetImg()->SetFrameX(0);
 	}
 
 	if (m_isJumpping)
 	{
+		m_cPlayer.GetImg()->SetFrameY(3);
+		m_cPlayer.GetImg()->SetFrameX(0);
 		m_cPlayer.SetPosY(m_cPlayer.GetPosY() - m_fJumpPower + m_fGravity);
 		m_fGravity += GRAVITY;
 
@@ -148,6 +152,6 @@ void cGameScene::MiniMapRender()
 {
 	m_cPlayer.MiniRender();
 	m_pImgBackBuffer->Render(m_pminiMap->GetMemDC(), 0, 0, WINSIZEX / 5, WINSIZEY / 5);
-	m_cMap.GetImg()->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
+	m_pminiMap->Render(m_pImgBackBuffer->GetMemDC(), WINSIZEX - WINSIZEX / 5, 0);
 }
 

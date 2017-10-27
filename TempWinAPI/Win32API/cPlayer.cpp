@@ -15,6 +15,7 @@ cPlayer::~cPlayer()
 
 void cPlayer::Setup()
 {
+	m_pBuffer = g_pImageManager->FindImage("MiniMap");
 	m_pImage = g_pImageManager->FindImage("Player");
 	m_fPosX = 70.0f;
 	m_fPosY = 0.0f;
@@ -42,7 +43,7 @@ void cPlayer::MiniRender()
 	HPEN hPen = (HPEN)CreatePen(0, 3, RGB(255, 0, 0));
 	HPEN hSelectPen = (HPEN)SelectObject(g_hDC, hPen);
 
-	EllipseMakeCenter(g_hDC,m_rtBody.left,m_rtBody.top, 10, 10);
+	EllipseMakeCenter(g_hDC,m_rtBody.left + m_nSizeW / 2,m_rtBody.top + m_nSizeH / 2, 10, 10);
 
 	DeleteObject(hSelectPen);
 	DeleteObject(hPen);

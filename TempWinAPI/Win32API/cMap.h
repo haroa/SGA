@@ -4,6 +4,7 @@ class cMap:public cGameobject
 {
 private:
 	cImage* m_cminiMap;
+	cImage*	m_cBuffer;
 public:
 	cMap();
 	~cMap();

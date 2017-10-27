@@ -11,7 +11,8 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("Player", "images/Player.bmp", 60,100, 3, 5, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("Buffer", 5500, 600)->SetTransColor(true, RGB(255, 0, 255));
 	//m_MiniMap = g_pImageManager->AddImage("MiniMap", WINSIZEX / 5, WINSIZEY / 5);
-	g_pImageManager->AddImage("MiniMap", WINSIZEX / 5, WINSIZEY / 5);
+	g_pImageManager->AddImage("MiniMap", WINSIZEX, WINSIZEY / 5);
+	Reset();
 }
 
 cMainGame::~cMainGame()
