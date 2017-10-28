@@ -25,7 +25,11 @@ private:
 	bool		m_isJumpping;
 	float		m_fJumpPower;
 	float		m_fGravity;
+
+	bool		m_bPlayerDie;
 public:
+	bool GetPlayerDie() {return m_bPlayerDie;}
+
 	cGameScene();
 	~cGameScene();
 

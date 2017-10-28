@@ -16,6 +16,8 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("goomba", "images/goomba.bmp", 16,16, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("kupa", "images/kupa.bmp", 128, 32,4,1, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("fire", "images/fire.bmp", 24, 16, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("start", "images/start.bmp", 512, 432, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("over", "images/gameover.bmp", 256, 224, true, RGB(255, 0, 255));
 	Reset();
 }
 
@@ -40,8 +42,13 @@ void cMainGame::Update()
 		break;
 	case GAME_PLAYING:
 		m_cGameScene.Update();
+		if (m_cGameScene.GetPlayerDie() == true)
+		{
+			m_GameState = GAME_OVER;
+		}
 		break;
 	case GAME_OVER:
+		SystemEnter();
 		break;
 	case GAME_CLEAR:
 		break;
@@ -56,7 +63,8 @@ void cMainGame::Render()
 	switch (m_GameState)
 	{
 	case GAME_READY:
-		m_cGameScene.Render();
+		//m_cGameScene.Render();
+		m_cStartScene.Render();
 		break;
 	case GAME_COUNT:
 		break;
@@ -64,6 +72,7 @@ void cMainGame::Render()
 		m_cGameScene.Render();
 		break;
 	case GAME_OVER:
+		m_cGameOver.Render();
 		break;
 	case GAME_CLEAR:
 		break;
@@ -79,6 +88,8 @@ void cMainGame::Render()
 void cMainGame::Reset()
 {
 	m_cGameScene.Setup();
+	m_cStartScene.Setup();
+	m_cGameOver.Setup();
 }
 
 void cMainGame::GameStartRender()
@@ -100,6 +111,7 @@ void cMainGame::SystemEnter()
 		case GAME_PLAYING:
 			break;
 		case GAME_OVER:
+			m_GameState = GAME_READY;
 			break;
 		case GAME_CLEAR:
 			break;

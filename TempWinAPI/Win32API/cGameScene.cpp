@@ -29,6 +29,7 @@ void cGameScene::Setup()
 	m_pGoomba = g_pImageManager->FindImage("goomba");
 	m_pKupa = g_pImageManager->FindImage("kupa");
 	m_fire = g_pImageManager->FindImage("fire");
+	m_bPlayerDie = false;
 }
 
 void cGameScene::Update()
@@ -38,6 +39,11 @@ void cGameScene::Update()
 	m_cMap.Update();
 	m_cPlayer.Update();
 	PlayerController();
+
+	if (m_cPlayer.GetBody().bottom >= WINSIZEY)
+	{
+		m_bPlayerDie = true;
+	}
 	
 }
 
@@ -167,7 +173,6 @@ void cGameScene::MiniMapRender()
 	m_cMap.GetImg()->Render(m_pminiMap->GetMemDC(), 0, 0, 550,60);
 	m_pObject->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX() / 10, m_cMap.GetObjectY() / 10, 6, 2);
 	m_pObject2->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX2() / 10, m_cMap.GetObjectY2() / 10, 6, 2);
-	//m_goomba->FrameRender(m_cBuffer->GetMemDC(), m_goombaX + m_fPosX, m_goombaY, 100, 100, m_goomba->GetFrameX(), m_goomba->GetFrameY());
 	m_pGoomba->Render(m_pminiMap->GetMemDC(),m_cMap.GetGoombaX() / 10, m_cMap.GetGoombaY() / 10,10,10);
 	m_pKupa->FrameRender(m_pminiMap->GetMemDC(), m_cMap.GetKupaX() / 10, m_cMap.GetkupaY() / 20, 0, 0);
 	PlayerMiniRender();

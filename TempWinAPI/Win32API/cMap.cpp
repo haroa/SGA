@@ -69,6 +69,7 @@ void cMap::Update()
 		MakeFire();
 	}
 	MoveFire();
+	m_cFire.SetMapPosX(m_fPosX);
 }
 
 void cMap::Render()

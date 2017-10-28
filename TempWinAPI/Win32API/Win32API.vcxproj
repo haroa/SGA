@@ -142,6 +142,7 @@
     <ClInclude Include="cFire.h" />
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cGameobject.h" />
+    <ClInclude Include="cGameOver.h" />
     <ClInclude Include="cGameScene.h" />
     <ClInclude Include="cImage.h" />
     <ClInclude Include="cImageManager.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="cTimerManager.h" />
     <ClInclude Include="MacroUtility.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Win32API.h" />
@@ -164,6 +166,7 @@
     <ClCompile Include="cFire.cpp" />
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cGameobject.cpp" />
+    <ClCompile Include="cGameOver.cpp" />
     <ClCompile Include="cGameScene.cpp" />
     <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cImageManager.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cProgressBar.cpp" />
     <ClCompile Include="cTimerManager.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

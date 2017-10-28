@@ -26,13 +26,19 @@ void cFire::Setup()
 
 void cFire::Update()
 {
-	m_rtBody = RectMake(m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+	m_rtBody = RectMake(m_fPosX + m_MapPosX, m_fPosY, m_nSizeW, m_nSizeH);
 }
 
 void cFire::Render()
 {
 	if (m_pImage != NULL)
 	{
-		m_pImage->Render(m_Buffer->GetMemDC(), m_fPosX, m_fPosY, m_nSizeW, m_nSizeH);
+		m_pImage->Render(m_Buffer->GetMemDC(), m_fPosX + m_MapPosX, m_fPosY, m_nSizeW, m_nSizeH);
 	}
+	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
+
+	char str[128];
+
+	sprintf(str, "게임 레벨 : %f", m_MapPosX);
+	TextOut(g_hDC, 10, 300, str, strlen(str));
 }
