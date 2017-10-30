@@ -6,7 +6,7 @@ class cMap:public cGameobject
 {
 private:
 	cFire	m_cFire;
-	vector<cFire>	m_veccfire;
+	//vector<cFire>	m_veccfire;
 
 	cImage* m_cminiMap;
 	cImage*	m_cBuffer;
@@ -67,8 +67,8 @@ public:
 	void Render();
 	void MoveObject();
 	void MoveEnemy();
-	void MakeFire();
-	void RenderFire();
-	void MoveFire();
+	//void MakeFire();
+	//void RenderFire();
+	//void MoveFire();
 };
 

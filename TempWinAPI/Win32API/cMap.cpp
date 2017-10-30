@@ -5,7 +5,7 @@
 cMap::cMap()
 {
 	g_pTimerManager->AddSimpleTimer("kupa1");
-	g_pTimerManager->AddSimpleTimer("fire");
+	//g_pTimerManager->AddSimpleTimer("fire");
 }
 
 
@@ -22,7 +22,6 @@ void cMap::Setup()
 	m_goomba = g_pImageManager->FindImage("goomba");
 	m_kupa = g_pImageManager->FindImage("kupa");
 	m_fPosX = 0.0f;
-
 	m_fPosY = 70.0f;
 	m_bMoveRight = true;
 	m_bMoveRight2 = true;
@@ -43,6 +42,8 @@ void cMap::Setup()
 	m_kupaX = 4800.0f;
 	m_kupaY = 330.0f;
 	m_kupart = RectMake(m_kupaX, m_kupaY, 200, 200);
+	
+
 }
 
 void cMap::Update()
@@ -63,12 +64,12 @@ void cMap::Update()
 			m_kupa->SetFrameX(0);
 		}
 	}
-	if (g_pTimerManager->TickSimpleTimer("fire") > 100)
-	{
-		g_pTimerManager->ResetSimpleTimer("fire");
-		MakeFire();
-	}
-	MoveFire();
+	//if (g_pTimerManager->TickSimpleTimer("fire") > 100)
+	//{
+	//	g_pTimerManager->ResetSimpleTimer("fire");
+	//	MakeFire();
+	//}
+	//MoveFire();
 	m_cFire.SetMapPosX(m_fPosX);
 }
 
@@ -80,7 +81,7 @@ void cMap::Render()
 		m_cObject->Render(m_cBuffer->GetMemDC(), m_fObjectX + m_fPosX, m_fObjectY, 60, 20);
 		m_Object2->Render(m_cBuffer->GetMemDC(), m_fObjectX2 + m_fPosX, m_fObjectY2, 60, 20);
 		m_goomba->FrameRender(m_cBuffer->GetMemDC(), m_goombaX + m_fPosX, m_goombaY,100,100, m_goomba->GetFrameX(), m_goomba->GetFrameY());
-		RenderFire();
+		//RenderFire();
 		m_kupa->FrameRender(m_cBuffer->GetMemDC(), m_kupaX + m_fPosX, m_kupaY, 100, 100, m_kupa->GetFrameX(), m_kupa->GetFrameY());
 		m_cBuffer->Render(g_hDC, 0,0);
 	}
@@ -91,6 +92,9 @@ void cMap::Render()
 		//{
 		//	Rectangle(g_hDC, iter->GetBody().left, iter->GetBody().top, iter->GetBody().right, iter->GetBody().bottom);
 		//}
+	//char str[128];
+	//sprintf(str, "게임 레벨 : %d", m_veccfire.size());
+	//TextOut(g_hDC, 10, 320, str, strlen(str));
 }
 
 void cMap::MoveObject()
@@ -138,25 +142,25 @@ void cMap::MoveEnemy()
 	}
 }
 
-void cMap::MakeFire()
-{
-	m_cFire.Setup();
-
-	m_veccfire.push_back(m_cFire);
-}
-
-void cMap::RenderFire()
-{
-	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
-	{
-		iter->Render();
-	}
-}
-
-void cMap::MoveFire()
-{
-	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
-	{
-		iter->SetPosX(iter->GetPosX() - 3);
-	}
-}
+//void cMap::MakeFire()
+//{
+//	m_cFire.Setup();
+//
+//	m_veccfire.push_back(m_cFire);
+//}
+//
+//void cMap::RenderFire()
+//{
+//	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+//	{
+//		iter->Render();
+//	}
+//}
+//
+//void cMap::MoveFire()
+//{
+//	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+//	{
+//		iter->SetPosX(iter->GetPosX() - 3);
+//	}
+//}

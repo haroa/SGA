@@ -11,7 +11,7 @@ class cGameScene : public cGameNode
 private:
 	cMap		m_cMap;
 	cPlayer		m_cPlayer;
-	cFire		m_cFire;
+	vector<cFire>		m_veccfire;
 
 	cImage*		m_pImage;
 	cImage*		m_pbuffer;
@@ -45,5 +45,9 @@ public:
 	void PixelCollisionbottom();
 	void ObjectcollPlayer();
 	void EnemycollPlayer();
+	void MakeFire();
+	void RenderFire();
+	void MoveFire();
+	//void OnemoreMoveFire();
 };
 

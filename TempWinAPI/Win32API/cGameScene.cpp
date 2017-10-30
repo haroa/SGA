@@ -7,6 +7,7 @@ cGameScene::cGameScene()
 	m_pImage = NULL;
 	g_pTimerManager->AddSimpleTimer("Player-Left");
 	g_pTimerManager->AddSimpleTimer("Player-Right");
+	g_pTimerManager->AddSimpleTimer("fire");
 }
 
 
@@ -44,7 +45,12 @@ void cGameScene::Update()
 	{
 		m_bPlayerDie = true;
 	}
-	
+	if (g_pTimerManager->TickSimpleTimer("fire") > 100)
+	{
+		g_pTimerManager->ResetSimpleTimer("fire");
+		MakeFire();
+	}
+	MoveFire();
 }
 
 void cGameScene::Render()
@@ -58,6 +64,10 @@ void cGameScene::Render()
 	m_cMap.Render();
 	MiniMapRender();
 	m_cPlayer.Render();
+	RenderFire();
+	char str[128];
+	sprintf(str, "게임 레벨 : %d", m_veccfire.size());
+	TextOut(g_hDC, 10, 320, str, strlen(str));
 }
 
 void cGameScene::SetLanding()
@@ -96,6 +106,7 @@ void cGameScene::PlayerController()
 
 		if (m_cPlayer.GetPosX() + (m_cPlayer.GetSizeW() / 2) <= 100)
 		{
+			
 			m_cPlayer.SetPosX(m_cPlayer.GetPosX() + 3);
 			m_cMap.SetPosX(m_cMap.GetPosX() + 3.0f);
 		}
@@ -130,8 +141,11 @@ void cGameScene::PlayerController()
 		{
 			m_cPlayer.SetPosX(m_cPlayer.GetPosX() - 3);
 			m_cMap.SetPosX(m_cMap.GetPosX() - 3.0f);
+			for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+			{
+				iter->SetPosX(iter->GetPosX() - 3);
+			}
 		}
-
 	}
 	else if (g_pKeyManager->isStayKeyDown('S'))
 	{
@@ -320,3 +334,26 @@ void cGameScene::EnemycollPlayer()
 	}
 }
 
+void cGameScene::MakeFire()
+{
+	cFire m_cFire;
+	m_cFire.Setup();
+
+	m_veccfire.push_back(m_cFire);
+}
+
+void cGameScene::RenderFire()
+{
+	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+	{
+		iter->Render();
+	}
+}
+
+void cGameScene::MoveFire()
+{
+	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+	{
+		iter->SetPosX(iter->GetPosX() - 3);
+	}
+}
