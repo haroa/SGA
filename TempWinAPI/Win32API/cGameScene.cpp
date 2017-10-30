@@ -45,12 +45,25 @@ void cGameScene::Update()
 	{
 		m_bPlayerDie = true;
 	}
-	if (g_pTimerManager->TickSimpleTimer("fire") > 100)
+	if (g_pTimerManager->TickSimpleTimer("fire") > 200)
 	{
 		g_pTimerManager->ResetSimpleTimer("fire");
 		MakeFire();
 	}
 	MoveFire();
+	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+	{
+		iter->Update();
+	}
+
+	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+	{
+		RECT rt4;
+		if (IntersectRect(&rt4, &m_cPlayer.GetBody(), &iter->GetBody()))
+		{
+			m_bPlayerDie = true;
+		}
+	}
 }
 
 void cGameScene::Render()
@@ -62,9 +75,14 @@ void cGameScene::Render()
 	//}
 	//Rectangle(g_hDC, m_cMap.GetOB1().left, m_cMap.GetOB1().top, m_cMap.GetOB1().right, m_cMap.GetOB1().bottom);
 	m_cMap.Render();
+	RenderFire();
+    m_cMap.GetMapBuffer()->Render(g_hDC, 0, 0);
 	MiniMapRender();
 	m_cPlayer.Render();
-	RenderFire();
+	//for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+	//{
+	//	Rectangle(g_hDC, iter->GetBody().left, iter->GetBody().top, iter->GetBody().right, iter->GetBody().bottom);
+	//}
 	char str[128];
 	sprintf(str, "게임 레벨 : %d", m_veccfire.size());
 	TextOut(g_hDC, 10, 320, str, strlen(str));
@@ -141,10 +159,10 @@ void cGameScene::PlayerController()
 		{
 			m_cPlayer.SetPosX(m_cPlayer.GetPosX() - 3);
 			m_cMap.SetPosX(m_cMap.GetPosX() - 3.0f);
-			for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
-			{
-				iter->SetPosX(iter->GetPosX() - 3);
-			}
+			//for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
+			//{
+			//	iter->SetPosX(iter->GetPosX() - 3);
+			//}
 		}
 	}
 	else if (g_pKeyManager->isStayKeyDown('S'))
@@ -187,7 +205,15 @@ void cGameScene::MiniMapRender()
 	m_cMap.GetImg()->Render(m_pminiMap->GetMemDC(), 0, 0, 550,60);
 	m_pObject->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX() / 10, m_cMap.GetObjectY() / 10, 6, 2);
 	m_pObject2->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX2() / 10, m_cMap.GetObjectY2() / 10, 6, 2);
-	m_pGoomba->Render(m_pminiMap->GetMemDC(),m_cMap.GetGoombaX() / 10, m_cMap.GetGoombaY() / 10,10,10);
+	if (m_cMap.GetgoombaActive())
+	{
+		m_pGoomba->Render(m_pminiMap->GetMemDC(),m_cMap.GetGoombaX() / 10, m_cMap.GetGoombaY() / 10,10,10);
+	}
+	else
+	{
+
+	}
+	//m_fire->Render(m_pminiMap->GetMemDC(), m_fire->GetPosX() / 10, m_fire->GetPosY() / 10, 10, 10);
 	m_pKupa->FrameRender(m_pminiMap->GetMemDC(), m_cMap.GetKupaX() / 10, m_cMap.GetkupaY() / 20, 0, 0);
 	PlayerMiniRender();
 	m_pminiMap->Render(g_hDC, 0,0,WINSIZEX,WINSIZEY / 5);
@@ -311,26 +337,15 @@ void cGameScene::ObjectcollPlayer()
 void cGameScene::EnemycollPlayer()
 {
 	RECT rt3;
-	if (IntersectRect(&rt3, &m_cPlayer.GetBody(), &m_cMap.Getgoomba()))
+	if (IntersectRect(&rt3,&m_cPlayer.GetHitrt(), &m_cMap.Getgoomba()))
 	{
-		if (m_cMap.GetMoveRight3() == true)
-		{
-			m_cPlayer.SetPosX(m_cPlayer.GetPosX() + 1);
-		}
-		else if (m_cMap.GetMoveRight3() == false)
-		{
-			m_cPlayer.SetPosX(m_cPlayer.GetPosX() - 1);
-		}
-		if (m_cMap.GetMoveRight3() == true && m_cPlayer.GetPosX() >= WINSIZEX / 2)
-		{
-			m_cMap.SetPosX(m_cMap.GetPosX() - 1);
-			m_cPlayer.SetPosX(m_cPlayer.GetPosX() - 1);
-		}
-		else if (m_cMap.GetMoveRight3() == false && m_cPlayer.GetPosX() <= 100)
-		{
-			m_cMap.SetPosX(m_cMap.GetPosX() + 1);
-			m_cPlayer.SetPosX(m_cPlayer.GetPosX() + 1);
-		}
+		m_cMap.SetgoombaActive(false);
+		m_isJumpping = true;
+	}
+	RECT rt5;
+	if (IntersectRect(&rt5, &m_cPlayer.GetBody(), &m_cMap.Getgoomba()))
+	{
+		m_bPlayerDie = true;
 	}
 }
 
@@ -338,7 +353,7 @@ void cGameScene::MakeFire()
 {
 	cFire m_cFire;
 	m_cFire.Setup();
-
+    m_cFire.SetMapPosX(m_cMap.GetPosXRef());
 	m_veccfire.push_back(m_cFire);
 }
 

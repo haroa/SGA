@@ -23,6 +23,8 @@ public:
 #pragma region GET
 	cImage* GetImg() { return m_pImage; }
 	float GetPosX() { return m_fPosX; }
+
+    float* GetPosXRef() { return &m_fPosX; }
 	float GetPosY() { return m_fPosY; }
 	float GetSpeedX() { return m_fSpeedX; }
 	float GetSpeedY() { return m_fSpeedY; }

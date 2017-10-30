@@ -42,6 +42,7 @@ void cMap::Setup()
 	m_kupaX = 4800.0f;
 	m_kupaY = 330.0f;
 	m_kupart = RectMake(m_kupaX, m_kupaY, 200, 200);
+	m_goombaActive = true;
 	
 
 }
@@ -52,7 +53,14 @@ void cMap::Update()
 	MoveObject();
 	m_rtOb1 = RectMake(m_fObjectX + m_fPosX, m_fObjectY, 70, 30);
 	m_rtOb2 = RectMake(m_fObjectX2 + m_fPosX, m_fObjectY2, 70, 30);
-	m_goombart = RectMake(m_goombaX + m_fPosX, m_goombaY, 100,100);
+	if (m_goombaActive)
+	{
+		m_goombart = RectMake(m_goombaX + m_fPosX, m_goombaY, 100,100);
+	}
+	else
+	{
+		m_goombart = RectMake(0, 0, 0,0);
+	}
 	m_kupart = RectMake(m_kupaX + m_fPosX, m_kupaY, 200, 200);
 
 	if (g_pTimerManager->TickSimpleTimer("kupa1") > 10)
@@ -70,7 +78,7 @@ void cMap::Update()
 	//	MakeFire();
 	//}
 	//MoveFire();
-	m_cFire.SetMapPosX(m_fPosX);
+	m_cFire.SetMapPosX(&m_fPosX);
 }
 
 void cMap::Render()
@@ -80,14 +88,21 @@ void cMap::Render()
 		m_pImage->Render(m_cBuffer->GetMemDC(), m_fPosX, m_fPosY, 5500, 520);
 		m_cObject->Render(m_cBuffer->GetMemDC(), m_fObjectX + m_fPosX, m_fObjectY, 60, 20);
 		m_Object2->Render(m_cBuffer->GetMemDC(), m_fObjectX2 + m_fPosX, m_fObjectY2, 60, 20);
-		m_goomba->FrameRender(m_cBuffer->GetMemDC(), m_goombaX + m_fPosX, m_goombaY,100,100, m_goomba->GetFrameX(), m_goomba->GetFrameY());
+		if (m_goombaActive)
+		{
+			m_goomba->FrameRender(m_cBuffer->GetMemDC(), m_goombaX + m_fPosX, m_goombaY,100,100, m_goomba->GetFrameX(), m_goomba->GetFrameY());
+		}
+		else
+		{
+
+		}
 		//RenderFire();
 		m_kupa->FrameRender(m_cBuffer->GetMemDC(), m_kupaX + m_fPosX, m_kupaY, 100, 100, m_kupa->GetFrameX(), m_kupa->GetFrameY());
-		m_cBuffer->Render(g_hDC, 0,0);
+		//m_cBuffer->Render(g_hDC, 0,0);
 	}
 		//Rectangle(g_hDC, m_rtOb1.left, m_rtOb1.top, m_rtOb1.right, m_rtOb1.bottom);
 		//Rectangle(g_hDC, m_rtOb2.left, m_rtOb2.top, m_rtOb2.right, m_rtOb2.bottom);
-		//Rectangle(g_hDC, m_goombart.left, m_goombart.top, m_goombart.right, m_goombart.bottom);
+		Rectangle(g_hDC, m_goombart.left, m_goombart.top, m_goombart.right, m_goombart.bottom);
 		//for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
 		//{
 		//	Rectangle(g_hDC, iter->GetBody().left, iter->GetBody().top, iter->GetBody().right, iter->GetBody().bottom);

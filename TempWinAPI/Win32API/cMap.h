@@ -34,6 +34,7 @@ private:
 	bool	m_bMoveRight;
 	bool	m_bMoveRight2;
 	bool    m_bMoveRight3;
+	bool	m_goombaActive;
 public:
 #pragma region Get
 	float GetObjectX() { return m_fObjectX; }
@@ -49,6 +50,7 @@ public:
 	bool GetMoveRight1() { return m_bMoveRight; }
 	bool GetMoveRight2() { return m_bMoveRight2; }
 	bool GetMoveRight3() { return m_bMoveRight3; }
+	bool GetgoombaActive() { return m_goombaActive; }
 	RECT GetOB1() { return m_rtOb1; }
 	RECT GetOB2() { return m_rtOb2; }
 	RECT Getgoomba() { return m_goombart; }
@@ -57,7 +59,8 @@ public:
 	float GetKupaX() { return m_kupaX; }
 	float GetkupaY() { return m_kupaY; }
 	RECT GetKupaBody() { return m_kupart; }
-
+    cImage* GetMapBuffer() { return m_cBuffer; }
+	void SetgoombaActive(bool Active) { m_goombaActive = Active; }
 
 	cMap();
 	~cMap();
