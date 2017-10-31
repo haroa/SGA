@@ -18,6 +18,9 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("fire", "images/fire.bmp", 24, 16, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("start", "images/start.bmp", 512, 432, true, RGB(255, 0, 255));
 	g_pImageManager->AddImage("over", "images/gameover.bmp", 256, 224, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("clearobject", "images/clearobject.bmp", 16, 16, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("boom", "images/boom.bmp", 63, 512, 1, 8, true, RGB(255, 0, 255));
+	g_pImageManager->AddImage("item", "images/item.bmp", 14, 16, true, RGB(255, 0, 255));
 	Reset();
 }
 
@@ -45,6 +48,10 @@ void cMainGame::Update()
 		if (m_cGameScene.GetPlayerDie() == true)
 		{
 			m_GameState = GAME_OVER;
+		}
+		if (m_cGameScene.Getnext() == true)
+		{
+			m_GameState = GAME_CLEAR;
 		}
 		break;
 	case GAME_OVER:

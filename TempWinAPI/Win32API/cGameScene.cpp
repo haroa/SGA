@@ -8,6 +8,7 @@ cGameScene::cGameScene()
 	g_pTimerManager->AddSimpleTimer("Player-Left");
 	g_pTimerManager->AddSimpleTimer("Player-Right");
 	g_pTimerManager->AddSimpleTimer("fire");
+	g_pTimerManager->AddSimpleTimer("item");
 }
 
 
@@ -30,7 +31,11 @@ void cGameScene::Setup()
 	m_pGoomba = g_pImageManager->FindImage("goomba");
 	m_pKupa = g_pImageManager->FindImage("kupa");
 	m_fire = g_pImageManager->FindImage("fire");
+	m_clearobject = g_pImageManager->FindImage("clearobject");
+	m_item = g_pImageManager->FindImage("item");
 	m_bPlayerDie = false;
+	m_clear = false;
+	m_next = false;
 }
 
 void cGameScene::Update()
@@ -39,13 +44,17 @@ void cGameScene::Update()
 	ObjectcollPlayer();
 	m_cMap.Update();
 	m_cPlayer.Update();
-	PlayerController();
-
+	ItemcollPlayer();
+	if (!m_clear)
+	{
+		PlayerController();
+	}
+	ClearcollPlayer();
 	if (m_cPlayer.GetBody().bottom >= WINSIZEY)
 	{
-		m_bPlayerDie = true;
+		//m_bPlayerDie = true;
 	}
-	if (g_pTimerManager->TickSimpleTimer("fire") > 200)
+	if (g_pTimerManager->TickSimpleTimer("fire") > 200 && !m_clear)
 	{
 		g_pTimerManager->ResetSimpleTimer("fire");
 		MakeFire();
@@ -59,11 +68,18 @@ void cGameScene::Update()
 	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
 	{
 		RECT rt4;
-		if (IntersectRect(&rt4, &m_cPlayer.GetBody(), &iter->GetBody()))
+		if (IntersectRect(&rt4, &m_cPlayer.GetBody(), &iter->GetBody()) && m_cMap.GetitemActive() == true)
 		{
 			m_bPlayerDie = true;
 		}
 	}
+	Erasefire();
+	if (m_clear)
+	{
+		Clear();
+	}
+	m_cMap.Setclear(m_clear);
+	m_cPlayer.Seteatitem(m_cMap.GetitemActive());
 }
 
 void cGameScene::Render()
@@ -84,7 +100,7 @@ void cGameScene::Render()
 	//	Rectangle(g_hDC, iter->GetBody().left, iter->GetBody().top, iter->GetBody().right, iter->GetBody().bottom);
 	//}
 	char str[128];
-	sprintf(str, "게임 레벨 : %d", m_veccfire.size());
+	sprintf(str, "게임 레벨 : %d    딜레이 : %d", m_veccfire.size(), m_nCheck);
 	TextOut(g_hDC, 10, 320, str, strlen(str));
 }
 
@@ -205,6 +221,7 @@ void cGameScene::MiniMapRender()
 	m_cMap.GetImg()->Render(m_pminiMap->GetMemDC(), 0, 0, 550,60);
 	m_pObject->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX() / 10, m_cMap.GetObjectY() / 10, 6, 2);
 	m_pObject2->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX2() / 10, m_cMap.GetObjectY2() / 10, 6, 2);
+	m_clearobject->Render(m_pminiMap->GetMemDC(), m_cMap.GetclearObjectX() / 10, m_cMap.GetclearObjectY() / 10, 2, 2);
 	if (m_cMap.GetgoombaActive())
 	{
 		m_pGoomba->Render(m_pminiMap->GetMemDC(),m_cMap.GetGoombaX() / 10, m_cMap.GetGoombaY() / 10,10,10);
@@ -215,6 +232,7 @@ void cGameScene::MiniMapRender()
 	}
 	//m_fire->Render(m_pminiMap->GetMemDC(), m_fire->GetPosX() / 10, m_fire->GetPosY() / 10, 10, 10);
 	m_pKupa->FrameRender(m_pminiMap->GetMemDC(), m_cMap.GetKupaX() / 10, m_cMap.GetkupaY() / 20, 0, 0);
+	m_item->Render(m_pminiMap->GetMemDC(), m_cMap.GetitemX() / 10, m_cMap.GetitemY() / 10, 3, 3);
 	PlayerMiniRender();
 	m_pminiMap->Render(g_hDC, 0,0,WINSIZEX,WINSIZEY / 5);
 }
@@ -349,6 +367,35 @@ void cGameScene::EnemycollPlayer()
 	}
 }
 
+void cGameScene::ClearcollPlayer()
+{
+	RECT rtclear;
+	if (IntersectRect(&rtclear, &m_cPlayer.GetHitrt(), &m_cMap.GetclearObject()))
+	{
+		for (auto iter = m_veccfire.begin(); iter != m_veccfire.end();iter++)
+		{
+			iter->SetIsActive(false);
+		}
+		m_cMap.SetkupaAcitve(false);
+		m_clear = true;
+	}
+}
+
+void cGameScene::Erasefire()
+{
+	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end();)
+	{
+		if (iter->GetIsActive() == false)
+		{
+			iter = m_veccfire.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}	
+}
+
 void cGameScene::MakeFire()
 {
 	cFire m_cFire;
@@ -370,5 +417,38 @@ void cGameScene::MoveFire()
 	for (auto iter = m_veccfire.begin(); iter != m_veccfire.end(); iter++)
 	{
 		iter->SetPosX(iter->GetPosX() - 3);
+	}
+}
+
+void cGameScene::Clear()
+{
+	m_cPlayer.SetPosY(m_cPlayer.GetPosY() + 3);
+	if (m_cPlayer.GetPosY() > 380.0f)
+	{
+		m_cPlayer.SetPosY(m_cPlayer.GetPosY() - 3);
+		m_cPlayer.SetPosX(m_cPlayer.GetPosX() + 1);
+		m_cPlayer.GetImg()->SetFrameY(1);
+		if (g_pTimerManager->TickSimpleTimer("Player-Right") > 10)
+		{
+			g_pTimerManager->ResetSimpleTimer("Player-Right");
+			m_cPlayer.GetImg()->SetFrameX(m_cPlayer.GetImg()->GetFrameX() + 1);
+		}
+		if (m_cPlayer.GetImg()->GetFrameX() > 2)
+		{
+			m_cPlayer.GetImg()->SetFrameX(0);
+		}
+	}
+	if (m_cPlayer.GetPosX() >= WINSIZEX)
+	{
+		m_next = true;
+	}
+}
+
+void cGameScene::ItemcollPlayer()
+{
+	RECT rtitem;
+	if (IntersectRect(&rtitem, &m_cMap.Getitem(), &m_cPlayer.GetBody()))
+	{
+		m_cMap.SetitemActive(false);
 	}
 }

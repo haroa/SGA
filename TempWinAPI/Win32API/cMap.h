@@ -31,10 +31,28 @@ private:
 	float   m_kupaY;
 	RECT    m_kupart;
 
+	cImage* m_clearObject;
+	RECT	m_rtclearObject;
+	float	m_clearObjectX;
+	float	m_clearObjectY;
+
+	cImage*	m_boom;
+	float	m_boomX;
+	float	m_boomY;
+
+	cImage*	m_item;
+	float	m_itemX;
+	float	m_itemY;
+	RECT	m_rtitem;
+
+
 	bool	m_bMoveRight;
 	bool	m_bMoveRight2;
 	bool    m_bMoveRight3;
 	bool	m_goombaActive;
+	bool	m_kupaActive;
+	bool	m_clear;
+	bool	m_itemActive;
 public:
 #pragma region Get
 	float GetObjectX() { return m_fObjectX; }
@@ -47,20 +65,33 @@ public:
 	float GetOb2Speedminus() { return m_os2Speedminus; }
 	float GetGoombaX() { return m_goombaX; }
 	float GetGoombaY() { return m_goombaY; }
+	float GetKupaX() { return m_kupaX; }
+	float GetkupaY() { return m_kupaY; }
+	float GetclearObjectX() { return m_clearObjectX; }
+	float GetclearObjectY() { return m_clearObjectY; }
+	float GetitemX() { return m_itemX; }
+	float GetitemY() { return m_itemY; }
 	bool GetMoveRight1() { return m_bMoveRight; }
 	bool GetMoveRight2() { return m_bMoveRight2; }
 	bool GetMoveRight3() { return m_bMoveRight3; }
 	bool GetgoombaActive() { return m_goombaActive; }
+	bool GetkupaActive() { return m_kupaActive; }
+	bool GetitemActive() { return m_itemActive; }
 	RECT GetOB1() { return m_rtOb1; }
 	RECT GetOB2() { return m_rtOb2; }
 	RECT Getgoomba() { return m_goombart; }
-
-#pragma endregion
-	float GetKupaX() { return m_kupaX; }
-	float GetkupaY() { return m_kupaY; }
 	RECT GetKupaBody() { return m_kupart; }
+	RECT GetclearObject() { return m_rtclearObject; }
+	RECT Getitem() { return m_rtitem; }
+#pragma endregion
+	
     cImage* GetMapBuffer() { return m_cBuffer; }
 	void SetgoombaActive(bool Active) { m_goombaActive = Active; }
+
+	void SetkupaAcitve(bool active) { m_kupaActive = active; }
+
+	void Setclear(bool clear) { m_clear = clear; }
+	void SetitemActive(bool active) { m_itemActive = active; }
 
 	cMap();
 	~cMap();

@@ -419,6 +419,41 @@ void cImage::FrameRender(HDC hdc, int destX, int destY,int Width, int Height, in
 	}
 }
 
+void cImage::AlphaFrameRender(HDC hdc, int destX, int destY, int Width, int Height, int sourX, int sourY,BYTE alpha)
+{
+	// 알파블렌드 처음 사용시 초기화
+	if (!m_pBlendImage) SetupForAlphaBlend();
+
+	// 알파값 초기화
+	m_stBlendFunc.SourceConstantAlpha = alpha;
+
+	if (m_isTrans)
+	{
+		//1. 출력해야 될 DC에 그려져 있는 내용을 블렌드이미지에 그려준다
+		BitBlt(m_pBlendImage->hMemDC, 0, 0, m_pImageInfo->nWidth, m_pImageInfo->nHeight,
+			hdc, destX, destY, SRCCOPY);
+		//2. 출력해야 될 이미지를 블렌드에 그려준다(마젠타 값을 없애준다)
+		GdiTransparentBlt(m_pBlendImage->hMemDC
+			, 0, 0
+			, m_pImageInfo->nFrameWidth, m_pImageInfo->nFrameHeight,
+			m_pImageInfo->hMemDC
+			, sourX * m_pImageInfo->nFrameWidth, sourY * m_pImageInfo->nFrameHeight
+			, m_pImageInfo->nFrameWidth, m_pImageInfo->nFrameHeight, m_transColor);
+		//3. 블렌드 DC를 출력해야 할 DC에 그린다
+		GdiAlphaBlend(hdc, destX, destY, Width, Height,
+			m_pBlendImage->hMemDC
+			, 0, 0
+			, m_pImageInfo->nFrameWidth, m_pImageInfo->nFrameHeight
+			, m_stBlendFunc);
+	}
+	else
+	{
+		// 알파블렌드 옵션 값을 사용해서 그린다.
+		GdiAlphaBlend(hdc, destX, destY, m_pImageInfo->nWidth, m_pImageInfo->nHeight,
+			m_pImageInfo->hMemDC, 0, 0, m_pImageInfo->nWidth, m_pImageInfo->nHeight, m_stBlendFunc);
+	}
+}
+
 // 애니메이션 구간 및 딜레이 설정 프레임 렌더
 void cImage::FrameRender(HDC hdc, int destX, int destY,
 	int sourX, int sourY, int maxX, int maxY, int delay)

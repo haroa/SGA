@@ -104,6 +104,8 @@ public:
 		int sourX, int sourY, int maxX, int maxY, int delay);
 	void FrameRender(HDC hdc, int destX, int destY, int Width, int Height, int sourX, int sourY);
 
+	void AlphaFrameRender(HDC hdc, int destX, int destY, int Width, int Height, int sourX, int sourY, BYTE alpha);
+
 	//==================================================================
 	//		## inline ## (인라인 함수들 - 겟터, 셋터)
 	//==================================================================

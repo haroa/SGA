@@ -21,14 +21,20 @@ private:
 	cImage*		m_pGoomba;
 	cImage*		m_pKupa;
 	cImage*		m_fire;
+	cImage*		m_clearobject;
+	cImage*		m_item;
 
 	bool		m_isJumpping;
 	float		m_fJumpPower;
 	float		m_fGravity;
+	int			m_nCheck;
 
 	bool		m_bPlayerDie;
+	bool		m_clear;
+	bool		m_next;
 public:
 	bool GetPlayerDie() {return m_bPlayerDie;}
+	bool Getnext() { return m_next; }
 
 	cGameScene();
 	~cGameScene();
@@ -45,9 +51,13 @@ public:
 	void PixelCollisionbottom();
 	void ObjectcollPlayer();
 	void EnemycollPlayer();
+	void ClearcollPlayer();
+	void Erasefire();
 	void MakeFire();
 	void RenderFire();
 	void MoveFire();
+	void Clear();
+	void ItemcollPlayer();
 	//void OnemoreMoveFire();
 };
 
