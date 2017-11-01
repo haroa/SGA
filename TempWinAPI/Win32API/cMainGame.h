@@ -1,9 +1,5 @@
 #pragma once
 #include "cGameNode.h"
-#include "cGameScene.h"
-#include "StartScene.h"
-#include "cGameOver.h"
-#include "cPlayer.h"
 
 
 enum E_GAME
@@ -15,13 +11,6 @@ class cMainGame : public cGameNode
 {
 private:
 	E_GAME				m_GameState;
-
-	cGameScene			m_cGameScene;
-	StartScene			m_cStartScene;
-	cGameOver			m_cGameOver;
-	cPlayer				m_cPlayer;
-
-	cImage*				m_MiniMap;
 
 
 public:

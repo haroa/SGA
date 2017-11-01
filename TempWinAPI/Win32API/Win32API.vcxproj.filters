@@ -75,12 +75,6 @@
     <ClInclude Include="cGameobject.h">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClInclude>
-    <ClInclude Include="cPlayer.h">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClInclude>
-    <ClInclude Include="cMap.h">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClInclude>
     <ClInclude Include="cProgressBar.h">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClInclude>
@@ -90,19 +84,16 @@
     <ClInclude Include="cFileDataManager.h">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClInclude>
-    <ClInclude Include="cGameScene.h">
-      <Filter>GameFramework2D\6.씬</Filter>
-    </ClInclude>
     <ClInclude Include="cTimerManager.h">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClInclude>
-    <ClInclude Include="cFire.h">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClInclude>
-    <ClInclude Include="StartScene.h">
+    <ClInclude Include="cGameOver.h">
       <Filter>GameFramework2D\6.씬</Filter>
     </ClInclude>
-    <ClInclude Include="cGameOver.h">
+    <ClInclude Include="cGameScene.h">
+      <Filter>GameFramework2D\6.씬</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
       <Filter>GameFramework2D\6.씬</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,12 +122,6 @@
     <ClCompile Include="cGameobject.cpp">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClCompile>
-    <ClCompile Include="cPlayer.cpp">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClCompile>
-    <ClCompile Include="cMap.cpp">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClCompile>
     <ClCompile Include="cProgressBar.cpp">
       <Filter>GameFramework2D\4. 기본 소스</Filter>
     </ClCompile>
@@ -146,19 +131,16 @@
     <ClCompile Include="cFileDataManager.cpp">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClCompile>
-    <ClCompile Include="cGameScene.cpp">
-      <Filter>GameFramework2D\6.씬</Filter>
-    </ClCompile>
     <ClCompile Include="cTimerManager.cpp">
       <Filter>GameFramework2D\2. 매니져</Filter>
     </ClCompile>
-    <ClCompile Include="cFire.cpp">
-      <Filter>GameFramework2D\5. 게임 소스</Filter>
-    </ClCompile>
-    <ClCompile Include="StartScene.cpp">
+    <ClCompile Include="cGameOver.cpp">
       <Filter>GameFramework2D\6.씬</Filter>
     </ClCompile>
-    <ClCompile Include="cGameOver.cpp">
+    <ClCompile Include="cGameScene.cpp">
+      <Filter>GameFramework2D\6.씬</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
       <Filter>GameFramework2D\6.씬</Filter>
     </ClCompile>
   </ItemGroup>
