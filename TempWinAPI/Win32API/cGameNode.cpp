@@ -4,7 +4,7 @@
 
 cGameNode::cGameNode()
 {
-	m_pImgBackBuffer = g_pImageManager->AddImage("BackBuffer", 5500, WINSIZEY);
+	m_pImgBackBuffer = g_pImageManager->AddImage("BackBuffer", WINSIZEX, WINSIZEY);
 
 	g_pKeyManager->Setup();
 }
@@ -13,6 +13,9 @@ cGameNode::cGameNode()
 cGameNode::~cGameNode()
 {
 	g_pKeyManager->ReleaseInstance();
+	g_pFileDataManager->ReleaseInstance();
+	g_pPixelManager->ReleaseInstance();
+	g_pTimeManager->ReleaseInstance();
 
 	g_pImageManager->DeleteAll();
 	g_pImageManager->ReleaseInstance();
@@ -26,21 +29,18 @@ void cGameNode::Update()
 
 LRESULT cGameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	PAINTSTRUCT ps;
-	HDC hdc;
-
 	g_hDC = m_pImgBackBuffer->GetMemDC();
 
 	switch (message)
 	{
 	case WM_CREATE:
-		SetTimer(hWnd, 1, 10, NULL);
+		//SetTimer(hWnd, 1, 10, NULL);
 		srand(time(NULL));
 		rand();
 		break;
-	case WM_TIMER:
-		this->Update();
-		break;
+	//case WM_TIMER:
+	//	this->Update();
+	//	break;
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
@@ -49,12 +49,12 @@ LRESULT cGameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 			break;
 		}
 		break;
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		this->Render();
-		m_pImgBackBuffer->Render(hdc);
-		EndPaint(hWnd, &ps);
-		break;
+	//case WM_PAINT:
+	//	hdc = BeginPaint(hWnd, &ps);
+	//	this->Render();
+	//	m_pImgBackBuffer->Render(hdc);
+	//	EndPaint(hWnd, &ps);
+	//break;
 	case WM_MOUSEMOVE:
 		g_ptMouse.x = LOWORD(lParam);
 		g_ptMouse.y = HIWORD(lParam);

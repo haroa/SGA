@@ -2,6 +2,7 @@
 #include "cGameNode.h"
 
 
+
 enum E_GAME
 {
 	GAME_READY = 0, GAME_COUNT, GAME_PLAYING, GAME_OVER, GAME_CLEAR

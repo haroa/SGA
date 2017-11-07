@@ -39,8 +39,14 @@ void cMainGame::Update()
 
 void cMainGame::Render()
 {
+	PAINTSTRUCT ps;
+	HDC hdc;
+
+	hdc = BeginPaint(g_hWnd, &ps);
+	
 	// 흰색으로 이미지를 칠한다.
 	PatBlt(g_hDC, 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	
 	switch (m_GameState)
 	{
 	case GAME_READY:
@@ -57,7 +63,10 @@ void cMainGame::Render()
 		break;
 	}
 
+	g_pTimeManager->Render();
+	m_pImgBackBuffer->Render(hdc);
 
+	EndPaint(g_hWnd, &ps);
 	//	TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));
 	
 }

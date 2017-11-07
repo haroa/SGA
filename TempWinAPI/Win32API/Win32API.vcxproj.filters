@@ -96,6 +96,12 @@
     <ClInclude Include="StartScene.h">
       <Filter>GameFramework2D\6.씬</Filter>
     </ClInclude>
+    <ClInclude Include="cTimeManager.h">
+      <Filter>GameFramework2D\3. 유틸</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>GameFramework2D\3. 유틸</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -142,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="StartScene.cpp">
       <Filter>GameFramework2D\6.씬</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimeManager.cpp">
+      <Filter>GameFramework2D\3. 유틸</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
+      <Filter>GameFramework2D\3. 유틸</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,6 @@
 //
 
 #pragma once
-#pragma comment(linker,"/entry:wWinMainCRTStartup /subsystem:console")
 
 #include "targetver.h"
 
@@ -22,7 +21,6 @@
 #include <string.h>
 #include <map>
 #include <assert.h>
-#include <iostream>
 
 using namespace std;
 
@@ -55,7 +53,7 @@ using namespace std;
 #include "cImageManager.h"
 #include "cFileDataManager.h"
 #include "cPixelCollision.h"
-#include "cTimerManager.h"
+#include "cTimeManager.h"
 
 //==================================================================
 //		## 전역변수 ##
