@@ -9,6 +9,8 @@ struct Tile
 	cImage* image;
 	float	fPosX;			//X의 위치
 	float	fPosY;			//Y의 위치
+	float	fCheckPosX;		//X의 테스트위치
+	float	fCheckPosY;		//Y의 테스트위치
 	int		Num;			//타일의 숫자
 	bool	isBlank;		//타일이 비어있는가?
 	bool	isSum;			//합쳐졌는가?
@@ -26,7 +28,6 @@ private:
 	bool		m_CreateNum;
 	int			m_blankCheck;
 	int			count;
-	int			countd;
 
 
 	cImage*		m_number1;
