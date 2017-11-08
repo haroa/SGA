@@ -41,7 +41,7 @@ void cTimeManager::Render()
 		sprintf(str, "WorldTime : %f", m_pTimer->GetWorldTime());
 		TextOut(g_hDC, 10, 30, str, strlen(str));
 		// ElapsedTime
-		sprintf(str, "ElapsedTime : %d", m_pTimer->GetElapsedTime());
+		sprintf(str, "ElapsedTime : %f", m_pTimer->GetElapsedTime());
 		TextOut(g_hDC, 10, 50, str, strlen(str));
 	}
 #else

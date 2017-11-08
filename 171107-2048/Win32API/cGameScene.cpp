@@ -13,97 +13,225 @@ cGameScene::~cGameScene()
 
 void cGameScene::Setup()
 {
+	m_CreateNum = false;
+	m_blankCheck = 0;
+	rowCount = -1;
+	count = 0;
+	countd = -1;
 	m_cMap.Setup();
-	m_fJumpPower = 16.0f;
-	SetLanding();
-	m_fGravity = 0.0f;
+	LoadImages();
+
+	for (int i = 0; i < 16; i++)
+	{
+		if (i % 4 == 0)
+		{
+			rowCount++;
+		}
+
+
+		//tile.uId = i;
+		tile.Num = 0;
+		tile.isBlank = true;
+		tile.isSum = false;
+		tile.fPosY = 337 + rowCount * 134;
+		tile.fPosX = (i % 4) * 134 + 67;
+
+		m_vectile.push_back(tile);
+	}
 }
 
 void cGameScene::Update()
 {
+	srand(time(NULL));
+
+	if (m_CreateNum == false)
+	{
+		m_idRand = rand() % 100; // 0 ~ 15
+		m_numRand = rand() % 2 + 1; // 0 ~ 1
+	}
+
+
+	while (m_blankCheck < m_idRand + 1 && m_CreateNum == false)
+	{
+		for (auto iter = m_vectile.begin(); iter != m_vectile.end(); iter++)
+		{
+			if (iter->isBlank)
+			{
+				m_blankCheck++;
+			}
+			if (m_blankCheck == m_idRand)
+			{
+				iter->Num = m_numRand * 2;
+				iter->isBlank = false;
+				m_CreateNum = true;
+				m_blankCheck = 0;
+				break;
+			}
+		}
+	}
+	PlayerController();
 }
 
 
 void cGameScene::Render()
 {
 	m_cMap.Render();
-	//char str[128];
-	//sprintf(str, "게임 레벨 : %d    딜레이 : %d",);
-	//TextOut(g_hDC, 10, 320, str, strlen(str));
+	for (auto iter = m_vectile.begin(); iter != m_vectile.end(); iter++)
+	{
+		if (iter->isBlank == false)
+		{
+			if (m_number1 != NULL)
+			{
+				if (iter->Num == 2)
+				{
+					m_number1->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number2 != NULL)
+			{
+				if (iter->Num == 4)
+				{
+					m_number2->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number3 != NULL)
+			{
+				if (iter->Num == 8)
+				{
+					m_number3->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number4 != NULL)
+			{
+				if (iter->Num == 16)
+				{
+					m_number4->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number5 != NULL)
+			{
+				if (iter->Num == 32)
+				{
+					m_number5->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number6 != NULL)
+			{
+				if (iter->Num == 64)
+				{
+					m_number6->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number7 != NULL)
+			{
+				if (iter->Num == 128)
+				{
+					m_number7->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number8 != NULL)
+			{
+				if (iter->Num == 256)
+				{
+					m_number8->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number9 != NULL)
+			{
+				if (iter->Num == 512)
+				{
+					m_number9->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number10 != NULL)
+			{
+				if (iter->Num == 1024)
+				{
+					m_number10->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+			if (m_number11 != NULL)
+			{
+				if (iter->Num == 2048)
+				{
+					m_number11->Render(g_hDC, iter->fPosX, iter->fPosY);
+				}
+			}
+		}
+		else
+		{
+
+		}
+
+	}
+	for (auto iter = m_vectile.begin(); iter != m_vectile.end(); iter++)
+	{
+		count++;
+		if (count % 4 == 0)
+		{
+			countd++;
+		}
+		char str[128];
+		sprintf(str, "%d", iter->Num);
+		TextOut(g_hDC, (count % 4) * 20 + 100, countd * 20 + 200, str, strlen(str));
+	}	
 }
 
-void cGameScene::SetLanding()
-{
-	m_fGravity = 0.0f;
-	m_isJumpping = false;
-}
 
 void cGameScene::PlayerController()
 {
-	//if (g_pKeyManager->isStayKeyDown('A'))
-	//{
-	//}
-	//else if (g_pKeyManager->isStayKeyDown('D'))
-	//{
-	//}
-	//else if (g_pKeyManager->isStayKeyDown('S'))
-	//{
-	//}
-	//else
-	//{
-	//}
-	//
-	//if (!m_isJumpping && g_pKeyManager->isOnceKeyDown(VK_SPACE))
-	//{
-	//	m_isJumpping = true;
-	//}
-	//
-	//if (m_isJumpping)
-	//{
-	//	m_cPlayer.SetPosY(m_cPlayer.GetPosY() - m_fJumpPower + m_fGravity);
-	//	m_fGravity += GRAVITY;
-	//
-	//	// 점프 후 내려오는 중에 착지 설정
-	//	if (m_fGravity > m_fJumpPower)
-	//	{
-	//		float probeX = m_cPlayer.GetPosX() + m_cPlayer.GetSizeW() / 2;
-	//		float probeY = m_cPlayer.GetPosY() + m_cPlayer.GetsizeH() + m_fGravity;
-	//
-	//		if (g_pPixelManager->CheckPixel(m_pImage, probeX, probeY - 3) == false)
-	//			SetLanding();
-	//	}
-	//}
+	if (g_pKeyManager->isOnceKeyDown(VK_LEFT))
+	{
+		for (auto iter = m_vectile.begin(); iter != m_vectile.end(); iter++)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if ((m_vectile.begin() + i)->Num == (m_vectile.begin() + (i + 1))->Num)
+				{
+					iter->isSum = true;
+					(m_vectile.begin() + i)->Num = 2 * (m_vectile.begin() + (i + 1))->Num;
+					(m_vectile.begin() + (i + 1))->isBlank = true;
+					m_CreateNum = false;
+				}
+				else if ((m_vectile.begin() + i)->Num != (m_vectile.begin() + (i + 1))->Num)
+				{
+					iter->isSum = false;
+					m_CreateNum = false;
+				}
+				if ((m_vectile.begin() + i)->isBlank == true && (m_vectile.begin() + (i + 1))->isBlank == false)
+				{
+					(m_vectile.begin() + i)->isBlank = false;
+					(m_vectile.begin() + (i + 1))->isBlank = true;
+					(m_vectile.begin() + i)->Num = (m_vectile.begin() + (i + 1))->Num;
+				}
+			}
+		}
+	}
+	else if (g_pKeyManager->isOnceKeyDown(VK_RIGHT))
+	{
+
+	}
+	else if (g_pKeyManager->isOnceKeyDown(VK_UP))
+	{
+
+	}
+	else if (g_pKeyManager->isOnceKeyDown(VK_DOWN))
+	{
+
+	}
 }
 
-void cGameScene::MiniMapRender()
+void cGameScene::LoadImages()
 {
-//	m_cMap.GetImg()->Render(m_pminiMap->GetMemDC(), 0, 0, 550,60);
-//	m_pObject->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX() / 10, m_cMap.GetObjectY() / 10, 6, 2);
-//	m_pObject2->Render(m_pminiMap->GetMemDC(), m_cMap.GetObjectX2() / 10, m_cMap.GetObjectY2() / 10, 6, 2);
-//	m_clearobject->Render(m_pminiMap->GetMemDC(), m_cMap.GetclearObjectX() / 10, m_cMap.GetclearObjectY() / 10, 2, 2);
-//	if (m_cMap.GetgoombaActive())
-//	{
-//		m_pGoomba->Render(m_pminiMap->GetMemDC(),m_cMap.GetGoombaX() / 10, m_cMap.GetGoombaY() / 10,10,10);
-//	}
-//	else
-//	{
-//
-//	}
-//	//m_fire->Render(m_pminiMap->GetMemDC(), m_fire->GetPosX() / 10, m_fire->GetPosY() / 10, 10, 10);
-//	m_pKupa->FrameRender(m_pminiMap->GetMemDC(), m_cMap.GetKupaX() / 10, m_cMap.GetkupaY() / 20, 0, 0);
-//	m_item->Render(m_pminiMap->GetMemDC(), m_cMap.GetitemX() / 10, m_cMap.GetitemY() / 10, 3, 3);
-//	PlayerMiniRender();
-//	m_pminiMap->Render(g_hDC, 0,0,WINSIZEX,WINSIZEY / 5);
-}
-
-void cGameScene::PlayerMiniRender()
-{
-	//HPEN hPen = (HPEN)CreatePen(0, 10, RGB(255, 0, 0));
-	//HPEN hSelectPen = (HPEN)SelectObject(g_hDC, hPen);
-	//
-	//EllipseMakeCenter(m_pminiMap->GetMemDC(),((m_cPlayer.GetBody().left + (m_cPlayer.GetSizeW() / 2) - m_cMap.GetPosX() ) / 10),((m_cPlayer.GetBody().top + m_cPlayer.GetsizeH() / 2) / 10), 5,5);
-	//BoudingLineMake(m_pminiMap->GetMemDC(), ((0 - m_cMap.GetPosX()) / 10), 0 / 10, 100,60);
-	//
-	//DeleteObject(hSelectPen);
-	//DeleteObject(hPen);
+	m_number1 = g_pImageManager->FindImage("2");
+	m_number2 = g_pImageManager->FindImage("4");
+	m_number3 = g_pImageManager->FindImage("8");
+	m_number4 = g_pImageManager->FindImage("16");
+	m_number5 = g_pImageManager->FindImage("32");
+	m_number6 = g_pImageManager->FindImage("64");
+	m_number7 = g_pImageManager->FindImage("128");
+	m_number8 = g_pImageManager->FindImage("256");
+	m_number9 = g_pImageManager->FindImage("512");
+	m_number10 = g_pImageManager->FindImage("1024");
+	m_number11 = g_pImageManager->FindImage("2048");
 }

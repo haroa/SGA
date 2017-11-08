@@ -36,11 +36,13 @@ void cMainGame::Update()
 	switch (m_GameState)
 	{
 	case GAME_READY:
-		Reset();
+		SystemEnter();
+		m_cGameScene.Update();
 		break;
 	case GAME_COUNT:
 		break;
 	case GAME_PLAYING:
+		
 		break;
 	case GAME_OVER:
 		break;
