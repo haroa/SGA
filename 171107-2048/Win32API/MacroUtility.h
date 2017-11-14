@@ -161,3 +161,15 @@ inline void BezierInterpolation2(OUT float& x, OUT float& y,
 
 	BezierInterpolation(x, y, x1, y1, x2, y2, x3, y3, t);
 }
+
+inline  void DrawTextBox(HDC hdc, RECT TxtBox, int FontSize, string TextString)
+{
+	HFONT hFont, hTmp;
+	SetTextColor(hdc, RGB(0, 0, 0));
+	hFont = CreateFont(FontSize, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 2, 0, "±Ã¼­Ã¼");
+	hTmp = (HFONT)SelectObject(hdc, hFont);
+	SetBkMode(hdc, TRANSPARENT);
+	DrawText(hdc, TextString.data(), -1, &TxtBox, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+	DeleteObject(SelectObject(hdc, hTmp));
+	SetBkMode(hdc, BKMODE_LAST);
+}

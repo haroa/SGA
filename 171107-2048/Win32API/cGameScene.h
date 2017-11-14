@@ -28,6 +28,8 @@ private:
 	bool		m_CreateNum;
 	int			m_blankCheck;
 	int			count;
+	int			m_nScore;
+	RECT		rt;
 
 
 	cImage*		m_number1;
@@ -41,6 +43,13 @@ private:
 	cImage*		m_number9;
 	cImage*		m_number10;
 	cImage*		m_number11;
+
+	cImage*		m_nScore1;
+	cImage*		m_nScore2;
+	cImage*		m_nScore3;
+	cImage*		m_nScore4;
+	cImage*		m_nScore5;
+	cImage*		m_nScore6;
 public:
 
 	vector<Tile> Gettile() { return m_vectile; }
@@ -54,6 +63,6 @@ public:
 
 	void PlayerController();
 	void LoadImages();
-	void Resetbutton();
+	void Sumscore();
 };
 

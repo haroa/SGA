@@ -15,8 +15,10 @@ void cGameScene::Setup()
 {
 	m_CreateNum = false;
 	m_blankCheck = 0;
+	m_nScore = 0;
 	rowCount = -1;
 	count = -1;
+	rt = RectMake(WINSIZEX - 250, 100, 200, 100);
 	m_cMap.Setup();
 	LoadImages();
 
@@ -81,80 +83,80 @@ void cGameScene::Render()
 		{
 			if (m_number1 != NULL)
 			{
-				if (iter->Num == 2)
-				{
-					m_number1->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 2)
+				//{
+				//	m_number1->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number2 != NULL)
 			{
-				if (iter->Num == 4)
-				{
-					m_number2->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 4)
+				//{
+				//	m_number2->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number3 != NULL)
 			{
-				if (iter->Num == 8)
-				{
-					m_number3->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+			    //if (iter->Num == 8)
+			    //{
+			    //	m_number3->Render(g_hDC, iter->fPosX, iter->fPosY);
+			    //}
 			}
 			if (m_number4 != NULL)
 			{
-				if (iter->Num == 16)
-				{
-					m_number4->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 16)
+				//{
+				//	m_number4->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number5 != NULL)
 			{
-				if (iter->Num == 32)
-				{
-					m_number5->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 32)
+				//{
+				//	m_number5->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number6 != NULL)
 			{
-				if (iter->Num == 64)
-				{
-					m_number6->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 64)
+				//{
+				//	m_number6->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number7 != NULL)
 			{
-				if (iter->Num == 128)
-				{
-					m_number7->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 128)
+				//{
+				//	m_number7->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number8 != NULL)
 			{
-				if (iter->Num == 256)
-				{
-					m_number8->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 256)
+				//{
+				//	m_number8->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number9 != NULL)
 			{
-				if (iter->Num == 512)
-				{
-					m_number9->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 512)
+				//{
+				//	m_number9->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number10 != NULL)
 			{
-				if (iter->Num == 1024)
-				{
-					m_number10->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 1024)
+				//{
+				//	m_number10->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 			if (m_number11 != NULL)
 			{
-				if (iter->Num == 2048)
-				{
-					m_number11->Render(g_hDC, iter->fPosX, iter->fPosY);
-				}
+				//if (iter->Num == 2048)
+				//{
+				//	m_number11->Render(g_hDC, iter->fPosX, iter->fPosY);
+				//}
 			}
 		}
 		else
@@ -176,6 +178,10 @@ void cGameScene::Render()
 		sprintf(str, "%d", iter->isSum);
 		TextOut(g_hDC, iter->fCheckPosX + 200, iter->fCheckPosY, str, strlen(str));
 	}
+	
+	string szscore = "Á¡¼ö : ";
+	szscore.append(to_string(m_nScore));
+	DrawTextBox(g_hDC, rt, 20,szscore);
 }
 
 
@@ -198,6 +204,7 @@ void cGameScene::PlayerController()
 					(m_vectile.begin() + x + 4 * y)->Num = 2 * (m_vectile.begin() + ((x + 4 * y) + 1))->Num;
 					(m_vectile.begin() + ((x + 4 * y) + 1))->isBlank = true;
 					(m_vectile.begin() + ((x + 4 * y) + 1))->Num = 0;
+					Sumscore();
 					m_CreateNum = false;
 				}
 				else if ((m_vectile.begin() + x + 4 * y)->isBlank == true && (m_vectile.begin() + ((x + 4 * y) + 1))->isBlank == false && x != 3)
@@ -236,6 +243,7 @@ void cGameScene::PlayerController()
 					(m_vectile.begin() + (x + 4 * y) + 1)->Num = 2 * (m_vectile.begin() + (x + 4 * y))->Num;
 					(m_vectile.begin() + (x + 4 * y))->isBlank = true;
 					(m_vectile.begin() + (x + 4 * y))->Num = 0;
+					Sumscore();
 					m_CreateNum = false;
 				}
 				else if ((m_vectile.begin() + (x + 4 * y) + 1)->isBlank == true && (m_vectile.begin() + (x + 4 * y))->isBlank == false && x != 3)
@@ -270,6 +278,7 @@ void cGameScene::PlayerController()
 					(m_vectile.begin() + (x + 4 * y))->Num = 2 * (m_vectile.begin() + (x + 4 * y) + 4)->Num;
 					(m_vectile.begin() + (x + 4 * y + 4))->isBlank = true;
 					(m_vectile.begin() + (x + 4 * y) + 4)->Num = 0;
+					Sumscore();
 					m_CreateNum = false;
 				}
 				else if ((m_vectile.begin() + (x + 4 * y))->isBlank == true && (m_vectile.begin() + (x + 4 * y) + 4)->isBlank == false)
@@ -304,6 +313,7 @@ void cGameScene::PlayerController()
 					(m_vectile.begin() + (x + 4 * y) + 4)->Num = 2 * (m_vectile.begin() + (x + 4 * y))->Num;
 					(m_vectile.begin() + (x + 4 * y))->isBlank = true;
 					(m_vectile.begin() + (x + 4 * y))->Num = 0;
+					Sumscore();
 					m_CreateNum = false;
 				}
 				else if ((m_vectile.begin() + (x + 4 * y) + 4)->isBlank == true && (m_vectile.begin() + (x + 4 * y))->isBlank == false)
@@ -325,15 +335,53 @@ void cGameScene::PlayerController()
 
 void cGameScene::LoadImages()
 {
-	m_number1 = g_pImageManager->FindImage("2");
-	m_number2 = g_pImageManager->FindImage("4");
-	m_number3 = g_pImageManager->FindImage("8");
-	m_number4 = g_pImageManager->FindImage("16");
-	m_number5 = g_pImageManager->FindImage("32");
-	m_number6 = g_pImageManager->FindImage("64");
-	m_number7 = g_pImageManager->FindImage("128");
-	m_number8 = g_pImageManager->FindImage("256");
-	m_number9 = g_pImageManager->FindImage("512");
-	m_number10 = g_pImageManager->FindImage("1024");
-	m_number11 = g_pImageManager->FindImage("2048");
+	//m_number1 = g_pImageManager->FindImage("2");
+	//m_number2 = g_pImageManager->FindImage("4");
+	//m_number3 = g_pImageManager->FindImage("8");
+	//m_number4 = g_pImageManager->FindImage("16");
+	//m_number5 = g_pImageManager->FindImage("32");
+	//m_number6 = g_pImageManager->FindImage("64");
+	//m_number7 = g_pImageManager->FindImage("128");
+	//m_number8 = g_pImageManager->FindImage("256");
+	//m_number9 = g_pImageManager->FindImage("512");
+	//m_number10 = g_pImageManager->FindImage("1024");
+	//m_number11 = g_pImageManager->FindImage("2048");
+	//
+	//m_nScore1 = g_pImageManager->FindImage("score");
+	//m_nScore2 = g_pImageManager->FindImage("score");
+	//m_nScore3 = g_pImageManager->FindImage("score");
+	//m_nScore4 = g_pImageManager->FindImage("score");
+	//m_nScore5 = g_pImageManager->FindImage("score");
+	//m_nScore6 = g_pImageManager->FindImage("score");
+
+
+}
+
+void cGameScene::Sumscore()
+{
+	for (auto iter = m_vectile.begin(); iter != m_vectile.end(); iter++)
+	{
+		if (iter->Num == 2)
+			m_nScore += 2;
+		if (iter->Num == 4)
+			m_nScore += 4;
+		if (iter->Num == 8)
+			m_nScore += 8;
+		if (iter->Num == 16)
+			m_nScore += 16;
+		if (iter->Num == 32)
+			m_nScore += 32;
+		if (iter->Num == 64)
+			m_nScore += 64;
+		if (iter->Num == 128)
+			m_nScore += 128;
+		if (iter->Num == 256)
+			m_nScore += 256;
+		if (iter->Num == 512)
+			m_nScore += 512;
+		if (iter->Num == 1024)
+			m_nScore += 1024;
+		if (iter->Num == 2084)
+			m_nScore += 2084;
+	}
 }

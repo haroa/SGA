@@ -19,6 +19,7 @@ cMainGame::cMainGame()
 	g_pImageManager->AddImage("512", "images/512.bmp", 100, 100);
 	g_pImageManager->AddImage("1024", "images/1024.bmp", 100, 100);
 	g_pImageManager->AddImage("2048", "images/2048.bmp", 100, 100);
+	g_pImageManager->AddImage("score", "images/score.bmp", 500, 50, true, RGB(255, 0, 255));
 	Reset();
 }
 
