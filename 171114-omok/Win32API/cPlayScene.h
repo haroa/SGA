@@ -10,12 +10,14 @@ enum OMOK
 
 struct omok
 {
-	float	fPosX;		//바둑알 놓을위치X
-	float	fPosY;		//바둑알 놓을위치Y
+	int		nPosX;		//X의 점좌표
+	int		nPosY;		//Y의 점좌표
 	RECT	rtBody;		//바둑알 놓을위치의 렉트
 	bool	isActive;	//알파랜더된 바둑알보여주기
-	bool	isColor;	//흑인지 백인지
+	bool	isColor;	//255짜리 흑인지 백인지
+	bool	iswhite;	//125짜리 흑인지 백인지
 	bool	isShow;		//완벽한 바둑알보여주기
+	bool	isCheck;	//내가 둔곳을 확인한다
 	POINT	pos;
 };
 
@@ -28,6 +30,10 @@ private:
 	int				m_nalpha;
 	OMOK			OMOKEGG;
 	int				choice;
+	int				checkcountwidth;
+	int				checkcountHeight;
+	int				checkcountdialeft;
+	int				checkcountdiaright;
 
 
 	cImage*			m_pImgBackground;		// 화면 전체 배경
@@ -39,7 +45,7 @@ private:
 	void LoadImageFromFile();
 	void MiniMapRender();
 	void PlayerControll();
-	void Win();
+	void Win(int X,int Y, bool isColor);
 
 public:
 	cPlayScene();

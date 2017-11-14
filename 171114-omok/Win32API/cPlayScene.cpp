@@ -18,6 +18,10 @@ void cPlayScene::Setup()
 	m_pImgBackground = g_pImageManager->FindImage("omokbg");
 	m_pOmok = g_pImageManager->FindImage("omok");
 	m_nalpha = 125;
+	checkcountwidth = 0;
+	checkcountHeight = 0;
+	checkcountdialeft = 0;
+	checkcountdiaright = 0;
 	//가로 15
 	//세로 15
 	for (int x = 0; x < 15; x++)
@@ -36,22 +40,30 @@ void cPlayScene::Setup()
 			switch (OMOKEGG)
 			{
 			case WHITE:
+				game.nPosX = x;
+				game.nPosY = y;
 				game.pos.x = 21 + 54 * x;
 				game.pos.y = 21 + 54 * y;
 				game.rtBody = RectMake(game.pos.x - 20, game.pos.y - 20, 40, 40);
 				game.isActive = false;
 				game.isColor = true;
+				game.iswhite = true;
 				game.isShow = false;
+				game.isCheck = false;
 
 				m_vecomok.push_back(game);
 				break;
 			case BLACK:
+				game.nPosX = x;
+				game.nPosY = y;
 				game.pos.x = 21 + 54 * x;
 				game.pos.y = 21 + 54 * y;
 				game.rtBody = RectMake(game.pos.x - 20, game.pos.y - 20, 40, 40);
 				game.isActive = false;
 				game.isColor = false;
+				game.iswhite = false;
 				game.isShow = false;
+				game.isCheck = false;
 
 				m_vecomok.push_back(game);
 				break;
@@ -77,7 +89,8 @@ void cPlayScene::Render()
 
 	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
 	{
-		//RectangleMakeCenter(g_hDC, iter->pos.x, iter->pos.y, 30, 30);
+		RectangleMakeCenter(g_hDC, iter->pos.x, iter->pos.y, 30, 30);
+
 		//if (iter->isActive)
 		//{
 		//	if (iter->isColor)
@@ -89,30 +102,37 @@ void cPlayScene::Render()
 		//		m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 0, m_nalpha);
 		//	}
 		//}
-		if (iter->isActive && iter->isColor)
+		if (iter->isActive == true && iter->iswhite)
 		{
 			m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 1, m_nalpha);
 		}
-		if (iter->isActive && !iter->isColor)
+		else
+		{
+
+		}
+		if (iter->isActive == true && !iter->iswhite)
 		{
 			m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 0, m_nalpha);
 		}
 		else
 		{
-		
+			
 		}
 		if (iter->isShow)
 		{
 			if (iter->isColor)
 			{
-				m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 0, 255);
+				m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 1, 255);
 			}
 			else if (!iter->isColor)
 			{
-				m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 1, 255);
+				m_pOmok->AlphaFrameRender(g_hDC, iter->pos.x - 15, iter->pos.y - 15, 30, 30, 0, 0, 255);
 			}
 		}
 	}
+	char str[128];
+	sprintf(str, "%d", checkcountwidth);
+	TextOut(g_hDC, 100,300, str, strlen(str));
 
 	//switch (OMOKEGG)
 	//{
@@ -165,6 +185,8 @@ void cPlayScene::Render()
 	//char szBuf[128];
 	//str = itoa(age, szBuf, 10);
 	//TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, str, strlen(str));
+
+
 }
 
 void cPlayScene::Release()
@@ -212,19 +234,25 @@ void cPlayScene::PlayerControll()
 	case WHITE:
 		for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
 		{	
+			
 			if (PtInRect(&iter->rtBody, g_ptMouse))
 			{
-				
 				if (g_pKeyManager->isOnceKeyDown(VK_LBUTTON) && !iter->isShow)
 				{
 					iter->isShow = true;
 					OMOKEGG = BLACK;
+					iter->isColor = true;
+					iter->isCheck = true;
 				}
 				else
 				{
-					iter->isColor = true;
 					iter->isActive = true;
-
+					iter->iswhite = true;
+				}
+				//================오목체크=========================
+				if (iter->isCheck)
+				{
+					Win(iter->nPosX, iter->nPosY, iter->isColor);
 				}
 			}
 			else
@@ -234,27 +262,325 @@ void cPlayScene::PlayerControll()
 		}
 		break;
 	case BLACK:
-	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
-	{
-		if (PtInRect(&iter->rtBody, g_ptMouse))
+		for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
 		{
-			
-			if(g_pKeyManager->isOnceKeyDown(VK_LBUTTON) && !iter->isShow)
+			if (PtInRect(&iter->rtBody, g_ptMouse))
 			{
-				iter->isShow = true;
-				OMOKEGG = WHITE;
+
+				if (g_pKeyManager->isOnceKeyDown(VK_LBUTTON) && !iter->isShow)
+				{
+					iter->isShow = true;
+					OMOKEGG = WHITE;
+					iter->isColor = false;
+					iter->isCheck = true;
+				}
+				else
+				{
+					iter->isActive = true;
+					iter->iswhite = false;
+				}
+				if (iter->isCheck)
+				{
+					Win(iter->nPosX, iter->nPosY, !iter->isColor);
+				}
 			}
 			else
 			{
-				iter->isActive = true;
-				iter->isColor = false;
+				iter->isActive = false;
 			}
+
 		}
-		else
-		{
-			iter->isActive = false;
-		}
-	}
 		break;
 	}
+}
+
+void cPlayScene::Win(int X, int Y, bool isColor)
+{
+	checkcountwidth = 0;
+	//===============================가로======================================
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+			iter->isCheck = false;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 1 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 2 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 3 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 4 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	//-----------------------------------------------------------------------------
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 1 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 2 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 3 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 4 && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountwidth++;
+		}
+	}
+	//=====================================세로==========================================
+	checkcountHeight = 0;
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+			iter->isCheck = false;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X  && iter->nPosY == Y - 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y - 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y - 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y - 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	//-----------------------------------------------------------------------------
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y + 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y + 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y + 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y + 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountHeight++;
+		}
+	}
+	//==========================================왼쪽대각선======================================
+	checkcountdialeft = 0;
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+			iter->isCheck = false;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 1  && iter->nPosY == Y - 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 2 && iter->nPosY == Y - 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 3 && iter->nPosY == Y - 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 4 && iter->nPosY == Y - 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	//-----------------------------------------------------------------------------
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 1 && iter->nPosY == Y + 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 2 && iter->nPosY == Y + 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 3 && iter->nPosY == Y + 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 4 && iter->nPosY == Y + 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdialeft++;
+		}
+	}
+	//================================오른쪽대각선======================================
+	checkcountdiaright = 0;
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X && iter->nPosY == Y && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+			iter->isCheck = false;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 1 && iter->nPosY == Y + 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 2 && iter->nPosY == Y + 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 3 && iter->nPosY == Y + 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X + 4 && iter->nPosY == Y + 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	//-----------------------------------------------------------------------------
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 1 && iter->nPosY == Y - 1 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 2 && iter->nPosY == Y - 2 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 3 && iter->nPosY == Y - 3 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
+	{
+		if (iter->nPosX == X - 4 && iter->nPosY == Y - 4 && iter->isColor == isColor && iter->isShow)
+		{
+			checkcountdiaright++;
+		}
+	}
+
+
+	if (checkcountwidth == 5)
+	{
+		PostQuitMessage(0);
+	}
+	if (checkcountHeight == 5)
+	{
+		PostQuitMessage(0);
+	}
+	if (checkcountdialeft == 5)
+	{
+		PostQuitMessage(0);
+	}
+	if (checkcountdiaright == 5)
+	{
+		PostQuitMessage(0);
+	}
+
 }
