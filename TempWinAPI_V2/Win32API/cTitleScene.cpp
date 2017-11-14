@@ -25,7 +25,7 @@ void cTitleScene::Update()
 
 void cTitleScene::Render()
 {
-	/*TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));*/
+	TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));
 }
 
 void cTitleScene::Release()
