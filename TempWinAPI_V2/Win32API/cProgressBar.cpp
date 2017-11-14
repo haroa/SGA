@@ -27,7 +27,7 @@ void cProgressBar::Render()
 	m_imgFront->Render(g_hDC, m_rt.left, m_rt.top, m_nCurrWidth, m_nHeight);
 }
 
-void cProgressBar::SetGauge(float maxGauge, float currGauge)
+void cProgressBar::SetGauge(float currGauge,float maxGauge)
 {
 	// 현재 체력 / 전체 체력 비율로 크기를 계산한다.
 	m_nCurrWidth = (currGauge / maxGauge) * m_nWidth;

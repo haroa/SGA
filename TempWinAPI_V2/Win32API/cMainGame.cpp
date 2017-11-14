@@ -4,6 +4,8 @@
 // 씬 헤더파일들 추가
 #include "cTitleScene.h"
 #include "cPlayScene.h"
+#include "cLoadingScene.h"
+#include "cDungeonScene.h"
 
 cMainGame::cMainGame()
 {
@@ -16,11 +18,13 @@ cMainGame::~cMainGame()
 void cMainGame::Setup()
 {
 	// 씬 추가
-	g_pSceneManager->AddScene("Title", new cTitleScene);
-	g_pSceneManager->AddScene("Play", new cPlayScene);
+	g_pSceneManager->AddScene(SLIST_TITLE, new cTitleScene);
+	g_pSceneManager->AddScene(SLIST_LOADING, new cLoadingScene);
+	g_pSceneManager->AddScene(SLIST_PLAY, new cPlayScene);
+	g_pSceneManager->AddScene(SLIST_DUNGEON, new cDungeonScene);
 
 	// 처음 시작 씬 셋팅
-	g_pSceneManager->ChangeScene("Title");
+	g_pSceneManager->ChangeScene(SLIST_TITLE);
 }
 
 void cMainGame::Update()

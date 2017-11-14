@@ -33,7 +33,7 @@ public:
 	//		## 이미지 검색 및 삭제 ##
 	//==================================================================
 	cImage* FindImage(string key);		// 이미지 찾기
-	void DeleteImage(string key);		// 이미지 삭제
+	void ReleaseImage(string key);		// 이미지 삭제
 	void ReleaseAll();					// 모든 이미지 삭제
 
 	//==================================================================

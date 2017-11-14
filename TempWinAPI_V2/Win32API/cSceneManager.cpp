@@ -4,6 +4,7 @@
 
 // ½ºÅÂÆ½ º¯¼ö ÃÊ±âÈ­
 cGameNode* cSceneManager::m_pCurrScene = NULL;
+SCENE_LIST cSceneManager::m_eCurrScene = SLIST_END;
 
 void cSceneManager::Update()
 {
@@ -17,14 +18,14 @@ void cSceneManager::Render()
 		m_pCurrScene->Render();
 }
 
-cGameNode* cSceneManager::AddScene(string sceneName, cGameNode* scene)
+cGameNode* cSceneManager::AddScene(SCENE_LIST sceneName, cGameNode* scene)
 {
 	// ¾ÀÀ» ¾À ¸ñ·Ï(¸Ê)¿¡ Ãß°¡ ÇÑ´Ù.
 	if (scene) m_mSceneList.insert(make_pair(sceneName, scene));
 	return scene;
 }
 
-void cSceneManager::ChangeScene(string sceneName)
+void cSceneManager::ChangeScene(SCENE_LIST sceneName)
 {
 	// ¾À ¸ñ·Ï ¸Ê ÀÌÅÍ·¹ÀÌÅÍ
 	miSceneList find = m_mSceneList.find(sceneName);
@@ -41,10 +42,11 @@ void cSceneManager::ChangeScene(string sceneName)
 	if (m_pCurrScene != NULL)
 	{ // ÇöÀç ¾ÀÀÇ ¸ğµç °ÍÀ» ÇØÁ¦
 		m_pCurrScene->Release();
-		g_pImageManager->ReleaseAll();
+		//g_pImageManager->ReleaseAll();
 	}
 
 	// »õ·Î¿î ¾ÀÀ¸·Î ±³Ã¼ ¹× ¼Â¾÷
+	m_eCurrScene = find->first;
 	m_pCurrScene = find->second;
 	m_pCurrScene->Setup();
 }

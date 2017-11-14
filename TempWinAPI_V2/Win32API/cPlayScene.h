@@ -1,21 +1,25 @@
 #pragma once
 #include "cGameNode.h"
 
-
 class cPlayScene : public cGameNode
 {
 private:
-	cImage*			m_pImgBackground;		// 화면 전체 배경
-	cImage*			m_pImgMiniMap;			// 미니맵용 이미지 버퍼
-	cImage*			m_pImgMapBuffer;		// 지형 지물이 그려진 맵 버퍼
+	enum DIRECTION { LEFT, RIGHT, UP, DOWN, WAIT };
 
+private:
+	cImage*		m_pImgNumbers;
+	int			m_nValue[4][4];
 
-	void LoadImageFromFile();
-	void MiniMapRender();
+private:
+	void Move(bool& move, DIRECTION dir);
+	void MoveBlock(bool& move, int& dest, int& origin);
+	void NewNumber(const bool move);
+	void Merge(bool& move, DIRECTION dir);
+	void MergeBlock(bool& move, int& dest, int& origin);
 
 public:
-	cPlayScene();
-	virtual ~cPlayScene();
+	cPlayScene() {};
+	virtual ~cPlayScene() {};
 
 	virtual void Setup() override;
 	virtual void Update() override;

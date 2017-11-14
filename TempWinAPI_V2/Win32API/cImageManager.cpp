@@ -78,7 +78,7 @@ cImage* cImageManager::FindImage(string key)
 	return NULL;
 }
 
-void cImageManager::DeleteImage(string key)
+void cImageManager::ReleaseImage(string key)
 {
 	m_mapIter = m_mapImage.find(key);
 

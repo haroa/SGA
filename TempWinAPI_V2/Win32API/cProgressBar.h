@@ -19,7 +19,7 @@ public:
 	void Update();
 	void Render();
 
-	void SetGauge(float maxGauge, float currGauge);
+	void SetGauge(float currGauge, float maxGauge);
 	void SetPosX(int x) { m_nPosX = x; }
 	void SetPosY(int y) { m_nPosY = y; }
 

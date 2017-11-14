@@ -139,6 +139,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cDungeonScene.h" />
     <ClInclude Include="cFileData.h" />
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cGameobject.h" />
@@ -146,6 +147,8 @@
     <ClInclude Include="cImageManager.h" />
     <ClInclude Include="cIniData.h" />
     <ClInclude Include="cKeyManager.h" />
+    <ClInclude Include="cLoading.h" />
+    <ClInclude Include="cLoadingScene.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPixelCollision.h" />
     <ClInclude Include="cPlayScene.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="Win32API.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cDungeonScene.cpp" />
     <ClCompile Include="cFileData.cpp" />
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cGameobject.cpp" />
@@ -170,6 +174,8 @@
     <ClCompile Include="cImageManager.cpp" />
     <ClCompile Include="cIniData.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
+    <ClCompile Include="cLoading.cpp" />
+    <ClCompile Include="cLoadingScene.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPixelCollision.cpp" />
     <ClCompile Include="cPlayScene.cpp" />

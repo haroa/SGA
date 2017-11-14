@@ -1,10 +1,10 @@
 #pragma once
 #include "cGameNode.h"
-class cTitleScene :	public cGameNode
+class cDungeonScene : public cGameNode
 {
 public:
-	cTitleScene() {};
-	virtual ~cTitleScene() {};
+	cDungeonScene() {};
+	virtual ~cDungeonScene() {};
 
 	virtual void Setup() override;
 	virtual void Update() override;

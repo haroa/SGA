@@ -2,15 +2,6 @@
 #include "cTitleScene.h"
 
 
-cTitleScene::cTitleScene()
-{
-}
-
-
-cTitleScene::~cTitleScene()
-{
-}
-
 void cTitleScene::Setup()
 {
 }
@@ -18,7 +9,7 @@ void cTitleScene::Setup()
 void cTitleScene::Update()
 {
 	if (g_pKeyManager->isOnceKeyDown(VK_RETURN))
-		g_pSceneManager->ChangeScene("Play");
+		g_pSceneManager->ChangeScene(SLIST_LOADING);
 	else if (g_pKeyManager->isOnceKeyDown(VK_ESCAPE))
 		PostQuitMessage(0);
 }
