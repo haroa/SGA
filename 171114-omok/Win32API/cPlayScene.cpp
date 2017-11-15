@@ -89,7 +89,7 @@ void cPlayScene::Render()
 
 	for (auto iter = m_vecomok.begin(); iter != m_vecomok.end(); iter++)
 	{
-		RectangleMakeCenter(g_hDC, iter->pos.x, iter->pos.y, 30, 30);
+		//RectangleMakeCenter(g_hDC, iter->pos.x, iter->pos.y, 30, 30);
 
 		//if (iter->isActive)
 		//{
@@ -568,18 +568,22 @@ void cPlayScene::Win(int X, int Y, bool isColor)
 
 	if (checkcountwidth == 5)
 	{
+		Sleep(2000);
 		PostQuitMessage(0);
 	}
 	if (checkcountHeight == 5)
 	{
+		Sleep(2000);
 		PostQuitMessage(0);
 	}
 	if (checkcountdialeft == 5)
 	{
+		Sleep(2000);
 		PostQuitMessage(0);
 	}
 	if (checkcountdiaright == 5)
 	{
+		Sleep(2000);
 		PostQuitMessage(0);
 	}
 
