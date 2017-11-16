@@ -36,7 +36,7 @@ void cLoadingScene::LoadingImage()
 	char* str;
 
 	/* ==== 리소스 해제 ===== */
-	for (int i = 100; i < 400; ++i)
+	for (int i = 100; i < 600; ++i)
 	{
 		str = itoa(i, szBuf, 10);
 		g_pImageManager->ReleaseImage(str);
@@ -83,6 +83,15 @@ void cLoadingScene::LoadingImage()
 	else if (g_pSceneManager->GetNextScene() == SLIST_WEAPONSHOP)
 	{
 		for (int i = 400; i < 500; ++i)
+		{
+			str = itoa(i, szBuf, 10);
+
+			m_pLoading->LoadEmpty(str, WINSIZEX, WINSIZEY);
+		}
+	}
+	else if (g_pSceneManager->GetNextScene() == SLIST_PLAY)
+	{
+		for (int i = 500; i < 600; ++i)
 		{
 			str = itoa(i, szBuf, 10);
 

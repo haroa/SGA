@@ -17,9 +17,19 @@ void cPlayScene::Update()
 	if (g_pKeyManager->isOnceKeyDown(VK_RETURN))
 		g_pSceneManager->ChangeScene(SLIST_LOADING);
 
-	if (g_pKeyManager->isOnceKeyDown(VK_ESCAPE))
+	else if (g_pKeyManager->isOnceKeyDown(VK_ESCAPE))
 	{
 		g_pSceneManager->ChangeScene(SLIST_TITLE);
+	}
+	else if (g_pKeyManager->isOnceKeyDown('1'))
+	{
+		m_cUi.SetPotion1(m_cUi.GetPotion1() - 1);
+		m_cUi.SetHp(m_cUi.GetHp() + 10);
+	}
+	else if (g_pKeyManager->isOnceKeyDown('2'))
+	{
+		m_cUi.SetPotion2(m_cUi.GetPotion2() - 1);
+		m_cUi.SetHp(m_cUi.GetHp() + 20);
 	}
 	m_cPlayer.Update();
 	CollisoinRect();

@@ -24,9 +24,20 @@ void cDungeon1::Update()
 	if (g_pKeyManager->isOnceKeyDown(VK_ESCAPE))
 	{
 		JsonSave();
-		g_pSceneManager->ChangeScene(SLIST_PLAY);
+		g_pSceneManager->SetNextScene(SLIST_PLAY);
+		g_pSceneManager->ChangeScene(SLIST_LOADING);
 		m_cPlayer.SetPosX(WINSIZEX * 0.5f);
 		m_cPlayer.SetPosY(WINSIZEY * 0.5f);
+	}
+	else if (g_pKeyManager->isOnceKeyDown('1'))
+	{
+		m_cUi.SetPotion1(m_cUi.GetPotion1() - 1);
+		m_cUi.SetHp(m_cUi.GetHp() + 10);
+	}
+	else if (g_pKeyManager->isOnceKeyDown('2'))
+	{
+		m_cUi.SetPotion2(m_cUi.GetPotion2() - 1);
+		m_cUi.SetHp(m_cUi.GetHp() + 20);
 	}
 	m_cPlayer.Update();
 	Collision();

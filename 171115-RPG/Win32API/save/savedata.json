@@ -1,10 +1,1 @@
-{
-    "Player": {
-        "atk": 30,
-        "def": 20,
-        "hp": 100,
-        "money": 500000,
-        "potion1": 10,
-        "potion2": 10
-    }
-}
+{"Player":{"atk":310,"def":20,"hp":65,"money":473800,"potion1":9,"potion2":10}}
