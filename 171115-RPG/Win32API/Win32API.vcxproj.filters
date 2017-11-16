@@ -58,6 +58,9 @@
     <Filter Include="GameFramework2D\5. 게임 소스\로딩 씬">
       <UniqueIdentifier>{4994315b-d373-4d69-abcb-0dd3c5ad6295}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework2D\2. 매니져\사운드 매니져">
+      <UniqueIdentifier>{da0abeed-ecae-429a-a342-c9f3159fdb98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
