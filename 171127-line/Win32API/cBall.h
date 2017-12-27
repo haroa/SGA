@@ -1,15 +1,11 @@
 #pragma once
-#include "cGameobject.h"
-
-//class cPlay;
+#include "cGameObject.h"
 
 class cBall:public cGameobject
 {
-private:
-	//cPlay* m_cPlay;
 public:
-	cBall();
-	~cBall();
+	cBall() {};
+	~cBall() {};
 
 	void Setup();
 	void Update();

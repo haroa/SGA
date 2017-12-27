@@ -3,58 +3,45 @@
 
 void cPlay::Setup()
 {
-	m_fPosX = 100.0f;
-	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 100, 100);
-	m_ft = 0.0f;
-	m_fromX = m_fPosX;
-	m_fromY = m_fPosY;
+	m_cBall.Setup();
 }
 
 void cPlay::Update()
 {
-	m_rtBody = RectMakeCenter(m_fPosX, m_fPosY, 100, 100);
-
 	if (g_pKeyManager->isOnceKeyDown(VK_LBUTTON))
 	{
 		MakeBall();
 	}
-	for (auto iter = m_vcBall.begin(); iter != m_vcBall.end();iter++)
-	{
-		m_ftoX = iter->GetPosX();
-		m_ftoY = iter->GetPosY();
-		LinearInterpolation(m_fPosX, m_fPosY, m_fromX, m_fromY, m_ftoX, m_ftoY, m_ft);
-		m_ft += 0.01;
-	}
-	if (m_ft >= 1.0f)
-	{
-		m_ft = 0.0f;
-	}
 
-	for (auto iter = m_vcBall.begin(); iter != m_vcBall.end();)
+	for (auto iter = m_vecBall.begin(); iter != m_vecBall.end(); iter++)
 	{
-		if (PtInRect(&iter->GetBody(), g_ptMouse) && g_pKeyManager->isOnceKeyDown(VK_RBUTTON))
+		RECT rt = RectMakeCenter(iter->GetPosX(), iter->GetPosY(), SIZE, SIZE);
+		if (g_pKeyManager->isStayKeyDown(VK_LBUTTON) && PtInRect(&rt, g_ptMouse))
 		{
-			iter = m_vcBall.erase(iter);
-		}
-		else
-		{
-			iter++;
+
 		}
 	}
 }
 
 void cPlay::Render()
 {
-	Rectangle(g_hDC, m_rtBody.left, m_rtBody.top, m_rtBody.right, m_rtBody.bottom);
-	for (auto iter = m_vcBall.begin(); iter != m_vcBall.end(); iter++)
+	EllipseMakeCenter(g_hDC, m_cBall.GetPosX(), m_cBall.GetPosY(), 50, 50);
+
+	for (int i = 0; i < m_vecBall.size(); i++)
 	{
-		iter->Render();
+		RectangleMakeCenter(g_hDC, m_vecBall[i].GetPosX(), m_vecBall[i].GetPosY(), SIZE, SIZE);
 	}
+	char infoMsg[100];
+	sprintf_s(infoMsg, "X : %f       Y : %f", m_fPosX, m_fPosY);
+	TextOut(g_hDC, 200, 100, infoMsg, (int)strlen(infoMsg));
 }
 
 void cPlay::MakeBall()
 {
-	cBall Ball;
-	Ball.Setup();
-	m_vcBall.push_back(Ball);
+	cBall newtarget;
+
+	newtarget.SetPosX(g_ptMouse.x);
+	newtarget.SetPosY(g_ptMouse.y);
+
+	m_vecBall.push_back(newtarget);
 }

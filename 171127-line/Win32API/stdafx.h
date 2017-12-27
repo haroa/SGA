@@ -27,7 +27,7 @@ using namespace std;
 //==================================================================
 //		## 디파인문 - 메크로 ## (윈도우창 초기화)
 //==================================================================
-#define WINNAME (LPCWSTR)(TEXT("코딩 지옥에 오신걸 환영 합니다."))
+#define WINNAME (LPCWSTR)(TEXT("로아"))
 
 #define WINSTARTX		0
 #define WINSTARTY		0

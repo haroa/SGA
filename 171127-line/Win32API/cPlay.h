@@ -2,15 +2,17 @@
 #include "cGameobject.h"
 #include "cBall.h"
 
+#define SIZE 30
+
 class cPlay:public cGameobject
 {
 private:
-	float		  m_ft;
-	float		  m_fromX;
-	float	      m_fromY;
-	float         m_ftoX;
-	float		  m_ftoY;
-	vector<cBall> m_vcBall;
+	cBall			m_cBall;
+	vector<cBall>	m_vecBall;
+	int				m_nIndex;
+
+	float m_fLineX;
+	float m_fLineY;
 public:
 	cPlay() {};
 	~cPlay() {};
@@ -20,7 +22,5 @@ public:
 	void Render();
 
 	void MakeBall();
-	void SetToX(float X) { m_ftoX = X; }
-	void SetToY(float Y) { m_ftoY = Y; }
 };
 
