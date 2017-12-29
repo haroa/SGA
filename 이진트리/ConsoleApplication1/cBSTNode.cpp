@@ -63,12 +63,23 @@ cBSTNode * cBSTNode::Find(int key)
 
 void cBSTNode::Delete(int key, LPBSTNODE* ppThis)
 {
-	//삭제하려는 노드의 자식 노드가 두개인 경우
 	//1.삭제하려는 노드의 키값 위치를 찾는다.
-	cBSTNode* nodes;
-	nodes->Find(key);
-	//2.삭제하려는 노드의 오른쪽서브트리를 찾는다.
-	//3.오른쪽서브트리에서 제일 작은 숫자를 찾는다.
+	cBSTNode* node = Find(key);
+	if (node != NULL)
+	{
+		//■ 삭제할 노드가 단말 노드인 경우
+		//
+
+		//■ 삭제할 노드의 자식 노드가 하나인 경우
+		//2.삭제하려는 노드의 오른쪽서브트리를 찾는다.
+
+		//3.오른쪽서브트리에서 제일 작은 숫자를 찾는다.
+
+		//■ 삭제할 노드의 자식 노드가 두 개인 경우
+		//2.삭제하려는 노드의 오른쪽서브트리를 찾는다.
+
+		//3.오른쪽서브트리에서 제일 작은 숫자를 찾는다.
+	}
 }
 
 cBSTNode * cBSTNode::GetMinNode()
