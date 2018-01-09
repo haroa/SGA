@@ -27,3 +27,6 @@ extern HWND g_hWnd;
 using namespace std;
 
 #define PI 3.141592f
+
+#include "cVector3.h"
+#include "cMatrix.h"

@@ -1,6 +1,5 @@
 #pragma once
-#include "cVector3.h"
-#include "cMatrix.h"
+
 class cCube
 {
 private:
@@ -14,6 +13,8 @@ private:
 	float				m_fRotZ;
 	cVector3			m_vPosition;
 
+	float				m_fmoveZ;
+	float				m_fmoveX;
 public:
 	cCube();
 	~cCube();
@@ -21,5 +22,7 @@ public:
 	void Setup();
 	void Update();
 	void Render(HDC hdc, cMatrix& matViewProj, cMatrix& matViewPort);
+
+	cVector3 GetPosition() { return m_vPosition; }
 };
 

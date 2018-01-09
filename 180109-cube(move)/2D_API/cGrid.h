@@ -1,6 +1,5 @@
 #pragma once
-#include "cVector3.h"
-#include "cMatrix.h"
+
 class cGrid
 {
 private:
@@ -12,7 +11,6 @@ public:
 	cGrid();
 	~cGrid();
 
-	void Setup();
 	void Render(HDC hdc, cMatrix& matViewProjViewport);
 };
 

@@ -1,6 +1,5 @@
 #pragma once
-#include "cVector3.h"
-#include "cMatrix.h"
+
 class cCamera
 {
 private:
